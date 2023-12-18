@@ -1,0 +1,27 @@
+[
+  {
+    "username": "client-manager",
+    "password": "client-manager",
+    "role": "ClientManager"
+  },
+  {
+    "username": "purchase-manager",
+    "password": "purchase-manager",
+    "role": "PurchaseManager"
+  },
+  {
+    "username": "master",
+    "password": "master",
+    "role": "Master"
+  },
+  {
+    "username": "director",
+    "password": "director",
+    "role": "Director"
+  },
+  {
+    "username": "customer",
+    "password": "customer",
+    "role": "Customer"
+  }
+]
