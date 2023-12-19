@@ -2,6 +2,7 @@
 import UIHeader from "@/components/UIHeader.vue";
 import UIButton from "@/components/UIButton.vue";
 import UISelect from "@/components/UISelect.vue";
+import CustomerModal from "@/components/CustomerModal.vue";
 
 import { ref, reactive, onMounted, watch, computed } from "vue";
 import { storeToRefs } from "pinia";
@@ -46,6 +47,25 @@ onMounted(async () => {
 const close = () => {
   emit("close");
 };
+
+const isCustomerModalOpen = ref(true);
+
+const editableCustomer = ref(null);
+const selectedCustomer = ref(null);
+
+const openCustomerModal = () => {
+  isCustomerModalOpen.value = true;
+};
+
+const closeCustomerModal = async () => {
+  isCustomerModalOpen.value = false;
+  editableCustomer.value = null;
+};
+
+
+const handleNewCustomer = () => {
+  openCustomerModal();
+};
 </script>
 
 <template>
@@ -53,15 +73,59 @@ const close = () => {
     <UIHeader title="Добавить заказ" :closeButtonHandler="close" />
 
     <main class="main">
-      <label for="firstName" class="label">Something</label>
-      <input v-model="editedOrder.something" type="text" id="something" />
-
+      <form action="">
+        <label class="label">Номер и дата заказа
+          <input v-model="editedOrder.something" type="text" />
+        </label>
+        <label class="label">Наименование заказа
+          <input v-model="editedOrder.something" type="text" />
+        </label>
+        <label class="label"> Статус заказа
+          <UISelect v-model="editedOrder.something">
+            <option value=""></option>
+          </UISelect>
+        </label>
+        <label class="label">Стоимость заказа
+          <input v-model="editedOrder.something" type="text" />
+        </label>
+        <label class="label">Заказчик
+          <div class="customer">
+            <UISelect v-model="editedOrder.something">
+              <option value=""></option>
+            </UISelect>
+            <UIButton @click="handleNewCustomer" class="select">Добавить заказчика</UIButton>
+          </div>
+        </label>
+        <label class="label">Запланированная дата выполнения
+          <input v-model="editedOrder.something" type="text" />
+        </label>
+        <label class="label">Ответственный менеджер
+          <UISelect v-model="editedOrder.something">
+            <option value=""></option>
+          </UISelect>
+        </label>
+        <label class="field">
+          <span class="label">Please select the text file with the changes</span>
+          <div class="file-input-wrapper">
+            <input class="input" type="file" ref="fileInput" />
+            <UIButton @click="importData">
+              <img
+                src="https://cdn.icon-icons.com/icons2/1122/PNG/512/downloaddownarrowsymbolinsquarebutton_79508.png"
+                width="25"
+                alt="Import icon"
+              />
+              Import
+            </UIButton>
+          </div>
+        </label>
+      </form>
       <div class="actions">
         <UIButton @click="applyRoleChanges">Apply</UIButton>
         <UIButton class="cancel-btn" @click="close">Cancel</UIButton>
       </div>
     </main>
   </div>
+  <CustomerModal :open="isCustomerModalOpen" @close="closeCustomerModal" />
 </template>
 
 <style scoped>
@@ -77,7 +141,7 @@ const close = () => {
 }
 
 .main {
-  display: grid;
+  display: flex;
   gap: 1rem;
   grid-template-columns: 1fr 2fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 2fr;
@@ -92,11 +156,53 @@ const close = () => {
   margin-bottom: 1rem;
 }
 
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.customer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.select {
+  flex-shrink: 0;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.file-input-wrapper {
+  display: flex;
+  gap: 1rem;
+  padding-inline: 1rem;
+}
+
 .field {
   width: 100%;
   display: flex;
   grid-column: 1 / -1;
   justify-content: space-between;
+}
+
+.input {
+  /* padding: 1rem 0.25rem; */
+  border: 1px solid black;
+  flex-grow: 1;
+  border-radius: 0.25rem;
+  padding-top: 0.25rem;
+  padding-inline-start: 1rem;
+}
+.input::file-selector-button {
+  display: none;
 }
 
 .role-inputs {
@@ -137,4 +243,6 @@ const close = () => {
 .cancel-btn:hover {
   background-color: salmon;
 }
+
+
 </style>
