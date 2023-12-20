@@ -12,24 +12,26 @@
     <UIButton @click="deleteAll">Удалить все</UIButton>
     <UIButton>Сохранить</UIButton>
   </div>
-  <div @dragover.prevent @drop="dropBadge" class="workroom__wrapper">
+  <div v-if="selectedWorkroom" @dragover.prevent @drop="dropBadge" class="workroom__wrapper">
     <div v-for="badge in this.selectedBadges" :key="badge.name" class="scheme__badge"
-      :style="{ top: `${badge.y}px`, left: `${badge.x}px` }" draggable @dragstart="dragStart(badge, true)">
+      :style="{ top: `${Math.abs(rotation%180)==90?badge.x:badge.y}px`, left: `${rotation%180==90?badge.y:badge.x}px` }" draggable @dragstart="dragStart(badge, true)">
       <UIButton class="badge__button-close" @click="deleteBadge(badge.id)">
         <img class="badge__close" src="../assets/cross-icon.png" alt="Delete this badge">
       </UIButton>
       <img class="badge__image" :src="getBadgeImage(badge.name)" alt="Badge">
     </div>
     <img class="scheme__image" ondragstart="return false;" ondrop="return false;" :src="selectedImage" v-if="selectedImage" alt="Selected workroom"
-      :style="{ transform: `rotate(${rotation}deg)` }">
+      :style="{ transform: `rotate(${rotation}deg)`, margin: rotation%180==0?`0`:`140px 0` }">
   </div>
-  <div class="badges__wrapper">
+  <div v-if="selectedWorkroom" class="badges__wrapper">
     <div v-for="badge in badges" :key="badge.name" class="badge" :draggable="true" @dragstart="dragStart(badge, false)">
       <img class="badge__image" :src="badge.image" :alt="badge.name">
     </div>
   </div>
-  <UIButton @click="doRatate(-90)">Влево</UIButton>
-  <UIButton @click="doRatate(90)">Вправо</UIButton>
+  <div v-if="selectedWorkroom" class="scheme__actions">
+    <UIButton @click="doRatate(-90)">Влево</UIButton>
+    <UIButton @click="doRatate(90)">Вправо</UIButton>
+  </div>
 </template>
 
 <script>
@@ -60,6 +62,7 @@ export default {
   },
   data() {
     return {
+      allID: 2,
       selectedWorkroom: null,
       rotation: 0,
       badges: [
@@ -154,15 +157,18 @@ export default {
       const rect = event.currentTarget.getBoundingClientRect();
       const mouseX = event.clientX;
       const mouseY = event.clientY;
-      const x = mouseX - rect.left;;
+      const x = mouseX - rect.left;
       const y = mouseY - rect.top;
+      const X = Math.abs(this.rotation%180) == 90 ? y - 20 : x - 20; 
+      const Y = Math.abs(this.rotation%180) == 90 ? x - 20 : y - 20;
       const selectedRoom = this.workrooms.findIndex((room) => room.name === this.selectedWorkroom);
       const obj = {
-        id: this.workrooms[selectedRoom].badges.length > 0 ? this.workrooms[selectedRoom].badges[this.workrooms[selectedRoom].badges.length - 1].id + 1 : 1,
+        id: this.allID,
         name: badgeData.name,
-        x: x,  
-        y: y
+        x: X,
+        y: Y,
       }
+      this.allID += 1;
       this.workrooms[selectedRoom].badges.push(obj);
       console.log(this.selectedBadges)
       if (badgeData.delete){
@@ -209,13 +215,12 @@ export default {
   transform-origin: center;
   position: relative;
   width: 600px;
-  max-height: 600px;
+  height: 600px;
   border: 1px dashed #ccc;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
   padding: 10px;
-  align-content: flex-start;
+  align-content: center;
 }
 
 .badges__wrapper {
@@ -236,7 +241,6 @@ export default {
   width: 40px;
   height: 40px;
   z-index: 4;
-  transition: all 0.2s ease;
 }
 
 .badge__image {
@@ -265,5 +269,11 @@ export default {
 
 .scheme__badge:hover .badge__button-close{
   display: block;
+}
+
+.scheme__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 </style>
