@@ -4,8 +4,9 @@ import { useOrdersStore } from "@/stores/orders.store";
 
 import UIHeader from "@/components/UIHeader.vue";
 import UINav from "@/components/UINav.vue";
-import {computed, onMounted, ref, watchEffect} from "vue";
+import {computed, onMounted, ref} from "vue";
 import UIButton from "@/components/UIButton.vue";
+import AssessProductQualityModal from "@/components/AssessProductQualityModal.vue";
 
 const { fetchOrders } = useOrdersStore();
 const { allOrders } = storeToRefs(useOrdersStore());
@@ -27,11 +28,6 @@ const controlOrders = computed(() => {
   return allOrders.value.filter(order => order.status === 'control')
 });
 
-watchEffect(() => {
-  console.log(selectedOrder.value);
-  console.log(isAssessProductModalVisible.value);
-})
-
 onMounted(async () => {
   allOrders.value.length ? allOrders.value : await fetchOrders();
 });
@@ -41,6 +37,12 @@ onMounted(async () => {
 <template>
   <UIHeader />
   <UINav />
+  <AssessProductQualityModal
+      v-if="isAssessProductModalVisible"
+      :previous-assessment="[]"
+      :order="selectedOrder"
+      @close="closeAssessProductModal"
+  />
   <main class="main">
     <p class="title">Заказы, требующие оценки качества</p>
     <ul class="list">
