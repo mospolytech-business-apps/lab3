@@ -1,0 +1,56 @@
+[
+    {
+    "id": 1,
+    "mark": "МП-102",
+    "type":
+      {
+        "name": "Мукопросеиватель"
+      },
+    "specifications": ""
+  },
+  {
+    "id": 2,
+    "mark": "ТД-98",
+    "type":
+      {
+        "name": "Тестоделитель"
+      },
+    "specifications": ""
+  },
+  {
+    "id": 3,
+    "mark": "ТМ-92",
+    "type":
+      {
+        "name": "Тестораскаточная машина"
+      },
+    "specifications": ""
+  },
+  {
+    "id": 4,
+    "mark": "РШ-991",
+    "type":
+      {
+        "name": "Расстоечный шкаф"
+      },
+    "specifications": ""
+  },
+  {
+    "id": 5,
+    "mark": "ХП-81",
+    "type":
+      {
+        "name": "Хлебопекарная печь"
+      },
+    "specifications": ""
+  },
+  {
+    "id": 6,
+    "mark": "Т-112",
+    "type":
+      {
+        "name": "Тестомес"
+      },
+    "specifications": ""
+  }
+]

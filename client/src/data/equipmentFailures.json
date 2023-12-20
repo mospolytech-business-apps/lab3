@@ -1,0 +1,70 @@
+[
+  {
+    "id": 1,
+    "date": "2023-12-23",
+    "time": "21:21",
+    "equipment": {
+      "id": 6,
+      "mark": "Т-112",
+      "type": {
+        "name": "Тестомес"
+      },
+      "specifications": ""
+    },
+    "reason": "Износ материалов",
+    "complite": false,
+    "result_date": null,
+    "result_time": null
+  },
+  {
+    "id": 2,
+    "date": "2023-12-23",
+    "time": "21:21",
+    "equipment": {
+      "id": 6,
+      "mark": "Т-112",
+      "type": {
+        "name": "Тестомес"
+      },
+      "specifications": ""
+    },
+    "reason": "Износ материалов",
+    "complite": false,
+    "result_date": null,
+    "result_time": null
+  },
+  {
+    "id": 3,
+    "date": "2023-12-23",
+    "time": "21:21",
+    "equipment": {
+      "id": 6,
+      "mark": "Т-112",
+      "type": {
+        "name": "Тестомес"
+      },
+      "specifications": ""
+    },
+    "reason": "Износ материалов",
+    "complite": false,
+    "result_date": null,
+    "result_time": null
+  },
+  {
+    "id": 3,
+    "date": "2023-12-23",
+    "time": "21:21",
+    "equipment": {
+      "id": 6,
+      "mark": "Т-112",
+      "type": {
+        "name": "Тестомес"
+      },
+      "specifications": ""
+    },
+    "reason": "Износ материалов",
+    "complite": true,
+    "result_date": "2023-12-23",
+    "result_time": "21:21"
+  }
+]

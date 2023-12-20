@@ -38,7 +38,7 @@ const handleEditOrder = (order) => {
     addError("Error: Select order first!");
     return;
   }
-  openEditRoleModal();
+  openOrderModal();
 };
 
 const handleNewOrder = () => {
@@ -103,7 +103,7 @@ onUnmounted(() => {
       </table>
     </div>
     <div class="buttons">
-      <UIButton @click="handleEditOrder(selectedorder)"
+      <UIButton @click="handleEditOrder(selectedOrder)"
         >Изменить заказ</UIButton
       >
       <UIButton @click="handleNewOrder">Новый заказ</UIButton>
