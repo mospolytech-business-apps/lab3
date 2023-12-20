@@ -6,7 +6,7 @@ import UISelect from "@/components/UISelect.vue";
 </script>
 
 <template>
-  <UIHeader title="Планировка цехов" />
+  <UIHeader />
   <UINav />
 </template>
 

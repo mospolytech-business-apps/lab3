@@ -6,9 +6,7 @@ import UISelect from "@/components/UISelect.vue";
 </script>
 
 <template>
-  <UIHeader
-    title="Оценка времени, затрат ингредиентов и украшений для тортов"
-  />
+  <UIHeader />
   <UINav />
 </template>
 

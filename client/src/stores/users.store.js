@@ -75,11 +75,10 @@ export const useUsersStore = defineStore("users", () => {
   };
 
   const logout = async () => {
-    if (confirm("Are you sure you want to log out?")) {
+    if (confirm("Вы уверены, что хотите выйти?")) {
       currentUser.value = null;
       userRole.value = null;
       Cookies.remove("USER_ROLE");
-      window.location.href = "about:blank";
     }
   };
 

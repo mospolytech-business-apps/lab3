@@ -6,7 +6,7 @@ import UISelect from "@/components/UISelect.vue";
 </script>
 
 <template>
-  <UIHeader title="Контроль качества" />
+  <UIHeader />
   <UINav />
 </template>
 

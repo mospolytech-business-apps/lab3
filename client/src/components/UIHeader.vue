@@ -1,11 +1,9 @@
 <script setup>
-import { useUsersStore } from "../stores/users.store";
+import { onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { useUsersStore } from "@/stores/users.store";
 
 const props = defineProps({
-  title: {
-    type: String,
-    default: "Кондитерская",
-  },
   closeButtonHandler: {
     type: Function,
     required: false,
@@ -16,11 +14,11 @@ const props = defineProps({
   },
 });
 
-const { userRole } = useUsersStore();
+const router = useRouter();
 </script>
 <template>
   <header class="header">
-    <h1 class="title">{{ props.title }}</h1>
+    <h1 class="title">{{ router.currentRoute.value.meta?.title }}</h1>
     <button @click="closeButtonHandler" class="exit-btn">
       <img width="20" src="@/assets/cross-icon.png" alt="Exit button" />
     </button>

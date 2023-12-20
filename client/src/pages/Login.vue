@@ -5,8 +5,9 @@ import UIButton from "@/components/UIButton.vue";
 import { onMounted, ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useUsersStore } from "@/stores/users.store";
+import UINav from "../components/UINav.vue";
 
-const { login, logout } = useUsersStore();
+const { login } = useUsersStore();
 const { allUsers } = storeToRefs(useUsersStore());
 const { getAllUsers } = useUsersStore();
 
@@ -22,11 +23,12 @@ onMounted(async () => {
 </script>
 
 <template>
-  <UIHeader title="Вход в систему" />
+  <UIHeader />
+  <UINav />
   <main class="main">
     <form class="form" @submit.prevent="login(username, password)">
       <label class="label">
-        <span class="span">Username:</span>
+        <span class="span">Логин</span>
         <input
           class="input"
           type="text"
@@ -35,13 +37,10 @@ onMounted(async () => {
         />
       </label>
       <label class="label">
-        <span class="span">Password:</span>
+        <span class="span">Пароль</span>
         <input class="input" type="password" v-model="password" />
       </label>
-      <div class="buttons">
-        <UIButton type="submit">Login</UIButton>
-        <UIButton @click="logout()" type="reset">Exit</UIButton>
-      </div>
+      <UIButton class="button" type="submit">Войти</UIButton>
     </form>
   </main>
 </template>
@@ -62,8 +61,8 @@ onMounted(async () => {
   place-items: center;
 }
 .form {
-  padding: 2rem;
   display: flex;
+  padding: 2rem;
   height: 100%;
   flex-direction: column;
   justify-content: center;
@@ -73,18 +72,15 @@ onMounted(async () => {
 
 .label {
   position: relative;
-}
-.span {
-  position: absolute;
-  left: -25%;
+  display: flex;
+  flex-direction: column;
 }
 
 .input {
   min-width: 20rem;
 }
 
-.buttons {
-  display: flex;
-  gap: 1rem;
+.button {
+  width: 100%;
 }
 </style>

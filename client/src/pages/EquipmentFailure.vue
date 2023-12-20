@@ -6,7 +6,7 @@ import UISelect from "@/components/UISelect.vue";
 </script>
 
 <template>
-  <UIHeader title="Неисправности оборудования" />
+  <UIHeader />
   <UINav />
   <main class="main"></main>
 </template>

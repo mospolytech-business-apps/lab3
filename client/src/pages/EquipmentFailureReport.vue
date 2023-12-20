@@ -5,10 +5,7 @@ import UIButton from "@/components/UIButton.vue";
 import UISelect from "@/components/UISelect.vue";
 </script>
 
-<template>
-  <UIHeader title="Отчет по сбоям оборудования" />
-  <UINav />
-</template>
+<template></template>
 
 <style scoped>
 .main {

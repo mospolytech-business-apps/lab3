@@ -5,6 +5,7 @@ import { useOrdersStore } from "@/stores/orders.store";
 import { useNotificationsStore } from "@/stores/notifications.store";
 
 import UIHeader from "@/components/UIHeader.vue";
+import UINav from "@/components/UINav.vue";
 import UIButton from "@/components/UIButton.vue";
 import UISelect from "@/components/UISelect.vue";
 import OrderModal from "@/components/OrderModal.vue";
@@ -65,6 +66,7 @@ onUnmounted(() => {
 
 <template>
   <UIHeader title="Заказы" />
+  <UINav />
   <main class="main">
     <div class="filter">
       <p class="filter-title">Статус</p>
