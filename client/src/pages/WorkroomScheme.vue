@@ -3,11 +3,7 @@
   <UINav />
   <div class="page">
     <div class="workroom__head">
-      <UISelect
-        v-model="selectedWorkroom"
-        placeholder="Планы цехов"
-        class="status-filter"
-      >
+      <UISelect v-model="selectedWorkroom" class="status-filter">
         <option value="design">Цех оформления</option>
         <option value="mounting">Цех монтажа тортов</option>
         <option value="packing">Упаковочный цех</option>
@@ -29,8 +25,14 @@
           :key="badge.name"
           class="scheme__badge"
           :style="{
-            top: `${Math.abs(rotation % 180) == 90 ? badge.x : badge.y}px`,
-            left: `${Math.abs(rotation % 180) == 90 ? badge.y : badge.x}px`,
+            top: `calc(50% + ${
+              Math.sin((rotation * Math.PI) / 180) * badge.x -
+              Math.cos((rotation * Math.PI) / 180) * badge.y
+            }px)`,
+            left: `calc(50% + ${
+              Math.cos((rotation * Math.PI) / 180) * badge.x +
+              Math.sin((rotation * Math.PI) / 180) * badge.y
+            }px)`,
           }"
           draggable
           @dragstart="dragStart(badge, true)"
@@ -45,6 +47,9 @@
           <img
             class="badge__image"
             :src="getBadgeImage(badge.name)"
+            :style="{
+              transform: `rotate(${rotation}deg)`,
+            }"
             alt="Badge"
           />
         </div>
@@ -57,7 +62,6 @@
           alt="Selected workroom"
           :style="{
             transform: `rotate(${rotation}deg)`,
-            margin: rotation % 180 == 0 ? `0` : `140px 0`,
           }"
         />
       </div>
@@ -107,7 +111,7 @@ export default {
   data() {
     return {
       allID: 2,
-      selectedWorkroom: null,
+      selectedWorkroom: "design",
       rotation: 0,
       badges: [
         {
@@ -198,7 +202,6 @@ export default {
   methods: {
     dragStart(badge, deleteValue) {
       badge.delete = deleteValue;
-      console.log(badge);
       event.dataTransfer.setData("text/plain", JSON.stringify(badge));
     },
     dropBadge(event) {
@@ -208,22 +211,28 @@ export default {
       const mouseX = event.clientX;
       const mouseY = event.clientY;
 
-      const x = mouseX - rect.left;
-      const y = mouseY - rect.top;
-      const X = Math.abs(this.rotation % 180) == 90 ? y - 20 : x - 20;
-      const Y = Math.abs(this.rotation % 180) == 90 ? x - 20 : y - 20;
+      const x = mouseX - rect.left * 1.68;
+      const y = mouseY - rect.top * 1.68 - 40;
+
+      const rotatedX =
+        Math.cos((this.rotation * Math.PI) / 180) * x +
+        Math.sin((this.rotation * Math.PI) / 180) * y;
+      const rotatedY =
+        Math.sin((this.rotation * Math.PI) / 180) * x -
+        Math.cos((this.rotation * Math.PI) / 180) * y;
+
+      console.log(x, y, rotatedX, rotatedY);
       const selectedRoom = this.workrooms.findIndex(
         (room) => room.name === this.selectedWorkroom
       );
       const obj = {
         id: this.allID,
         name: badgeData.name,
-        x: X,
-        y: Y,
+        x: rotatedX,
+        y: rotatedY,
       };
       this.allID += 1;
       this.workrooms[selectedRoom].badges.push(obj);
-      console.log(this.selectedBadges);
       if (badgeData.delete) {
         this.deleteBadge(badgeData.id);
       }
@@ -248,7 +257,6 @@ export default {
       localStorage.setItem("workrooms", JSON.stringify(this.workrooms));
     },
     deleteBadge(id) {
-      console.log(id);
       const selectedRoom = this.workrooms.findIndex(
         (room) => room.name === this.selectedWorkroom
       );
@@ -283,7 +291,6 @@ export default {
   gap: 10px;
 }
 .workroom__wrapper {
-  transform-origin: center;
   position: relative;
   margin: 0 auto;
   display: flex;
@@ -303,6 +310,7 @@ export default {
   justify-content: center;
   display: flex;
   align-items: center;
+  margin-top: 6rem;
   gap: 10px;
 }
 
