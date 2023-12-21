@@ -1,9 +1,7 @@
 <script setup>
-import UIHeader from "@/components/UIHeader.vue";
 import UIButton from "@/components/UIButton.vue";
-import UISelect from "@/components/UISelect.vue";
-import {ref} from "vue";
-const isCustomerModalOpen = ref(true);
+import { ref } from "vue";
+
 const editedCustomer = ref({});
 const props = defineProps({
   open: { type: Boolean, required: true },
@@ -13,164 +11,88 @@ const close = () => {
   emit("close");
 };
 
-
 const emit = defineEmits(["close"]);
-
 </script>
 
 <template>
-    <div v-if="props.open" class="modal">
-      <UIHeader title="Добавить заказчика" :closeButtonHandler="close" />
-    
-      <main class="main">
-        <form action="">
-        <label class="label">Username
-          <input v-model="editedCustomer.something" type="text" />
+  <div v-if="props.open" class="customer">
+    <button @click="close" class="customer__close-btn">
+      <img src="@/assets/cross-icon.png" width="20" alt="" />
+    </button>
+    <main class="customer__main">
+      <form
+        class="customer__form"
+        @submit.prevent="applyRoleChanges(customerData)"
+      >
+        <label class="customer__label"
+          >Логин
+          <input
+            class="input"
+            v-model="editedCustomer.something"
+            type="text"
+            required
+          />
         </label>
-        <label class="label">Имя
-          <input v-model="editedCustomer.something" type="text" />
+        <label class="customer__label"
+          >Имя
+          <input
+            class="input"
+            v-model="editedCustomer.something"
+            type="text"
+            required
+          />
         </label>
-        <label class="label">Фамилия
-          <input v-model="editedCustomer.something" type="text" />
+        <label class="customer__label"
+          >Фамилия
+          <input
+            class="input"
+            v-model="editedCustomer.something"
+            type="text"
+            required
+          />
         </label>
-        <!-- <label class="field">
-          <span class="label">Please select the text file with the changes</span>
-          <div class="file-input-wrapper">
-            <input class="input" type="file" ref="fileInput" />
-            <UIButton @click="importData">
-              <img
-                src="https://cdn.icon-icons.com/icons2/1122/PNG/512/downloaddownarrowsymbolinsquarebutton_79508.png"
-                width="25"
-                alt="Import icon"
-              />
-              Import
-            </UIButton>
-          </div>
-        </label> -->
       </form>
-      <div class="actions">
-        <UIButton @click="applyRoleChanges">Apply</UIButton>
-        <UIButton class="cancel-btn" @click="close">Cancel</UIButton>
+      <div class="customer__actions">
+        <UIButton class="user-add-btn" type="submit">Добавить клиента</UIButton>
       </div>
-      </main>
-    </div>
-  </template>
+    </main>
+  </div>
+</template>
 
 <style scoped>
-.modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  background-color: white;
-  min-width: 40%;
-  transform: translate(-50%, -50%);
-  border: 1px solid black;
-  box-shadow: 0 0 2rem black;
-}
-
-.main {
-  display: flex;
-  gap: 1rem;
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 2fr;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding: 1.5rem 4rem;
-  background-color: white;
-}
-
-.title {
-  margin-bottom: 1rem;
-}
-
-.label {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  width: 100%;
-}
-
 .customer {
+  background-color: white;
+  border: 1px solid black;
+}
+
+.customer__main {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   gap: 1rem;
+  padding: 0.5rem 1rem;
+  margin-top: 0.2rem;
+  background-color: white;
 }
 
-.select {
-  flex-shrink: 0;
-}
-
-.field {
+.customer__form {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-}
-
-.file-input-wrapper {
-  display: flex;
-  gap: 1rem;
-  padding-inline: 1rem;
-}
-
-.field {
   width: 100%;
-  display: flex;
-  grid-column: 1 / -1;
-  justify-content: space-between;
+  gap: 1rem;
 }
-
-.input {
-  /* padding: 1rem 0.25rem; */
-  border: 1px solid black;
-  flex-grow: 1;
-  border-radius: 0.25rem;
-  padding-top: 0.25rem;
-  padding-inline-start: 1rem;
-}
-.input::file-selector-button {
-  display: none;
-}
-
-.role-inputs {
+.customer__label {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  gap: 0.5rem;
+  width: 100%;
 }
-
-.fieldset {
+.customer__close-btn {
   border: 0;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  display: block;
-  grid-column: 1 / -1;
+  background: 0;
+  position: absolute;
+  top: 5px;
+  right: 0;
 }
-
-.legend {
-  display: block;
-  font-size: 1rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-.buttons {
-  display: flex;
-  justify-content: center;
-  gap: 6rem;
-  margin-bottom: 2rem;
-}
-
-.actions {
-  grid-row: -1;
-  grid-column: 1 / -1;
-  display: flex;
-  justify-content: center;
-  gap: 4rem;
-}
-
-.cancel-btn:hover {
-  background-color: salmon;
-}
-
-
 </style>

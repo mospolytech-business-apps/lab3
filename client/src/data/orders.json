@@ -2,11 +2,12 @@
   {
     "id": 1,
     "name": "Торт Наполеон",
-    "date": "2023-12-20",
+    "date": "2023/12/20",
     "number": "1220202301",
     "status": "finished",
     "price": 1599,
     "customer": 5,
+    "finish": "2023/12/25",
     "manager": 1,
     "metrics": [
       {
@@ -25,16 +26,17 @@
         "value": "5"
       }
     ],
-    "images": ["https://clck.ru/37C74A","https://clck.ru/37CyYQ"]
+    "images": ["https://clck.ru/37C74A", "https://clck.ru/37CyYQ"]
   },
   {
     "id": 2,
     "name": "Медовик",
-    "date": "2023-12-20",
+    "date": "2023/12/20",
     "number": "1220202302",
     "status": "finished",
     "price": 1299,
     "customer": 6,
+    "finish": "2023/12/26",
     "manager": 1,
     "metrics": [
       {
@@ -57,12 +59,13 @@
   },
   {
     "id": 3,
-    "name": "Чизкейк Нью-Йорк",
-    "date": "2023-12-20",
+    "name": "Чизкейк Нью/Йорк",
+    "date": "2023/12/20",
     "number": "1220202303",
     "status": "ready",
     "price": 1199,
     "customer": 7,
+    "finish": "2023/12/24",
     "manager": 2,
     "metrics": [
       {
@@ -86,11 +89,12 @@
   {
     "id": 4,
     "name": "Шоколадный бисквит",
-    "date": "2023-12-21",
+    "date": "2023/12/21",
     "number": "1220202301",
     "status": "ready",
     "price": 999,
     "customer": 6,
+    "finish": "2023/12/27",
     "manager": 1,
     "metrics": [
       {
@@ -109,16 +113,17 @@
         "value": "5"
       }
     ],
-    "images": ["https://clck.ru/37CwAU","https://clck.ru/37CwDa"]
+    "images": ["https://clck.ru/37CwAU", "https://clck.ru/37CwDa"]
   },
   {
     "id": 5,
     "name": "Черничный Чизкейк",
-    "date": "2023-12-21",
+    "date": "2023/12/21",
     "number": "1220202302",
     "status": "checking",
     "price": 899,
     "customer": 7,
+    "finish": "2023/12/28",
     "manager": 2,
     "metrics": [
       {
@@ -137,16 +142,17 @@
         "value": "6"
       }
     ],
-    "images": ["https://clck.ru/37CwGe","https://clck.ru/37CwKS"]
+    "images": ["https://clck.ru/37CwGe", "https://clck.ru/37CwKS"]
   },
   {
     "id": 6,
     "name": "Клубничный Чизкейк",
-    "date": "2023-12-21",
+    "date": "2023/12/21",
     "number": "1220202303",
     "status": "checking",
     "price": 1099,
     "customer": 8,
+    "finish": "2023/12/30",
     "manager": 1,
     "metrics": [
       {
@@ -165,16 +171,17 @@
         "value": "5"
       }
     ],
-    "images": ["https://clck.ru/37CwNW","https://clck.ru/37CwQz"]
+    "images": ["https://clck.ru/37CwNW", "https://clck.ru/37CwQz"]
   },
   {
     "id": 7,
     "name": "Тирамису",
-    "date": "2023-12-22",
+    "date": "2023/12/22",
     "number": "1220202301",
     "status": "production",
     "price": 799,
     "customer": 7,
+    "finish": "2023/12/30",
     "manager": 2,
     "metrics": [
       {
@@ -193,12 +200,12 @@
         "value": "4"
       }
     ],
-    "images": ["https://clck.ru/37CwXG","https://clck.ru/37Cwas"]
+    "images": ["https://clck.ru/37CwXG", "https://clck.ru/37Cwas"]
   },
   {
     "id": 8,
     "name": "Прага",
-    "date": "2023-12-22",
+    "date": "2023/12/22",
     "number": "1220202302",
     "status": "production",
     "price": 899,
@@ -221,12 +228,12 @@
         "value": "8"
       }
     ],
-    "images": ["https://clck.ru/37Cwch","https://clck.ru/37Cwe8"]
+    "images": ["https://clck.ru/37Cwch", "https://clck.ru/37Cwe8"]
   },
   {
     "id": 9,
     "name": "Морковный торт",
-    "date": "2023-12-22",
+    "date": "2023/12/22",
     "number": "1220202303",
     "status": "procurement",
     "price": 1299,
@@ -249,12 +256,12 @@
         "value": "5"
       }
     ],
-    "images": ["https://clck.ru/37Cwg5","https://clck.ru/37Cwhn"]
+    "images": ["https://clck.ru/37Cwg5", "https://clck.ru/37Cwhn"]
   },
   {
     "id": 10,
     "name": "Фисташковый торт",
-    "date": "2023-12-23",
+    "date": "2023/12/23",
     "number": "1220202301",
     "status": "procurement",
     "price": 1699,
@@ -282,7 +289,7 @@
   {
     "id": 11,
     "name": "Красный бархат",
-    "date": "2023-12-23",
+    "date": "2023/12/23",
     "number": "1220202302",
     "status": "specification",
     "price": 1349,
@@ -305,12 +312,12 @@
         "value": "5"
       }
     ],
-    "images": ["https://clck.ru/37CxmB","https://clck.ru/37Cxpg"]
+    "images": ["https://clck.ru/37CxmB", "https://clck.ru/37Cxpg"]
   },
   {
     "id": 12,
     "name": "Орео Чизкейк",
-    "date": "2023-12-23",
+    "date": "2023/12/23",
     "number": "1220202303",
     "status": "specification",
     "price": 1149,
@@ -338,7 +345,7 @@
   {
     "id": 13,
     "name": "Черный лес",
-    "date": "2023-12-24",
+    "date": "2023/12/24",
     "number": "1220202301",
     "status": "specification",
     "price": 1299,
@@ -361,12 +368,12 @@
         "value": "7"
       }
     ],
-    "images": ["https://clck.ru/37Cxsn","https://clck.ru/37Cxtu"]
+    "images": ["https://clck.ru/37Cxsn", "https://clck.ru/37Cxtu"]
   },
   {
     "id": 14,
     "name": "Миндальный торт",
-    "date": "2023-12-24",
+    "date": "2023/12/24",
     "number": "1220202302",
     "status": "cancelled",
     "price": 1599,
@@ -394,7 +401,7 @@
   {
     "id": 15,
     "name": "Медовик с орехами",
-    "date": "2023-12-24",
+    "date": "2023/12/24",
     "number": "1220202303",
     "status": "cancelled",
     "price": 1399,
@@ -417,12 +424,12 @@
         "value": "6"
       }
     ],
-    "images": ["https://clck.ru/37Cxx8","https://clck.ru/37Cxxq"]
+    "images": ["https://clck.ru/37Cxx8", "https://clck.ru/37Cxxq"]
   },
   {
     "id": 16,
-    "name": "Шоколадно-банановый",
-    "date": "2023-12-25",
+    "name": "Шоколадно/банановый",
+    "date": "2023/12/25",
     "number": "1220202301",
     "status": "new",
     "price": 1299,
@@ -450,7 +457,7 @@
   {
     "id": 17,
     "name": "Вишневый торт",
-    "date": "2023-12-25",
+    "date": "2023/12/25",
     "number": "1220202302",
     "status": "new",
     "price": 1099,
@@ -478,7 +485,7 @@
   {
     "id": 18,
     "name": "Творожный Чизкейк",
-    "date": "2023-12-25",
+    "date": "2023/12/25",
     "number": "1220202303",
     "status": "new",
     "price": 799,
@@ -501,12 +508,12 @@
         "value": "5"
       }
     ],
-    "images": ["https://clck.ru/37Cy6y","https://clck.ru/37Cy8E"]
+    "images": ["https://clck.ru/37Cy6y", "https://clck.ru/37Cy8E"]
   },
   {
     "id": 19,
     "name": "Торт с клубникой",
-    "date": "2023-12-26",
+    "date": "2023/12/26",
     "number": "1220202301",
     "status": "cancelled",
     "price": 1349,
@@ -529,12 +536,12 @@
         "value": "6"
       }
     ],
-    "images": ["https://clck.ru/37Cy8p","https://clck.ru/37CyAu"]
+    "images": ["https://clck.ru/37Cy8p", "https://clck.ru/37CyAu"]
   },
   {
     "id": 20,
     "name": "Чизкейк с лимоном",
-    "date": "2023-12-26",
+    "date": "2023/12/26",
     "number": "1220202302",
     "status": "new",
     "price": 899,
@@ -557,12 +564,12 @@
         "value": "4"
       }
     ],
-    "images": ["https://clck.ru/37CyBi","https://clck.ru/37CyCs"]
+    "images": ["https://clck.ru/37CyBi", "https://clck.ru/37CyCs"]
   },
   {
     "id": 21,
     "name": "Вишнёвый Чизкейк",
-    "date": "2023-12-26",
+    "date": "2023/12/26",
     "number": "1220202303",
     "status": "new",
     "price": 999,
@@ -585,12 +592,12 @@
         "value": "5"
       }
     ],
-    "images": ["https://clck.ru/37CyDe","https://clck.ru/37CyEH"]
+    "images": ["https://clck.ru/37CyDe", "https://clck.ru/37CyEH"]
   },
   {
     "id": 22,
     "name": "Наполеон",
-    "date": "2023-12-27",
+    "date": "2023/12/27",
     "number": "1220202301",
     "status": "cancelled",
     "price": 1299,
@@ -613,12 +620,12 @@
         "value": "6"
       }
     ],
-    "images": ["https://clck.ru/37CyF2","https://clck.ru/37CyGo"]
+    "images": ["https://clck.ru/37CyF2", "https://clck.ru/37CyGo"]
   },
   {
     "id": 23,
     "name": "Маршмеллоу Чизкейк",
-    "date": "2023-12-27",
+    "date": "2023/12/27",
     "number": "1220202302",
     "status": "cancelled",
     "price": 1149,
@@ -646,7 +653,7 @@
   {
     "id": 24,
     "name": "Миндальный торт",
-    "date": "2023-12-27",
+    "date": "2023/12/27",
     "number": "1220202303",
     "status": "cancelled",
     "price": 1599,
@@ -674,7 +681,7 @@
   {
     "id": 25,
     "name": "Торт Наполеон",
-    "date": "2023-12-27",
+    "date": "2023/12/27",
     "number": "2520202304",
     "status": "new",
     "price": 1599,
@@ -697,7 +704,7 @@
         "value": "5"
       }
     ],
-    "images": ["https://clck.ru/37C74A","https://clck.ru/37CyYQ"]
+    "images": ["https://clck.ru/37C74A", "https://clck.ru/37CyYQ"]
   },
   {
     "id": 26,
@@ -753,7 +760,7 @@
         "value": "5"
       }
     ],
-    "images": ["https://clck.ru/37C74A","https://clck.ru/37CyYQ"]
+    "images": ["https://clck.ru/37C74A", "https://clck.ru/37CyYQ"]
   },
   {
     "id": 28,
@@ -781,6 +788,6 @@
         "value": "5"
       }
     ],
-    "images": ["https://clck.ru/37C74A","https://clck.ru/37CyYQ"]
+    "images": ["https://clck.ru/37C74A", "https://clck.ru/37CyYQ"]
   }
 ]

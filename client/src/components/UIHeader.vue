@@ -1,9 +1,14 @@
 <script setup>
-import {computed} from "vue";
+import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useUsersStore } from "@/stores/users.store";
 
 const props = defineProps({
+  title: {
+    type: String,
+    required: false,
+    default: "Title",
+  },
   closeButtonHandler: {
     type: Function,
     required: false,
@@ -12,16 +17,20 @@ const props = defineProps({
       logout();
     },
   },
-  title: {type: String, required: false}
+  title: { type: String, required: false },
 });
 
-const modalTitle = computed(() => props.title || router.currentRoute.value.meta?.title);
+const modalTitle = computed(
+  () => props.title || router.currentRoute.value.meta?.title
+);
 
 const router = useRouter();
 </script>
 <template>
   <header class="header">
-    <h1 class="title">{{ modalTitle }}</h1>
+    <h1 class="title">
+      {{ props.title ?? router.currentRoute.value.meta?.title }}
+    </h1>
     <button @click="closeButtonHandler" class="exit-btn">
       <img width="20" src="@/assets/cross-icon.png" alt="Exit button" />
     </button>

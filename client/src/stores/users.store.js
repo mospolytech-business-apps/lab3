@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { api } from "@/api";
 import { useNotificationsStore } from "@/stores/notifications.store";
 import router from "@/router";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import Cookies from "js-cookie";
 
 export const useUsersStore = defineStore("users", () => {
@@ -12,7 +12,15 @@ export const useUsersStore = defineStore("users", () => {
   const allUsers = ref([]);
   const userRole = ref(Cookies.get("USER_ROLE"));
 
-  const getAllUsers = async () => {
+  const clientManagers = computed(() => {
+    return allUsers.value.filter((user) => user.role === "ClientManager");
+  });
+
+  const clients = computed(() => {
+    return allUsers.value.filter((user) => user.role === "Customer");
+  });
+
+  const fetchUsers = async () => {
     const { res, err } = await api.fetchUsers();
     if (err !== null) {
       addError(err.message);
@@ -89,6 +97,8 @@ export const useUsersStore = defineStore("users", () => {
     allUsers,
     userRole,
     currentUser,
-    getAllUsers,
+    fetchUsers,
+    clientManagers,
+    clients,
   };
 });

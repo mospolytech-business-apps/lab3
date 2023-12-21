@@ -10,19 +10,41 @@ import UIButton from "@/components/UIButton.vue";
 import UISelect from "@/components/UISelect.vue";
 import OrderModal from "@/components/OrderModal.vue";
 
-const { addOrder, fetchOrders } = useOrdersStore();
+const { fetchOrders } = useOrdersStore();
 const { allOrders } = storeToRefs(useOrdersStore());
 const { addError } = useNotificationsStore();
 
-const isOrderModalOpen = ref(true);
+const isEditing = ref(null);
 
-const openOrderModal = () => {
-  isOrderModalOpen.value = true;
+const isNewOrderModalOpen = ref(null);
+const openNewOrderModal = () => {
+  isNewOrderModalOpen.value = true;
+  isEditing.value = false;
 };
 
-const closeOrderModal = async () => {
-  isOrderModalOpen.value = false;
+const closeNewOrderModal = () => {
+  isNewOrderModalOpen.value = false;
+  isEditing.value = null;
+};
+
+const isEditOrderModalOpen = ref(null);
+const openEditOrderModal = () => {
+  isEditOrderModalOpen.value = true;
+  isEditing.value = true;
+};
+
+const closeEditOrderModal = () => {
+  isEditOrderModalOpen.value = false;
   editableOrder.value = null;
+  isEditing.value = null;
+};
+
+const closeOrderModal = () => {
+  if (isEditing.value) {
+    closeEditOrderModal();
+    return;
+  }
+  closeNewOrderModal();
 };
 
 const editableOrder = ref(null);
@@ -31,6 +53,10 @@ const selectedOrder = ref(null);
 const selectOrder = (order) => {
   selectedOrder.value = order;
 };
+
+const isOrderModalOpen = computed(
+  () => isNewOrderModalOpen.value || isEditOrderModalOpen.value
+);
 
 const handleEditOrder = (order) => {
   editableOrder.value = order;
@@ -41,10 +67,6 @@ const handleEditOrder = (order) => {
   openEditRoleModal();
 };
 
-const handleNewOrder = () => {
-  openOrderModal();
-};
-
 const selectedStatus = ref(null);
 
 const orders = ref([]);
@@ -53,8 +75,22 @@ onMounted(async () => {
 });
 
 const filteredOrders = computed(() => {
-  if (selectedStatus.value === "new") {
-    return allOrders.value.filter((order) => order.status === "new");
+  if (selectedStatus.value === "fresh") {
+    return allOrders.value.filter((order) =>
+      ["new", "specification", "approving"].includes(order.status)
+    );
+  } else if (selectedStatus.value === "completed") {
+    return allOrders.value.filter((order) =>
+      ["ready", "finished"].includes(order.status)
+    );
+  } else if (selectedStatus.value === "current") {
+    return allOrders.value.filter((order) =>
+      ["procurement", "production", "checking"].includes(order.status)
+    );
+  } else if (selectedStatus.value === "rejected") {
+    return allOrders.value.filter((order) =>
+      ["cancelled"].includes(order.status)
+    );
   }
   return allOrders.value;
 });
@@ -75,16 +111,22 @@ onUnmounted(() => {
         placeholder="Статус заказа"
         class="status-filter"
       >
-        <option value="new">Новые</option>
-        <option value="">Выполенные</option>
-        <option value="">Текущие</option>
-        <option value="">Отклоненные</option>
+        <option value="fresh">Новые</option>
+        <option value="completed">Выполенные</option>
+        <option value="current">Текущие</option>
+        <option value="rejected">Отклоненные</option>
       </UISelect>
     </div>
     <div class="table-wrapper">
       <table class="table">
         <thead>
           <tr>
+            <th>Name</th>
+            <th>Name</th>
+            <th>Name</th>
+            <th>Name</th>
+            <th>Name</th>
+            <th>Name</th>
             <th>Name</th>
           </tr>
         </thead>
@@ -97,19 +139,31 @@ onUnmounted(() => {
               selected: order === selectedOrder,
             }"
           >
+            <td>{{ order.number }}</td>
+            <td>{{ order.date }}</td>
+            <td>{{ order.name }}</td>
+            <td>{{ order.status }}</td>
+            <td>{{ order.price }}</td>
+            <td>{{ order.customer }}</td>
             <td>{{ order.name }}</td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="buttons">
-      <UIButton @click="handleEditOrder(selectedorder)"
+      <UIButton @click="openEditOrderModal(selectedorder)"
         >Изменить заказ</UIButton
       >
-      <UIButton @click="handleNewOrder">Новый заказ</UIButton>
+      <UIButton @click="openNewOrderModal">Новый заказ</UIButton>
     </div>
   </main>
-  <OrderModal :open="isOrderModalOpen" @close="closeOrderModal" />
+  <OrderModal
+    allOrders="orders"
+    :open="isOrderModalOpen"
+    :isEditing="isEditing"
+    :editableOrder="editableOrder"
+    @close="closeOrderModal"
+  />
 </template>
 
 <style scoped>

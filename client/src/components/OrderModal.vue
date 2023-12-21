@@ -4,32 +4,28 @@ import UIButton from "@/components/UIButton.vue";
 import UISelect from "@/components/UISelect.vue";
 import CustomerModal from "@/components/CustomerModal.vue";
 
-import { ref, reactive, onMounted, watch, computed } from "vue";
+import { ref, onMounted, watchEffect } from "vue";
 import { storeToRefs } from "pinia";
-import { useOrdersStore } from "@/stores/orders.store";
+import { useUsersStore } from "@/stores/users.store";
+import { useOrdersStore } from "../stores/orders.store";
 
-const { editOrder } = useOrdersStore();
-const { allOrders, fetchOrders } = storeToRefs(useOrdersStore());
+const { fetchUsers, clientManagers, customers } = useUsersStore();
+const { statuses, numberOfOrdersToday, editOrder, addOrder } = useOrdersStore();
+const { allUsers, currentUser } = storeToRefs(useUsersStore());
 
 const props = defineProps({
   open: { type: Boolean, required: true },
-  order: { type: Object || null, required: true },
+  editableOrder: { type: Object || null, required: true },
+  isEditing: { type: Boolean, required: true },
 });
 
 const emit = defineEmits(["close"]);
 
 const editedOrder = ref({});
 
-// TODO: replace by watchEffect
-watch(
-  () => props.order,
-  (newVal) => {
-    editedOrder.value = {
-      ...newVal,
-    };
-  },
-  { immediate: true }
-);
+watchEffect(() => {
+  editedOrder.value = { ...props.order };
+});
 
 const applyOrderChanges = () => {
   editOrder(editedOrder.value.id, {
@@ -38,11 +34,6 @@ const applyOrderChanges = () => {
   emit("updateData");
   emit("close");
 };
-
-const orders = ref([]);
-onMounted(async () => {
-  orders.value = allOrders.value.length ? allOrders.value : await fetchOrders();
-});
 
 const close = () => {
   emit("close");
@@ -62,70 +53,157 @@ const closeCustomerModal = async () => {
   editableCustomer.value = null;
 };
 
-
 const handleNewCustomer = () => {
   openCustomerModal();
 };
+
+const today = new Date();
+const orderForm = ref(null);
+const orderFrom = ref({
+  name: null,
+  date: today.toLocaleDateString(),
+  status: "new",
+  price: null,
+  customer: null,
+  manager: currentUser.value.id,
+  metrics: null,
+  images: null,
+});
+
+const orderNumber = ref(null);
+
+const users = ref([]);
+onMounted(async () => {
+  users.value = await fetchUsers();
+
+  orderNumber.value =
+    "" +
+      today.getDate() +
+      today.getMonth() +
+      today.getFullYear() +
+      props?.allOrders?.filter(
+        (order) => order.date === today.toLocaleDateString()
+      ).length ?? "00";
+});
 </script>
 
 <template>
   <div v-if="props.open" class="modal">
-    <UIHeader title="Добавить заказ" :closeButtonHandler="close" />
+    <UIHeader
+      :title="isEditing ? 'Изменить заказ' : 'Добавить заказ'"
+      :closeButtonHandler="close"
+    />
 
     <main class="main">
-      <form action="">
-        <label class="label">Номер и дата заказа
-          <input v-model="editedOrder.something" type="text" />
+      <form class="form" action="">
+        <label class="field">
+          <span class="label">Наименование заказа </span>
+          <input
+            class="input"
+            v-model="editedOrder.something"
+            type="text"
+            required
+          />
         </label>
-        <label class="label">Наименование заказа
-          <input v-model="editedOrder.something" type="text" />
+
+        <label class="field">
+          <span class="label">Номер и дата заказа</span>
+          <b class="field">{{ orderNumber }}</b>
         </label>
-        <label class="label"> Статус заказа
-          <UISelect v-model="editedOrder.something">
-            <option value=""></option>
+
+        <label class="field" v-show="props.isEditing">
+          <span class="label">Статус заказа</span>
+          <UISelect class="select-status" v-model="editedOrder.status" required>
+            <option v-for="status in statuses" value="status.name">
+              {{ status.title }}
+            </option>
           </UISelect>
         </label>
-        <label class="label">Стоимость заказа
-          <input v-model="editedOrder.something" type="text" />
+
+        <label class="field">
+          <span class="label">Стоимость заказа</span>
+          <input
+            class="input"
+            v-model="editedOrder.something"
+            type="text"
+            required
+          />
         </label>
-        <label class="label">Заказчик
+
+        <label class="customer-select">
+          <span class="label">Заказчик</span>
           <div class="customer">
-            <UISelect v-model="editedOrder.something">
-              <option value=""></option>
+            <UISelect v-model="editedOrder.customer" requited>
+              <option v-for="customer in customers" value="customer.id">
+                {{ customer.username }}
+              </option>
             </UISelect>
-            <UIButton @click="handleNewCustomer" class="select">Добавить заказчика</UIButton>
+            <div class="add-customer">
+              <UIButton @click="handleNewCustomer" class="add-customer__btn"
+                >Добавить заказчика</UIButton
+              >
+              <CustomerModal
+                class="add-customer__modal"
+                :open="isCustomerModalOpen"
+                @close="closeCustomerModal"
+              />
+            </div>
           </div>
         </label>
-        <label class="label">Запланированная дата выполнения
-          <input v-model="editedOrder.something" type="text" />
-        </label>
-        <label class="label">Ответственный менеджер
-          <UISelect v-model="editedOrder.something">
-            <option value=""></option>
-          </UISelect>
-        </label>
+
         <label class="field">
-          <span class="label">Please select the text file with the changes</span>
-          <div class="file-input-wrapper">
-            <input class="input" type="file" ref="fileInput" />
-            <UIButton @click="importData">
-              <img
-                src="https://cdn.icon-icons.com/icons2/1122/PNG/512/downloaddownarrowsymbolinsquarebutton_79508.png"
-                width="25"
-                alt="Import icon"
+          <span class="label">Запланированная дата выполнения</span>
+          <input
+            class="input"
+            v-model="editedOrder.something"
+            type="text"
+            required
+          />
+        </label>
+
+        <label class="customer-select">
+          <span class="label">Ответственный менеджер</span>
+          <div class="customer">
+            <UISelect v-model="editedOrder.customer" requited>
+              <option v-for="manager in clientManagers" value="manager.id">
+                {{ manager.username }}
+              </option>
+            </UISelect>
+            <div class="add-customer">
+              <UIButton @click="handleNewCustomer" class="add-customer__btn"
+                >Добавить заказчика</UIButton
+              >
+              <CustomerModal
+                class="add-customer__modal"
+                :open="isCustomerModalOpen"
+                @close="closeCustomerModal"
               />
-              Import
+            </div>
+          </div>
+        </label>
+
+        <label class="photo-select">
+          <span class="label">Фотографии</span>
+          <div class="file-input-wrapper">
+            <input
+              class="input"
+              type="file"
+              placeholder="lasdfad"
+              ref="fileInput"
+            />
+            <UIButton @click="importData" type>
+              <img src="@/assets/import.png" width="20" alt="Import icon" />
+              <span>Добавить</span>
             </UIButton>
           </div>
         </label>
+
+        <UIButton class="cerate-order" type="modal" @click="applyRoleChanges"
+          >Создать заказ</UIButton
+        >
       </form>
-      <div class="actions">
-        <UIButton @click="applyRoleChanges">Apply</UIButton>
-        <UIButton class="cancel-btn" @click="close">Cancel</UIButton>
-      </div>
     </main>
   </div>
-  <CustomerModal :open="isCustomerModalOpen" @close="closeCustomerModal" />
 </template>
 
 <style scoped>
@@ -134,56 +212,110 @@ const handleNewCustomer = () => {
   top: 50%;
   left: 50%;
   background-color: white;
-  min-width: 40%;
+  display: flex;
+  flex-direction: column;
+  max-width: 45%;
+  min-height: 60%;
+  max-height: 80%;
+  overflow-y: scroll;
   transform: translate(-50%, -50%);
   border: 1px solid black;
   box-shadow: 0 0 2rem black;
 }
 
 .main {
-  display: flex;
   gap: 1rem;
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 2fr;
-  flex-direction: column;
-  align-items: center;
+  display: flex;
+
   width: 100%;
+  height: 100%;
+  flex-grow: 1;
   padding: 1.5rem 4rem;
   background-color: white;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .title {
   margin-bottom: 1rem;
 }
 
-.label {
+.field {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 0.5rem;
   width: 100%;
 }
 
-.customer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
+.label {
+  width: 100%;
+  flex-grow: 2;
 }
 
-.select {
-  flex-shrink: 0;
+.input {
+  height: min-content;
+  width: 100%;
+}
+
+.customer-select {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.customer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+}
+.add-customer {
+  position: relative;
+  text-wrap: nowrap;
+  width: 100%;
+}
+
+.add-customer__btn {
+  width: 100%;
+}
+.add-customer__modal {
+  position: absolute;
+  display: block;
+  z-index: 1;
+  top: 40px;
+  left: 0;
+}
+.select-status {
+  width: 100%;
+}
+
+.select-customer {
+  display: flex;
+  flex-direction: column;
+}
+.photo-select {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .field {
   display: flex;
-  flex-direction: column;
   gap: 0.5rem;
 }
 
 .file-input-wrapper {
   display: flex;
-  gap: 1rem;
-  padding-inline: 1rem;
+  gap: 0.5rem;
+}
+.input[type="file"] {
+  height: 100%;
+  margin-left: 0;
 }
 
 .field {
@@ -194,13 +326,17 @@ const handleNewCustomer = () => {
 }
 
 .input {
-  /* padding: 1rem 0.25rem; */
   border: 1px solid black;
   flex-grow: 1;
   border-radius: 0.25rem;
   padding-top: 0.25rem;
+  margin-left: 10px;
   padding-inline-start: 1rem;
 }
+.input::file-selector-button {
+  display: none;
+}
+
 .input::file-selector-button {
   display: none;
 }
@@ -232,17 +368,10 @@ const handleNewCustomer = () => {
   margin-bottom: 2rem;
 }
 
-.actions {
-  grid-row: -1;
-  grid-column: 1 / -1;
-  display: flex;
-  justify-content: center;
-  gap: 4rem;
-}
-
 .cancel-btn:hover {
   background-color: salmon;
 }
-
-
+.cerate-order {
+  margin-top: auto;
+}
 </style>

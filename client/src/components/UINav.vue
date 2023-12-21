@@ -28,7 +28,7 @@ const showRoute = (route) => {
     class="nav-menu"
     v-show="!['Customer', 'ClientManager'].includes(userRole)"
   >
-    <UIButton
+    <a
       v-for="route in router.options.routes"
       :class="{
         active: router.currentRoute.value.path === route.path,
@@ -37,13 +37,14 @@ const showRoute = (route) => {
       @click="$router.push(route.path)"
     >
       {{ route.meta?.title }}
-    </UIButton>
+    </a>
   </nav>
 </template>
 
 <style>
 .nav-menu {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   padding-left: 0.5rem;
@@ -52,14 +53,14 @@ const showRoute = (route) => {
   font-weight: 400;
   border-bottom: 2px solid black;
   background-color: whitesmoke;
+  padding: 1rem;
 }
 
 .nav-menu > * {
   background: 0;
   border: 0;
-  text-wrap: balance;
   text-align: center;
-  max-width: 25rem;
+  max-width: 12rem;
   cursor: pointer;
 }
 

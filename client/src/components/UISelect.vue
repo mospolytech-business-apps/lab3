@@ -10,7 +10,7 @@
       :value="props.modelValue"
       v-bind="$attrs"
       placeholder="Select an option"
-      class="select"
+      class="select-inner"
       id="select"
     >
       <option v-if="props.placeholder" disabled selected value="">
@@ -38,7 +38,7 @@ const changeOption = (event) => {
 </script>
 
 <style scoped>
-.select {
+.select-inner {
   appearance: none;
   -webkit-appearance: none;
   width: 100%;
@@ -59,6 +59,7 @@ const changeOption = (event) => {
 
 .select-wrapper {
   position: relative;
+  flex-grow: 1;
   &::after {
     content: "▾";
     position: absolute;
