@@ -8,7 +8,7 @@ import UINav from "@/components/UINav.vue";
 import UIButton from "@/components/UIButton.vue";
 import EquipmentFailerModal from "@/components/EquipmentFailerModal.vue";
 
-const isEquipmentFailureModalOpen = ref(true);
+const isEquipmentFailureModalOpen = ref(false);
 
 const editableEquipmentFailure = ref(null);
 

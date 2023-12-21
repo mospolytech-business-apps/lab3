@@ -17,10 +17,6 @@ const props = defineProps({
 
 const reasons = ref(["Плохое обслуживание и неисправности","Износ материалов","Неправильная эксплуатация","Перебои в электроснабжении","Механические повреждения","Ошибки оператора",])
 
-const editedEquipmentFailures = ref({
-    id: null
-});
-
 const { addEquipments, fetchEquipments } = useEquipmentsStore();
 const { allEquipments } = storeToRefs(useEquipmentsStore());
 
@@ -37,10 +33,16 @@ onMounted(async () => {
   equipmentFailures.value = allEquipmentFailures.value.length ? allEquipmentFailures.value : await fetchEquipmentFailures();
 });
 
+const editedEquipmentFailures = ref({
+    id: equipmentFailures.value.length + 1,
+    complite: false
+});
+
 const close = () => {
   emit("close");
   editedEquipmentFailures.value = {
-    id: null
+    id: equipmentFailures.value.length + 1,
+    complite: false
   }
 };
 
@@ -57,10 +59,7 @@ watch(
 //TODO: adding equipment failure
 
 const applyEquipmentFailuresChanges = () => {
-    editedEquipmentFailures.value = {
-    id: equipmentFailures.length
-  }
-    addEquipmentFailures()
+    console.log(editedEquipmentFailures.equipment)
 }
 </script>
 
@@ -85,7 +84,7 @@ const applyEquipmentFailuresChanges = () => {
         <label class="label">
           Причина сбоя
           <UISelect v-model="editedEquipmentFailures.equipment" placeholder="Статус заказа" :disabled="editedEquipmentFailures.complite == true">
-            <option v-for="equipment in equipments" :key="equipment.id" :value="equipment">{{ equipment.type.name }} {{ equipment.mark }}</option>
+            <option v-for="equipment in equipments" :key="equipment.id" :value="JSON.parse(JSON.stringify(equipment))">{{ equipment.type.name }} {{ equipment.mark }}</option>
           </UISelect>
         </label>
         <label class="label date">
