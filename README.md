@@ -13,8 +13,8 @@
 - [x] {Максим} 2.2 Список заказов - [ALL] // Home.vue
 - [x] {Ваня} 2.3 Оформление заказа - [Customer, ClientManager] // Home.vue + modal
 - [ ] {Максим} 2.4 Списание ингридиентов
-- [ ] {Даня} 2.5 Сбои оборудования - [Master] // QualityControl.vue
-- [ ] {Паша} 2.6 Контроль качества - [Master] // EquipmentFailure.vue
+- [ ] {Даня} 2.5 Сбои оборудования - [Master] // EquipmentFailure.vue
+- [ ] {Паша} 2.6 Контроль качества - [Master] // QualityControl.vue
 
 3 сессия:
 
