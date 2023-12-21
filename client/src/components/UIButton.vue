@@ -26,4 +26,13 @@
 .btn:active {
   background-color: grey;
 }
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: initial;
+}
+
+.btn:disabled:hover {
+  background: white;
+}
 </style>

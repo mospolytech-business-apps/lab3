@@ -13,6 +13,7 @@ const { allOrders } = storeToRefs(useOrdersStore());
 
 const selectedOrder = ref(null);
 const isAssessProductModalVisible = ref(false);
+const ordersAssessments = ref([])
 
 const openAssessProductModal = (id) => {
   isAssessProductModalVisible.value = true;
@@ -24,12 +25,35 @@ const closeAssessProductModal = () => {
   selectedOrder.value = null;
 }
 
+const saveOrderAssessment = (newAssessment) => {
+  const existAssessment = ordersAssessments.value.find(el => el.orderId === newAssessment.orderId);
+  existAssessment.metrics = newAssessment.metrics;
+}
+
+const changeOrderStatus = () => {
+  allOrders.value.find(el => el.id === selectedOrder.value.id).status = 'done';
+  selectedOrder.value = null;
+}
+
 const controlOrders = computed(() => {
   return allOrders.value.filter(order => order.status === 'control')
 });
 
+const selectedOrderPreviousAssessment = computed(() => {
+  return ordersAssessments.value.find(el => el.orderId === selectedOrder.value?.id) || [];
+})
+
 onMounted(async () => {
   allOrders.value.length ? allOrders.value : await fetchOrders();
+  ordersAssessments.value = allOrders.value.flatMap(order => {
+      if (order.status === 'control') {
+        return [{
+          orderId: order.id,
+          metrics: []
+        }]
+      }
+      return [];
+    })
 });
 
 </script>
@@ -39,9 +63,11 @@ onMounted(async () => {
   <UINav />
   <AssessProductQualityModal
       v-if="isAssessProductModalVisible"
-      :previous-assessment="[]"
+      :previous-assessment="selectedOrderPreviousAssessment.metrics"
       :order="selectedOrder"
       @close="closeAssessProductModal"
+      @saveAssessment="saveOrderAssessment"
+      @changeOrderStatus="changeOrderStatus"
   />
   <main class="main">
     <p class="title">Заказы, требующие оценки качества</p>
