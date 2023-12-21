@@ -698,5 +698,89 @@
       }
     ],
     "images": ["https://clck.ru/37C74A","https://clck.ru/37CyYQ"]
+  },
+  {
+    "id": 26,
+    "name": "Торт Наполеон",
+    "date": "2023-12-21",
+    "number": "1221202301",
+    "status": "control",
+    "price": 1599,
+    "customer": 5,
+    "manager": 1,
+    "metrics": [
+      {
+        "name": "Вес",
+        "unit": "kg",
+        "value": "1"
+      },
+      {
+        "name": "Высота",
+        "unit": "sm",
+        "value": "10"
+      },
+      {
+        "name": "Радиус",
+        "unit": "inch",
+        "value": "5"
+      }
+    ],
+    "images": ["https://clck.ru/37C74A", "https://clck.ru/37C74V"]
+  },
+  {
+    "id": 27,
+    "name": "Миндальный торт",
+    "date": "2023-12-21",
+    "number": "1221202302",
+    "status": "control",
+    "price": 1599,
+    "customer": 6,
+    "manager": 2,
+    "metrics": [
+      {
+        "name": "Вес",
+        "unit": "kg",
+        "value": "1"
+      },
+      {
+        "name": "Высота",
+        "unit": "sm",
+        "value": "20"
+      },
+      {
+        "name": "Радиус",
+        "unit": "inch",
+        "value": "5"
+      }
+    ],
+    "images": ["https://clck.ru/37C74A","https://clck.ru/37CyYQ"]
+  },
+  {
+    "id": 28,
+    "name": "Вишнёвый Чизкейк",
+    "date": "2023-12-21",
+    "number": "1221202303",
+    "status": "control",
+    "price": 999,
+    "customer": 10,
+    "manager": 1,
+    "metrics": [
+      {
+        "name": "Вес",
+        "unit": "kg",
+        "value": "1"
+      },
+      {
+        "name": "Высота",
+        "unit": "sm",
+        "value": "20"
+      },
+      {
+        "name": "Радиус",
+        "unit": "inch",
+        "value": "5"
+      }
+    ],
+    "images": ["https://clck.ru/37C74A","https://clck.ru/37CyYQ"]
   }
 ]
