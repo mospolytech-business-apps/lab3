@@ -2,7 +2,7 @@
   {
     "id": 1,
     "date": "2023-12-23",
-    "time": "21:21",
+    "time": "21:11",
     "equipment": {
       "id": 6,
       "mark": "Т-112",
@@ -11,7 +11,7 @@
       },
       "specifications": ""
     },
-    "reason": "Износ материалов",
+    "reason": "Износ м",
     "complite": false,
     "result_date": null,
     "result_time": null
@@ -19,7 +19,7 @@
   {
     "id": 2,
     "date": "2023-12-23",
-    "time": "21:21",
+    "time": "21:11",
     "equipment": {
       "id": 6,
       "mark": "Т-112",
@@ -36,7 +36,7 @@
   {
     "id": 3,
     "date": "2023-12-23",
-    "time": "21:21",
+    "time": "21:11",
     "equipment": {
       "id": 6,
       "mark": "Т-112",
@@ -51,7 +51,7 @@
     "result_time": null
   },
   {
-    "id": 3,
+    "id": 4,
     "date": "2023-12-23",
     "time": "21:21",
     "equipment": {
@@ -64,7 +64,7 @@
     },
     "reason": "Износ материалов",
     "complite": true,
-    "result_date": "2023-12-23",
-    "result_time": "21:21"
+    "result_date": "2023-12-24",
+    "result_time": "00:55"
   }
 ]
