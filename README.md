@@ -4,7 +4,7 @@
 
 - [x] {Максим} 1.3 Логин // Login.vue
 - [x] {Максим} 1.4 Регистрация // Register.vue
-- [ ] {Артем} 1.5 Инструменты - [Director] // Equipment.vue
+- [x] {Артем} 1.5 Инструменты - [Director] // Equipment.vue
 - [ ] {Максим} 1.6 Ингридиенты - [PurchaseManager, Director] // Ingredients.vue
 
 2 сессия:
