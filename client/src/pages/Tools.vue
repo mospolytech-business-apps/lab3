@@ -5,6 +5,8 @@ import { useToolsStore } from "@/stores/tools.store";
 import { useNotificationsStore } from "@/stores/notifications.store";
 import AddToolModal from "@/components/AddToolModal.vue";
 import UIButton from "@/components/UIButton.vue";
+import UIHeader from "@/components/UIHeader.vue";
+import UINav from "@/components/UINav.vue";
 
 const { allTools } = storeToRefs(useToolsStore());
 const { fetchTools, deleteTool } = useToolsStore();
