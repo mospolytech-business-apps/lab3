@@ -1,10 +1,16 @@
 # Разработка бизнес-приложений "Кондитерская фабрика"
 
+Запустить фронтенд (из /client): `npm run dev`
+
+Запустить api (из /server): `npm run server`
+
+## Прогресс
+
 1 сессия:
 
 - [x] {Максим} 1.3 Логин // Login.vue
 - [x] {Максим} 1.4 Регистрация // Register.vue
-- [x] {Артем} 1.5 Инструменты - [Director] // Equipment.vue
+- [x] {Артем} 1.5 Инструменты - [Director] // Tools.vue
 - [ ] {Максим} 1.6 Ингридиенты - [PurchaseManager, Director] // Ingredients.vue
 
 2 сессия:
@@ -27,5 +33,5 @@
 4 сессия:
 
 - [x] {Артем} 4.1 Тесты на пароль
-- [ ] {Миша} 4.2 Отчет по закупкам - [Director] // PurchaseReport.vue
+- [ ] {Миша} 4.2 Отчет по закупкам - [Director] // ToolsPurchaseReport.vue
 - [ ] {Андрей 2} 4.3 Отчет по сбоям - [Director] // EquipmentFailureReport.vue

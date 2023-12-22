@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from "vue";
 import { useRouter } from "vue-router";
-import { useUsersStore } from "@/stores/users.store";
+import { useAuthStore } from "@/stores/auth.store";
 
 const props = defineProps({
   title: {
@@ -13,7 +13,7 @@ const props = defineProps({
     type: Function,
     required: false,
     default: async () => {
-      const { logout } = useUsersStore();
+      const { logout } = useAuthStore();
       logout();
     },
   },

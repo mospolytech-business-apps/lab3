@@ -5,9 +5,10 @@ import UIButton from "@/components/UIButton.vue";
 import { onMounted, ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useUsersStore } from "@/stores/users.store";
-import UINav from "../components/UINav.vue";
+import { useAuthStore } from "@/stores/auth.store";
+import UINav from "@/components/UINav.vue";
 
-const { login } = useUsersStore();
+const { login } = useAuthStore();
 const { allUsers } = storeToRefs(useUsersStore());
 const { fetchUsers } = useUsersStore();
 
