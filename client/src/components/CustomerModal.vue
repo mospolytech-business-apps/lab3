@@ -72,6 +72,7 @@ const emit = defineEmits(["close"]);
   gap: 1rem;
   padding: 0.5rem 1rem;
   margin-top: 0.2rem;
+  margin-bottom: 0.5rem;
   background-color: white;
 }
 

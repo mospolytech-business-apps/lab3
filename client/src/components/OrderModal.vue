@@ -7,7 +7,7 @@ import CustomerModal from "@/components/CustomerModal.vue";
 import { ref, onMounted, watchEffect } from "vue";
 import { storeToRefs } from "pinia";
 import { useUsersStore } from "@/stores/users.store";
-import { useOrdersStore } from "../stores/orders.store";
+import { useOrdersStore } from "@/stores/orders.store";
 
 const { fetchUsers, clientManagers, customers } = useUsersStore();
 const { statuses, numberOfOrdersToday, editOrder, addOrder } = useOrdersStore();
@@ -44,32 +44,18 @@ const isCustomerModalOpen = ref(true);
 const editableCustomer = ref(null);
 const selectedCustomer = ref(null);
 
-const openCustomerModal = () => {
-  isCustomerModalOpen.value = true;
-};
-
 const closeCustomerModal = async () => {
   isCustomerModalOpen.value = false;
   editableCustomer.value = null;
 };
 
+const newCustomerData = ref(null);
 const handleNewCustomer = () => {
-  openCustomerModal();
+  isCustomerModalOpen.value = true;
+  addUser(newCustomerData.value);
 };
 
 const today = new Date();
-const orderForm = ref(null);
-const orderFrom = ref({
-  name: null,
-  date: today.toLocaleDateString(),
-  status: "new",
-  price: null,
-  customer: null,
-  manager: currentUser.value.id,
-  metrics: null,
-  images: null,
-});
-
 const orderNumber = ref(null);
 
 const users = ref([]);
@@ -78,12 +64,10 @@ onMounted(async () => {
 
   orderNumber.value =
     "" +
-      today.getDate() +
-      today.getMonth() +
-      today.getFullYear() +
-      props?.allOrders?.filter(
-        (order) => order.date === today.toLocaleDateString()
-      ).length ?? "00";
+    today.getDate() +
+    today.getMonth() +
+    today.getFullYear() +
+    numberOfOrdersToday;
 });
 </script>
 
@@ -135,7 +119,7 @@ onMounted(async () => {
           <div class="customer">
             <UISelect v-model="editedOrder.customer" requited>
               <option v-for="customer in customers" value="customer.id">
-                {{ customer.username }}
+                {{ customer.firstName }} ({{ customer.username }})
               </option>
             </UISelect>
             <div class="add-customer">
@@ -161,25 +145,14 @@ onMounted(async () => {
           />
         </label>
 
-        <label class="customer-select">
+        <label class="filed">
           <span class="label">Ответственный менеджер</span>
-          <div class="customer">
-            <UISelect v-model="editedOrder.customer" requited>
-              <option v-for="manager in clientManagers" value="manager.id">
-                {{ manager.username }}
-              </option>
-            </UISelect>
-            <div class="add-customer">
-              <UIButton @click="handleNewCustomer" class="add-customer__btn"
-                >Добавить заказчика</UIButton
-              >
-              <CustomerModal
-                class="add-customer__modal"
-                :open="isCustomerModalOpen"
-                @close="closeCustomerModal"
-              />
-            </div>
-          </div>
+          <UISelect v-model="editedOrder.customer" requited>
+            <option v-for="manager in clientManagers" value="manager.id">
+              {{ manager.username }}
+            </option>
+          </UISelect>
+          <div class="add-customer"></div>
         </label>
 
         <label class="photo-select">
@@ -329,9 +302,8 @@ onMounted(async () => {
   border: 1px solid black;
   flex-grow: 1;
   border-radius: 0.25rem;
-  padding-top: 0.25rem;
+  padding: 0.25rem;
   margin-left: 10px;
-  padding-inline-start: 1rem;
 }
 .input::file-selector-button {
   display: none;

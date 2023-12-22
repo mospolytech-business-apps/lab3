@@ -1,0 +1,14 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon --watch db server.js"
+  },
+  "author": "Max Kiselev",
+  "license": "MIT",
+  "devDependencies": {
+    "json-server": "^0.17.4"
+  }
+}

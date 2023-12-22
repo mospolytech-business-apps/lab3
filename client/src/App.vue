@@ -1,9 +1,9 @@
 <template>
   <div class="wrapper">
     <RouterView />
+    <UIError class="err" />
+    <UIAlert class="err" />
   </div>
-  <UIError />
-  <UIAlert />
 </template>
 
 <script setup>
@@ -19,7 +19,15 @@ import UIAlert from "@/components/UIAlert.vue";
   justify-content: flex-start;
   height: 100%;
   background-color: white;
+  position: relative;
 }
+
+.err {
+  position: fixed;
+  top: 10px;
+  right: 0;
+}
+
 .main {
   height: calc(100% - 3.6rem);
 }

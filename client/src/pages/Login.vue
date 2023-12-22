@@ -9,7 +9,7 @@ import UINav from "../components/UINav.vue";
 
 const { login } = useUsersStore();
 const { allUsers } = storeToRefs(useUsersStore());
-const { getAllUsers } = useUsersStore();
+const { fetchUsers } = useUsersStore();
 
 const username = ref("");
 const password = ref("");
@@ -18,7 +18,7 @@ const usernameInput = ref(null);
 
 onMounted(async () => {
   usernameInput.value.focus();
-  allUsers.value = await getAllUsers();
+  allUsers.value = await fetchUsers();
 });
 </script>
 

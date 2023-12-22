@@ -4,7 +4,7 @@ import { useOrdersStore } from "@/stores/orders.store";
 
 import UIHeader from "@/components/UIHeader.vue";
 import UINav from "@/components/UINav.vue";
-import {computed, onMounted, ref} from "vue";
+import { computed, onMounted, ref } from "vue";
 import UIButton from "@/components/UIButton.vue";
 import AssessProductQualityModal from "@/components/AssessProductQualityModal.vue";
 
@@ -13,72 +13,78 @@ const { allOrders } = storeToRefs(useOrdersStore());
 
 const selectedOrder = ref(null);
 const isAssessProductModalVisible = ref(false);
-const ordersAssessments = ref([])
+const ordersAssessments = ref([]);
 
 const openAssessProductModal = (id) => {
   isAssessProductModalVisible.value = true;
-  selectedOrder.value = allOrders.value.find(order => order.id === id);
-}
+  selectedOrder.value = allOrders.value.find((order) => order.id === id);
+};
 
 const closeAssessProductModal = () => {
   isAssessProductModalVisible.value = false;
   selectedOrder.value = null;
-}
+};
 
 const saveOrderAssessment = (newAssessment) => {
-  const existAssessment = ordersAssessments.value.find(el => el.orderId === newAssessment.orderId);
+  const existAssessment = ordersAssessments.value.find(
+    (el) => el.orderId === newAssessment.orderId
+  );
   existAssessment.metrics = newAssessment.metrics;
-}
+};
 
 const changeOrderStatus = () => {
-  allOrders.value.find(el => el.id === selectedOrder.value.id).status = 'done';
+  allOrders.value.find((el) => el.id === selectedOrder.value.id).status =
+    "done";
   selectedOrder.value = null;
-}
+};
 
 const controlOrders = computed(() => {
-  return allOrders.value.filter(order => order.status === 'control')
+  return allOrders.value.filter((order) => order.status === "checking");
 });
 
 const selectedOrderPreviousAssessment = computed(() => {
-  return ordersAssessments.value.find(el => el.orderId === selectedOrder.value?.id) || [];
-})
+  return (
+    ordersAssessments.value.find(
+      (el) => el.orderId === selectedOrder.value?.id
+    ) || []
+  );
+});
 
 onMounted(async () => {
   allOrders.value.length ? allOrders.value : await fetchOrders();
-  ordersAssessments.value = allOrders.value.flatMap(order => {
-      if (order.status === 'control') {
-        return [{
+  ordersAssessments.value = allOrders.value.flatMap((order) => {
+    if (order.status === "checking") {
+      return [
+        {
           orderId: order.id,
-          metrics: []
-        }]
-      }
-      return [];
-    })
+          metrics: [],
+        },
+      ];
+    }
+    return [];
+  });
 });
-
 </script>
 
 <template>
   <UIHeader />
   <UINav />
   <AssessProductQualityModal
-      v-if="isAssessProductModalVisible"
-      :previous-assessment="selectedOrderPreviousAssessment.metrics"
-      :order="selectedOrder"
-      @close="closeAssessProductModal"
-      @saveAssessment="saveOrderAssessment"
-      @changeOrderStatus="changeOrderStatus"
+    v-if="isAssessProductModalVisible"
+    :previous-assessment="selectedOrderPreviousAssessment.metrics"
+    :order="selectedOrder"
+    @close="closeAssessProductModal"
+    @saveAssessment="saveOrderAssessment"
+    @changeOrderStatus="changeOrderStatus"
   />
   <main class="main">
     <p class="title">Заказы, требующие оценки качества</p>
     <ul class="list">
-      <li
-          v-for="order in controlOrders"
-          :key="order.id"
-          class="order"
-      >
+      <li v-for="order in controlOrders" :key="order.id" class="order">
         <p class="order_name" :title="order.name">{{ order.name }}</p>
-        <UIButton @click="() => openAssessProductModal(order.id)">Оценить</UIButton>
+        <UIButton @click="() => openAssessProductModal(order.id)"
+          >Оценить</UIButton
+        >
       </li>
     </ul>
   </main>

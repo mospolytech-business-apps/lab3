@@ -3,6 +3,7 @@ import { ref, onUnmounted, onMounted, computed } from "vue";
 import { storeToRefs } from "pinia";
 import { useOrdersStore } from "@/stores/orders.store";
 import { useNotificationsStore } from "@/stores/notifications.store";
+import { useUsersStore } from "@/stores/users.store";
 
 import UIHeader from "@/components/UIHeader.vue";
 import UINav from "@/components/UINav.vue";
@@ -10,8 +11,11 @@ import UIButton from "@/components/UIButton.vue";
 import UISelect from "@/components/UISelect.vue";
 import OrderModal from "@/components/OrderModal.vue";
 
-const { fetchOrders } = useOrdersStore();
+const { fetchOrders, statuses } = useOrdersStore();
 const { allOrders } = storeToRefs(useOrdersStore());
+
+const { customers, clientManagers } = storeToRefs(useUsersStore());
+
 const { addError } = useNotificationsStore();
 
 const isEditing = ref(null);
@@ -75,7 +79,9 @@ onMounted(async () => {
 });
 
 const filteredOrders = computed(() => {
-  if (selectedStatus.value === "fresh") {
+  if (selectedStatus.value === null) {
+    return allOrders.value;
+  } else if (selectedStatus.value === "fresh") {
     return allOrders.value.filter((order) =>
       ["new", "specification", "approving"].includes(order.status)
     );
@@ -111,6 +117,7 @@ onUnmounted(() => {
         placeholder="Статус заказа"
         class="status-filter"
       >
+        <option value="">Все</option>
         <option value="fresh">Новые</option>
         <option value="completed">Выполенные</option>
         <option value="current">Текущие</option>
@@ -121,13 +128,14 @@ onUnmounted(() => {
       <table class="table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Name</th>
-            <th>Name</th>
-            <th>Name</th>
-            <th>Name</th>
-            <th>Name</th>
-            <th>Name</th>
+            <th>Заказ</th>
+            <th>Дата</th>
+            <th>Наименование</th>
+            <th>Статус</th>
+            <th>Стоимость</th>
+            <th>Заказчик</th>
+            <th>Запланированная дата выполнения</th>
+            <th>Ответственный менеджер</th>
           </tr>
         </thead>
         <tbody>
@@ -139,13 +147,26 @@ onUnmounted(() => {
               selected: order === selectedOrder,
             }"
           >
-            <td>{{ order.number }}</td>
+            <td>№{{ order.number }}</td>
             <td>{{ order.date }}</td>
             <td>{{ order.name }}</td>
-            <td>{{ order.status }}</td>
+            <td>
+              {{ statuses.find((st) => st.status === order.status)?.title }}
+            </td>
             <td>{{ order.price }}</td>
-            <td>{{ order.customer }}</td>
-            <td>{{ order.name }}</td>
+            <td>
+              {{
+                customers.find((customer) => customer.id === order.customer)
+                  ?.username
+              }}
+            </td>
+            <td>{{ order.finish }}</td>
+            <td>
+              {{
+                clientManagers.find((manager) => manager.id === order.manager)
+                  ?.username
+              }}
+            </td>
           </tr>
         </tbody>
       </table>

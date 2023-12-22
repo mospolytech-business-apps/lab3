@@ -1,0 +1,17 @@
+@BACKEND_URL = http://localhost:3002
+
+
+### Get all users 
+GET {{BACKEND_URL}}/users
+
+POST {{BACKEND_URL}}/users
+Content-Type: application/json
+
+{
+  "username": "random",
+  "password": "radnom",
+  "role": "Customer",
+  "firstName": "Иван",
+  "lastName": "Иванов"
+}
+

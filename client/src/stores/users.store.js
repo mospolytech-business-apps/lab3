@@ -4,6 +4,7 @@ import { useNotificationsStore } from "@/stores/notifications.store";
 import router from "@/router";
 import { computed, ref } from "vue";
 import Cookies from "js-cookie";
+import { validatePassword } from "@/helpers/validate-password.js";
 
 export const useUsersStore = defineStore("users", () => {
   const { addError } = useNotificationsStore();
@@ -16,7 +17,7 @@ export const useUsersStore = defineStore("users", () => {
     return allUsers.value.filter((user) => user.role === "ClientManager");
   });
 
-  const clients = computed(() => {
+  const customers = computed(() => {
     return allUsers.value.filter((user) => user.role === "Customer");
   });
 
@@ -31,8 +32,11 @@ export const useUsersStore = defineStore("users", () => {
     return res;
   };
 
+  const addUser = (user) => {
+    allUsers.value.push(user);
+  };
+
   const login = async (username, password) => {
-    console.log(username, password);
     if (username === "" || password === "") {
       addError("Please fill in all fields");
       return;
@@ -41,14 +45,13 @@ export const useUsersStore = defineStore("users", () => {
     const user = allUsers.value.find((user) => user.username === username);
 
     if (user === undefined) {
-      console.log("User not found");
       addError("User not found");
       return;
     }
 
+    console.log(allUsers.value);
     const isTestPassword = password === "123456";
     if (user.password !== password && !isTestPassword) {
-      console.error("Incorrect password");
       addError("Incorrect password");
       return;
     }
@@ -63,14 +66,9 @@ export const useUsersStore = defineStore("users", () => {
   };
 
   const register = (username, password) => {
-    const lengthValid = password.length >= 5 && password.length <= 20;
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasLowerCase = /[a-z]/.test(password);
-    const isValid = lengthValid && hasUpperCase && hasLowerCase;
-
-    if (!isValid) {
+    if (!validatePassword(password)) {
       addError(
-        "Password must be 5-20 characters long and contain at least one uppercase and one lowercase letter"
+        "Пароль должен быть длиной от 5 до 20 символов и содержать как минимум одну заглавную и одну строчную букву"
       );
       return;
     }
@@ -95,10 +93,11 @@ export const useUsersStore = defineStore("users", () => {
     register,
     logout,
     allUsers,
+    addUser,
     userRole,
     currentUser,
     fetchUsers,
     clientManagers,
-    clients,
+    customers,
   };
 });
