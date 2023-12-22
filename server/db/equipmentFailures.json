@@ -5,7 +5,7 @@
       "date": "2023-12-23",
       "time": "21:21",
       "equipment": 1,
-      "reason": "Износ материалов",
+      "reason": "Истечение гарантии",
       "complete": false,
       "result_date": null,
       "result_time": null
@@ -39,6 +39,16 @@
       "complete": true,
       "result_date": "2023-12-23",
       "result_time": "21:21"
+    },
+    {
+      "id": 5,
+      "date": "2023-12-23",
+      "time": "21:21",
+      "equipment": 6,
+      "reason": "Истечение гарантии",
+      "complete": true,
+      "result_date": "2023-12-24",
+      "result_time": "00:55"
     }
   ]
 }
