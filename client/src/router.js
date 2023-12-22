@@ -57,7 +57,7 @@ const router = createRouter({
       component: Ingredients,
       meta: {
         title: "Учет ингредиентов и украшений для торта",
-        roles: [roles[2], roles[4]],
+        roles: [roles[1],roles[2],roles[3],roles[4]],
       },
     },
     {
