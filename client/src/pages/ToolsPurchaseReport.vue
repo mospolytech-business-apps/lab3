@@ -30,29 +30,30 @@ const generateToolsReport = (toolsData) => {
     }
   }
 
-  const sortedToolsReport = Array.from(toolsMap.values())
-    .sort((a, b) => b.amount - a.amount);
+  const sortedToolsReport = Array.from(toolsMap.values()).sort(
+    (a, b) => b.amount - a.amount
+  );
 
   toolsReport.value = sortedToolsReport;
 };
 const printTable = () => {
-  const printWindow = window.open('', '_blank');
+  const printWindow = window.open("", "_blank");
   const printDocument = printWindow.document;
-  
+
   // Копируем стили из текущего документа в новое окно
   const stylesheets = document.styleSheets;
   for (let i = 0; i < stylesheets.length; i++) {
     const stylesheet = stylesheets[i].href ? stylesheets[i].href : null;
     if (stylesheet) {
-      const link = printDocument.createElement('link');
-      link.rel = 'stylesheet';
+      const link = printDocument.createElement("link");
+      link.rel = "stylesheet";
       link.href = stylesheet;
       printDocument.head.appendChild(link);
     }
   }
 
   // Копируем содержимое таблицы в новое окно
-  const tableClone = document.querySelector('table').cloneNode(true);
+  const tableClone = document.querySelector("table").cloneNode(true);
   printDocument.body.appendChild(tableClone);
 
   // Вызываем окно печати для нового документа
@@ -96,7 +97,6 @@ const printTable = () => {
   justify-content: center;
   align-items: start;
   gap: 1rem;
-  margin-top: 165px;
 }
 
 table {

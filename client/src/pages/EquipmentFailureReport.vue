@@ -1,14 +1,21 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import { storeToRefs } from "pinia";
 import UIHeader from "@/components/UIHeader.vue";
 import UINav from "@/components/UINav.vue";
 import UIButton from "@/components/UIButton.vue";
+import UISelect from "@/components/UISelect.vue";
+
+// import { useEquipmentFailureStore } from "@/stores/equipmentFailures.store";
+
+const { allEquipmentFailures } = storeToRefs(useEquipmentFailureStore());
 
 const failures = ref([]);
 const reportData = ref([]);
 const sortDirection = ref(true);
-const selectedReasons = ref([]);
-const availableReasons = ref([]);
+const selectedReason = ref(null);
+
+const availableReasons = ref(["Износ материалов", "Истечение гарантии"]);
 
 onMounted(async () => {
   try {
@@ -26,21 +33,32 @@ const processFailures = (data) => {
   return data.map((item) => {
     const duration = calculateDuration(item);
     return {
-      equipmentName: item.equipment.type.name + ' ' + item.equipment.mark,
+      equipmentName: item.equipment.type.name + " " + item.equipment.mark,
       reason: item.reason,
-      time: item.date + ' ' + item.time,
-      result_time: item.complite && item.result_date && item.result_time
-        ? item.result_date + ' ' + item.result_time
-        : null,
-      duration: duration !== null ? duration + ' минут' : null,
+      time: item.date + " " + item.time,
+      result_time:
+        item.complite && item.result_date && item.result_time
+          ? item.result_date + " " + item.result_time
+          : null,
+      duration: duration !== null ? duration + " минут" : null,
     };
   });
 };
 
 const calculateDuration = (currentFailure) => {
-  if (currentFailure.complite && currentFailure.result_date && currentFailure.result_time && currentFailure.date && currentFailure.time) {
-    const startDateTime = new Date(`${currentFailure.date}T${currentFailure.time}`);
-    const endDateTime = new Date(`${currentFailure.result_date}T${currentFailure.result_time}`);
+  if (
+    currentFailure.complite &&
+    currentFailure.result_date &&
+    currentFailure.result_time &&
+    currentFailure.date &&
+    currentFailure.time
+  ) {
+    const startDateTime = new Date(
+      `${currentFailure.date}T${currentFailure.time}`
+    );
+    const endDateTime = new Date(
+      `${currentFailure.result_date}T${currentFailure.result_time}`
+    );
     const durationInMinutes = (endDateTime - startDateTime) / (1000 * 60);
     return Math.round(durationInMinutes);
   }
@@ -55,23 +73,23 @@ const calculateTotalTime = (failures) => {
 };
 
 const printTable = () => {
-  const printWindow = window.open('', '_blank');
+  const printWindow = window.open("", "_blank");
   const printDocument = printWindow.document;
-  
+
   // Копируем стили из текущего документа в новое окно
   const stylesheets = document.styleSheets;
   for (let i = 0; i < stylesheets.length; i++) {
     const stylesheet = stylesheets[i].href ? stylesheets[i].href : null;
     if (stylesheet) {
-      const link = printDocument.createElement('link');
-      link.rel = 'stylesheet';
+      const link = printDocument.createElement("link");
+      link.rel = "stylesheet";
       link.href = stylesheet;
       printDocument.head.appendChild(link);
     }
   }
 
   // Копируем содержимое таблицы в новое окно
-  const tableClone = document.querySelector('table').cloneNode(true);
+  const tableClone = document.querySelector("table").cloneNode(true);
   printDocument.body.appendChild(tableClone);
 
   // Вызываем окно печати для нового документа
@@ -80,7 +98,6 @@ const printTable = () => {
     printWindow.close();
   };
 };
-
 
 const toggleSort = () => {
   sortDirection.value = !sortDirection.value;
@@ -97,15 +114,23 @@ const sortData = (data) => {
 };
 
 const getAvailableReasons = (data) => {
-  const uniqueReasons = new Set(data.map(item => item.reason));
-  return ['Все', ...Array.from(uniqueReasons)];
+  const uniqueReasons = new Set(data.map((item) => item.reason));
+  return ["Все", ...Array.from(uniqueReasons)];
 };
 
 const filterByReasons = () => {
-  failures.value = processFailures(selectedReasons.value.includes('Все') ? reportData.value : reportData.value.filter(item => selectedReasons.value.includes(item.reason)));
+  failures.value = processFailures(
+    selectedReasons.value.includes("Все")
+      ? reportData.value
+      : reportData.value.filter((item) =>
+          selectedReasons.value.includes(item.reason)
+        )
+  );
 };
 onMounted(() => {
-  document.getElementById("reasonSelect").addEventListener("change", filterByReasons);
+  document
+    .getElementById("reasonSelect")
+    .addEventListener("change", filterByReasons);
 });
 </script>
 
@@ -113,37 +138,45 @@ onMounted(() => {
   <UIHeader />
   <UINav />
   <main class="main">
-      <div class="controls">
-        <label for="reasonSelect">Выберите причину: </label>
-        <select id="reasonSelect" v-model="selectedReasons">
-          <option v-for="reason in availableReasons" :key="reason" :value="reason">{{ reason }}</option>
-        </select>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Название оборудования</th>
-            <th @click="toggleSort">Причина сбоя</th>
-            <th>Время начала сбоя</th>
-            <th>Время устранения сбоя</th>
-            <th>Длительность устранения</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(failure, index) in failures" :key="index">
-            <td>{{ failure.equipmentName }}</td>
-            <td>{{ failure.reason }}</td>
-            <td>{{ failure.time }}</td>
-            <td>{{ failure.result_time || 'Не завершено' }}</td>
-            <td>{{ failure.duration || 'N/A' }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="summary">
-        <p>Суммарное время сбоев: {{ calculateTotalTime(failures) ?? 0 }} минут</p>
-      </div>
-      <UIButton @click="printTable">Печать отчета</UIButton>
-    </main>
+    <div class="controls">
+      <label for="reasonSelect">Выберите причину: </label>
+      <UISelect id="reasonSelect" v-model="selectedReason">
+        <option
+          v-for="reason in availableReasons"
+          :key="reason"
+          :value="reason"
+        >
+          {{ reason }}
+        </option>
+      </UISelect>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Название оборудования</th>
+          <th @click="toggleSort">Причина сбоя</th>
+          <th>Время начала сбоя</th>
+          <th>Время устранения сбоя</th>
+          <th>Длительность устранения</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(failure, index) in failures" :key="index">
+          <td>{{ failure.equipmentName }}</td>
+          <td>{{ failure.reason }}</td>
+          <td>{{ failure.time }}</td>
+          <td>{{ failure.result_time || "Не завершено" }}</td>
+          <td>{{ failure.duration || "N/A" }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="summary">
+      <p>
+        Суммарное время сбоев: {{ calculateTotalTime(failures) ?? 0 }} минут
+      </p>
+    </div>
+    <UIButton @click="printTable">Печать отчета</UIButton>
+  </main>
 </template>
 
 <style scoped>
@@ -185,7 +218,9 @@ th {
 
 @media print {
   /* Стили для печати, например, убираем ненужные элементы и задаем отступы */
-  .controls, .summary, button {
+  .controls,
+  .summary,
+  button {
     display: none;
   }
 

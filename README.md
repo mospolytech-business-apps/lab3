@@ -11,12 +11,12 @@
 - [x] {Максим} 1.3 Логин // Login.vue
 - [x] {Максим} 1.4 Регистрация // Register.vue
 - [x] {Артем} 1.5 Инструменты - [Director] // Tools.vue
-- [ ] {Максим} 1.6 Ингридиенты - [PurchaseManager, Director] // Ingredients.vue
+- [x] {Максим} 1.6 Ингридиенты - [PurchaseManager, Director] // Ingredients.vue
 
 2 сессия:
 
 - [x] {Андрей} 2.1 Планировка цехов - [Director] // WorkroomScheme.vue
-- [x] {Максим} 2.2 Список заказов - [ALL] // Home.vue
+- [ ] {Максим} 2.2 Список заказов - [ALL] // Home.vue
 - [x] {Ваня} 2.3 Оформление заказа - [Customer, ClientManager] // Home.vue + modal
 - [ ] {Максим} 2.4 Списание ингридиентов
 - [ ] {Даня} 2.5 Сбои оборудования - [Master] // EquipmentFailure.vue
@@ -34,4 +34,4 @@
 
 - [x] {Артем} 4.1 Тесты на пароль
 - [ ] {Миша} 4.2 Отчет по закупкам - [Director] // ToolsPurchaseReport.vue
-- [ ] {Андрей 2} 4.3 Отчет по сбоям - [Director] // EquipmentFailureReport.vue
+- [x] {Андрей 2} 4.3 Отчет по сбоям - [Director] // EquipmentFailureReport.vue
