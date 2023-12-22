@@ -1,11 +1,12 @@
 import { defineStore } from "pinia";
 import { useNotificationsStore } from "@/stores/notifications.store";
 import { ref } from "vue";
+import { api } from "@/api";
 
 export const useEquipmentsStore = defineStore("equipment", () => {
   const { addError } = useNotificationsStore();
 
-  const allEquipment = ref([]);
+  const allEquipments = ref([]);
 
   const fetchEquipment = async () => {
     const { res, err } = await api.fetchEquipment();
@@ -15,39 +16,41 @@ export const useEquipmentsStore = defineStore("equipment", () => {
       return;
     }
 
-    allEquipment.value = res;
+    allEquipments.value = res;
 
     return res;
   };
 
-  const addEquipment = async (tool) => {
-    const { res, err } = await api.addEquipment(tool);
+  const addEquipment = async (equipment) => {
+    const { res, err } = await api.addEquipment(equipment);
 
     if (err !== null) {
       addError(err.message);
       return;
     }
 
-    allTools.value.push(res);
+    allEquipments.value.push(res);
 
     return res;
   };
 
-  const deleteEquipment = async (tool) => {
-    const { res, err } = await api.deleteEquipment(tool);
+  const deleteEquipment = async (equipment) => {
+    const { res, err } = await api.deleteEquipment(equipment);
 
     if (err !== null) {
       addError(err.message);
       return;
     }
 
-    allTools.value.push(res);
+    allEquipments.value = allEquipments.value.filter(
+      (e) => e.id !== equipment.id
+    );
 
     return res;
   };
 
   return {
-    allEquipment,
+    allEquipments,
     fetchEquipment,
     addEquipment,
     deleteEquipment,

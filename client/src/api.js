@@ -26,7 +26,6 @@ export const api = {
   },
 
   addUser: async (user) => {
-    console.log(user);
     try {
       const response = await fetch(`${BASE_URL}/users`, {
         method: "POST",
@@ -163,7 +162,6 @@ export const api = {
   },
 
   deleteTool: async (tool) => {
-    console.log(tool);
     try {
       const response = await fetch(`${BASE_URL}/tools/${tool.id}`, {
         method: "DELETE",
@@ -224,6 +222,23 @@ export const api = {
     }
   },
 
+  deleteEquipment: async (equipment) => {
+    try {
+      const response = await fetch(`${BASE_URL}/equipment/${equipment.id}`, {
+        method: "DELETE",
+        headers,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      return { res: null, err: null };
+    } catch (error) {
+      return { res: null, err: error };
+    }
+  },
+
   fetchIngredients: async () => {
     try {
       const response = await fetch(`${BASE_URL}/ingredients`);
@@ -244,9 +259,47 @@ export const api = {
     }
   },
 
-  fetchEquipments: async () => {
+  fetchEquipment: async () => {
     try {
-      const response = await fetch(`${BASE_URL}/equipments.json`);
+      const response = await fetch(`${BASE_URL}/equipment`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(`${data.error} (${response.status}) `);
+      }
+
+      return { res: data, err: null, response };
+    } catch (error) {
+      return { res: null, err: error };
+    }
+  },
+
+  addEquipment: async (equipment) => {
+    try {
+      const response = await fetch(`${BASE_URL}/equipment`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify(equipment),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      return { res: null, err: null };
+    } catch (error) {
+      return { res: null, err: error };
+    }
+  },
+
+  fetchEquipmentFailures: async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/equipmentFailures`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -263,21 +316,20 @@ export const api = {
       return { res: null, err: error };
     }
   },
-  fetchEquipmentFailures: async () => {
+
+  addEquipmentFailures: async (equipmentFailures) => {
     try {
-      const response = await fetch(`${BASE_URL}/equipmentFailures.json`);
+      const response = await fetch(`${BASE_URL}/equipmentFailures`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify(equipmentFailures),
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(`${data.error} (${response.status}) `);
-      }
-
-      return { res: data, err: null };
+      return { res: null, err: null };
     } catch (error) {
       return { res: null, err: error };
     }

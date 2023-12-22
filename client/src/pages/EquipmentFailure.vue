@@ -64,7 +64,7 @@ const handleEditEquipmentFailure = (equipment) => {
             v-for="equipmentFailure in equipmentFailures"
             :key="equipmentFailure.id"
           >
-            <template v-if="equipmentFailure.complite == false">
+            <template v-if="equipmentFailure.complete == false">
               <td>
                 {{ equipmentFailure.equipment.type.name }}
                 {{ equipmentFailure.equipment.mark }}

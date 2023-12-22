@@ -4,31 +4,36 @@ import { useNotificationsStore } from "@/stores/notifications.store";
 import { api } from "@/api";
 import { BASE_URL } from "@/config.js";
 
-export const useEquipmentFailuresStore = defineStore("equipmentFailures", () => {
-  const { addError } = useNotificationsStore();
+export const useEquipmentFailuresStore = defineStore(
+  "equipmentFailures",
+  () => {
+    const { addError } = useNotificationsStore();
 
-  const allEquipmentFailures = ref([]);
+    const allEquipmentFailures = ref([]);
 
-  const fetchEquipmentFailures = async () => {
-    const { res, err } = await api.fetchEquipmentFailures(`${BASE_URL}/equipmentFailures.json`);
+    const fetchEquipmentFailures = async () => {
+      const { res, err } = await api.fetchEquipmentFailures(
+        `${BASE_URL}/equipmentFailures`
+      );
 
-    if (err !== null) {
-      addError(err.message);
-      return;
-    }
+      if (err !== null) {
+        addError(err.message);
+        return;
+      }
 
-    allEquipmentFailures.value = res;
+      allEquipmentFailures.value = res;
 
-    return res;
-  };
+      return res;
+    };
 
-  const addEquipmentFailures = (equipmentFailures) => {
-    allEquipmentFailures.value.push(equipmentFailures);
-  };
+    const addEquipmentFailures = (equipmentFailures) => {
+      allEquipmentFailures.value.push(equipmentFailures);
+    };
 
-  return {
-    allEquipmentFailures,
-    fetchEquipmentFailures,
-    addEquipmentFailures
-  };
-});
+    return {
+      allEquipmentFailures,
+      fetchEquipmentFailures,
+      addEquipmentFailures,
+    };
+  }
+);

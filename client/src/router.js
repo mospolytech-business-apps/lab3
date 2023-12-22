@@ -9,6 +9,7 @@ import EquipmentFailure from "@/pages/EquipmentFailure.vue";
 import Ingredients from "@/pages/Ingredients.vue";
 import WorkroomScheme from "@/pages/WorkroomScheme.vue";
 import QualityControl from "@/pages/QualityControl.vue";
+import Equipment from "@/pages/Equipment.vue";
 import EquipmentFailureReport from "@/pages/EquipmentFailureReport.vue";
 import ProductSpecification from "@/pages/ProductSpecification.vue";
 import Estimates from "@/pages/Estimates.vue";
@@ -50,6 +51,12 @@ const router = createRouter({
       name: "tools",
       component: Tools,
       meta: { title: "Учет инструментов", roles: [roles[4]] },
+    },
+    {
+      path: "/equipment",
+      name: "equipment",
+      component: Equipment,
+      meta: { title: "Учет оборудования", roles: [roles[4]] },
     },
     {
       path: "/ingredients",
