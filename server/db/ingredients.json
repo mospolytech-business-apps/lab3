@@ -10,7 +10,10 @@
       "price": 50,
       "gost": "ГОСТ 46-78",
       "packing": "мешок 1 кг",
-      "characteristics": "калории:364, белки:10, жиры:1, углеводы:75"
+      "supplier": "ООО 'Мука'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:364, белки:10, жиры:1, углеводы:75",
+      "isDecoration": false
     },
     {
       "id": 2,
@@ -21,8 +24,11 @@
       "type": "сахар",
       "price": 30,
       "gost": "ГОСТ 21-94",
+      "supplier": "ООО 'Сахар'",
+      "expirationDate": "2020-12-31",
       "packing": "пакет 500 г",
-      "characteristics": "калории:387, белки:0, жиры:0, углеводы:99.8"
+      "characteristics": "калории:387, белки:0, жиры:0, углеводы:99.8",
+      "isDecoration": false
     },
     {
       "id": 3,
@@ -33,8 +39,11 @@
       "type": "яйца",
       "price": 7,
       "gost": "ГОСТ 316-76",
+      "supplier": "ООО 'Яйцо'",
+      "expirationDate": "2020-12-31",
       "packing": "упаковка 10 шт",
-      "characteristics": "калории:155, белки:12.7, жиры:11.5, углеводы:1.1"
+      "characteristics": "калории:155, белки:12.7, жиры:11.5, углеводы:1.1",
+      "isDecoration": false
     },
     {
       "id": 4,
@@ -46,7 +55,10 @@
       "price": 25,
       "gost": "ГОСТ 32261-2013",
       "packing": "пачка 200 г",
-      "characteristics": "калории:748, белки:0.5, жиры:82.5, углеводы:0.8"
+      "supplier": "ООО 'Масло'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:748, белки:0.5, жиры:82.5, углеводы:0.8",
+      "isDecoration": false
     },
     {
       "id": 5,
@@ -58,7 +70,10 @@
       "price": 40,
       "gost": "ГОСТ 108-78",
       "packing": "банка 100 г",
-      "characteristics": "калории:228, белки:19.6, жиры:13.7, углеводы:57.7"
+      "supplier": "ООО 'Какао'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:228, белки:19.6, жиры:13.7, углеводы:57.7",
+      "isDecoration": false
     },
     {
       "id": 6,
@@ -70,7 +85,10 @@
       "price": 15,
       "gost": "ТУ 9148-003-49464 828-04",
       "packing": "бутылка 20 мл",
-      "characteristics": "калории:237, белки:0, жиры:0, углеводы:13"
+      "supplier": "ООО 'Ваниль'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:237, белки:0, жиры:0, углеводы:13",
+      "isDecoration": false
     },
     {
       "id": 7,
@@ -82,7 +100,10 @@
       "price": 20,
       "gost": "ГОСТ 37-91",
       "packing": "банка 150 г",
-      "characteristics": "калории:205, белки:2.8, жиры:15, углеводы:10"
+      "supplier": "ООО 'Сметана'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:205, белки:2.8, жиры:15, углеводы:10",
+      "isDecoration": false
     },
     {
       "id": 8,
@@ -94,7 +115,10 @@
       "price": 5,
       "gost": "ТУ 10-24-98",
       "packing": "пакет 10 г",
-      "characteristics": "калории:110, белки:0, жиры:0, углеводы:27.5"
+      "supplier": "ООО 'Разрыхлитель'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:110, белки:0, жиры:0, углеводы:27.5",
+      "isDecoration": false
     },
     {
       "id": 9,
@@ -106,10 +130,13 @@
       "price": 12,
       "gost": "ГОСТ 29048-91",
       "packing": "пакет 50 г",
-      "characteristics": "калории:354, белки:3.3, жиры:33.5, углеводы:6.2"
+      "supplier": "ООО 'Кокос'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:354, белки:3.3, жиры:33.5, углеводы:6.2",
+      "isDecoration": false
     },
     {
-      "id": 10,
+      "id": 3,
       "articul": "010",
       "name": "Фрукты сушеные",
       "units": "г",
@@ -118,10 +145,13 @@
       "price": 18,
       "gost": "ГОСТ 6543-78",
       "packing": "пакет 100 г",
-      "characteristics": "калории:350, белки:2.3, жиры:0.5, углеводы:85"
+      "supplier": "ООО 'Фрукты'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:350, белки:2.3, жиры:0.5, углеводы:85",
+      "isDecoration": false
     },
     {
-      "id": 11,
+      "id": 4,
       "articul": "011",
       "name": "Сгущенное молоко",
       "units": "г",
@@ -130,7 +160,10 @@
       "price": 30,
       "gost": "ГОСТ 31688-2012",
       "packing": "банка 200 г",
-      "characteristics": "калории:335, белки:8.5, жиры:8.5, углеводы:56"
+      "supplier": "ООО 'Молоко'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:335, белки:8.5, жиры:8.5, углеводы:56",
+      "isDecoration": false
     },
     {
       "id": 12,
@@ -142,7 +175,10 @@
       "price": 15,
       "gost": "ГОСТ 32177-2013",
       "packing": "пачка 150 г",
-      "characteristics": "калории:717, белки:0.5, жиры:81, углеводы:0.5"
+      "supplier": "ООО 'Маргарин'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:717, белки:0.5, жиры:81, углеводы:0.5",
+      "isDecoration": false
     },
     {
       "id": 13,
@@ -154,7 +190,10 @@
       "price": 8,
       "gost": "ТУ 10-24-98",
       "packing": "пакет 5 г",
-      "characteristics": "калории:110, белки:0, жиры:0, углеводы:27.5"
+      "supplier": "ООО 'Разрыхлитель'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:110, белки:0, жиры:0, углеводы:27.5",
+      "isDecoration": false
     },
     {
       "id": 14,
@@ -166,8 +205,12 @@
       "price": 25,
       "gost": "ГОСТ 31688-2012",
       "packing": "банка 200 г",
-      "characteristics": "калории:320, белки:7.2, жиры:8.5, углеводы:56"
+      "supplier": "ООО 'Молоко'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:320, белки:7.2, жиры:8.5, углеводы:56",
+      "isDecoration": false
     },
+
     {
       "id": 15,
       "articul": "015",
@@ -178,7 +221,10 @@
       "price": 45,
       "gost": "ГОСТ 103-2018",
       "packing": "плитка 100 г",
-      "characteristics": "калории:546, белки:5.4, жиры:32.4, углеводы:57.5"
+      "supplier": "ООО 'Шоколад'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:546, белки:5.4, жиры:32.4, углеводы:57.5",
+      "isDecoration": false
     },
     {
       "id": 16,
@@ -190,7 +236,10 @@
       "price": 20,
       "gost": "ГОСТ 6543-78",
       "packing": "пачка 150 г",
-      "characteristics": "калории:520, белки:2.5, жиры:28, углеводы:65"
+      "supplier": "ООО 'Глазурь'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:520, белки:2.5, жиры:28, углеводы:65",
+      "isDecoration": false
     },
     {
       "id": 17,
@@ -202,7 +251,10 @@
       "price": 18,
       "gost": "ГОСТ 6543-78",
       "packing": "банка 200 г",
-      "characteristics": "калории:250, белки:0.5, жиры:0.1, углеводы:63"
+      "supplier": "ООО 'Джем'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:250, белки:0.5, жиры:0.1, углеводы:63",
+      "isDecoration": false
     },
     {
       "id": 18,
@@ -214,7 +266,10 @@
       "price": 60,
       "gost": "ГОСТ 168-2015",
       "packing": "пакет 100 г",
-      "characteristics": "калории:654, белки:15, жиры:65, углеводы:14"
+      "supplier": "ООО 'Орехи'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:654, белки:15, жиры:65, углеводы:14",
+      "isDecoration": false
     },
     {
       "id": 19,
@@ -226,7 +281,10 @@
       "price": 25,
       "gost": "ГОСТ 21-94",
       "packing": "пакет 200 г",
-      "characteristics": "калории:389, белки:0, жиры:0, углеводы:99.9"
+      "supplier": "ООО 'Сахар'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:389, белки:0, жиры:0, углеводы:99.9",
+      "isDecoration": false
     },
     {
       "id": 20,
@@ -238,7 +296,10 @@
       "price": 10,
       "gost": "ГОСТ 11078-78",
       "packing": "пакет 50 г",
-      "characteristics": "калории:381, белки:0.3, жиры:0.1, углеводы:91"
+      "supplier": "ООО 'Крахмал'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:381, белки:0.3, жиры:0.1, углеводы:91",
+      "isDecoration": false
     },
     {
       "id": 21,
@@ -250,7 +311,10 @@
       "price": 40,
       "gost": "ГОСТ 107-2018",
       "packing": "пачка 50 г",
-      "characteristics": "калории:228, белки:19.6, жиры:13.7, углеводы:57.7"
+      "supplier": "ООО 'Какао'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:228, белки:19.6, жиры:13.7, углеводы:57.7",
+      "isDecoration": false
     },
     {
       "id": 22,
@@ -262,7 +326,10 @@
       "price": 30,
       "gost": "ГОСТ 168-2015",
       "packing": "пачка 100 г",
-      "characteristics": "калории:354, белки:3.3, жиры:33.5, углеводы:6.2"
+      "supplier": "ООО 'Кокос'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:354, белки:3.3, жиры:33.5, углеводы:6.2",
+      "isDecoration": false
     },
     {
       "id": 23,
@@ -274,7 +341,10 @@
       "price": 25,
       "gost": "ГОСТ 456-2013",
       "packing": "пачка 200 г",
-      "characteristics": "калории:320, белки:2.5, жиры:0.5, углеводы:80"
+      "supplier": "ООО 'Фрукты'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:320, белки:2.5, жиры:0.5, углеводы:80",
+      "isDecoration": false
     },
     {
       "id": 24,
@@ -286,7 +356,10 @@
       "price": 5,
       "gost": "ТУ 9148-003-49464 828-04",
       "packing": "пачка 10 г",
-      "characteristics": "калории:110, белки:0, жиры:0, углеводы:27.5"
+      "supplier": "ООО 'Разрыхлитель'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:110, белки:0, жиры:0, углеводы:27.5",
+      "isDecoration": false
     },
     {
       "id": 25,
@@ -298,7 +371,10 @@
       "price": 60,
       "gost": "ГОСТ 400-2015",
       "packing": "банка 200 г",
-      "characteristics": "калории:304, белки:0.3, жиры:0, углеводы:82"
+      "supplier": "ООО 'Мед'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:304, белки:0.3, жиры:0, углеводы:82",
+      "isDecoration": false
     },
     {
       "id": 26,
@@ -310,7 +386,10 @@
       "price": 20,
       "gost": "ГОСТ 33261-2013",
       "packing": "пачка 200 мл",
-      "characteristics": "калории:120, белки:6, жиры:4, углеводы:10"
+      "supplier": "ООО 'Молоко'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:120, белки:6, жиры:4, углеводы:10",
+      "isDecoration": false
     },
     {
       "id": 27,
@@ -322,7 +401,10 @@
       "price": 35,
       "gost": "ГОСТ 46-78",
       "packing": "пачка 150 г",
-      "characteristics": "калории:360, белки:6, жиры:1, углеводы:80"
+      "supplier": "ООО 'Мука'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:360, белки:6, жиры:1, углеводы:80",
+      "isDecoration": false
     },
     {
       "id": 28,
@@ -334,7 +416,10 @@
       "price": 15,
       "gost": "ГОСТ 11078-78",
       "packing": "пачка 100 г",
-      "characteristics": "калории:340, белки:0.5, жиры:0, углеводы:85"
+      "supplier": "ООО 'Крахмал'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:340, белки:0.5, жиры:0, углеводы:85",
+      "isDecoration": false
     },
     {
       "id": 29,
@@ -346,7 +431,10 @@
       "price": 50,
       "gost": "ГОСТ 33261-2013",
       "packing": "пачка 200 мл",
-      "characteristics": "калории:300, белки:2, жиры:30, углеводы:3"
+      "supplier": "ООО 'Сливки'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:300, белки:2, жиры:30, углеводы:3",
+      "isDecoration": false
     },
     {
       "id": 30,
@@ -358,7 +446,311 @@
       "price": 25,
       "gost": "ГОСТ 456-2013",
       "packing": "бутылка 150 мл",
-      "characteristics": "калории:310, белки:0, жиры:0, углеводы:80"
+      "supplier": "ООО 'Сироп'",
+      "expirationDate": "2020-12-31",
+      "characteristics": "калории:310, белки:0, жиры:0, углеводы:80",
+      "isDecoration": false
+    },
+    {
+      "id": 31,
+      "articul": "101",
+      "name": "Цветочная гирлянда",
+      "units": "шт",
+      "amount": 3,
+      "type": "украшение",
+      "price": 180,
+      "gost": null,
+      "packing": null,
+      "supplier": "ООО 'ФлораДеко'",
+      "expirationDate": "2023-06-30",
+      "characteristics": null,
+      "isDecoration": true
+    },
+    {
+      "id": 32,
+      "articul": "102",
+      "name": "Фигурка тортовая",
+      "units": "шт",
+      "amount": 5,
+      "type": "украшение",
+      "price": 300,
+      "gost": null,
+      "packing": null,
+      "supplier": "ИП 'ТортикМастер'",
+      "expirationDate": "2023-08-15",
+      "characteristics": null,
+      "isDecoration": true
+    },
+    {
+      "id": 33,
+      "articul": "103",
+      "name": "Бант из атласа",
+      "units": "шт",
+      "amount": 10,
+      "type": "украшение",
+      "price": 150,
+      "gost": null,
+      "packing": null,
+      "supplier": "ЗАО 'Ленточка'",
+      "expirationDate": "2023-07-31",
+      "characteristics": null,
+      "isDecoration": true
+    },
+    {
+      "id": 34,
+      "articul": "104",
+      "name": "Золотые конфетти",
+      "units": "г",
+      "amount": 50,
+      "type": "украшение",
+      "price": 200,
+      "gost": null,
+      "packing": null,
+      "supplier": "ООО 'ГлиттерГлэм'",
+      "expirationDate": "2023-09-30",
+      "characteristics": null,
+      "isDecoration": true
+    },
+    {
+      "id": 35,
+      "articul": "104",
+      "name": "Золотые конфетти",
+      "units": "г",
+      "amount": 50,
+      "type": "украшение",
+      "price": 200,
+      "gost": null,
+      "packing": null,
+      "supplier": "ООО 'ГлиттерГлэм'",
+      "expirationDate": "2023-09-30",
+      "characteristics": null,
+      "isDecoration": true
+    },
+
+    {
+      "id": 36,
+      "articul": "106",
+      "name": "Флаги для торта",
+      "units": "шт",
+      "amount": 15,
+      "type": "украшение",
+      "price": 120,
+      "gost": null,
+      "packing": null,
+      "supplier": "ООО 'Триколор'",
+      "expirationDate": "2023-10-15",
+      "characteristics": null,
+      "isDecoration": true
+    },
+    {
+      "id": 37,
+      "articul": "107",
+      "name": "Шарики из фольги",
+      "units": "шт",
+      "amount": 4,
+      "type": "украшение",
+      "price": 180,
+      "gost": null,
+      "packing": null,
+      "supplier": "ИП 'Воздушные Шарики'",
+      "expirationDate": "2023-09-15",
+      "characteristics": null,
+      "isDecoration": true
+    },
+    {
+      "id": 38,
+      "articul": "108",
+      "name": "Декоративные муравьи",
+      "units": "шт",
+      "amount": 6,
+      "type": "украшение",
+      "price": 250,
+      "gost": null,
+      "packing": null,
+      "supplier": "ЗАО 'КреативАрт'",
+      "expirationDate": "2023-07-31",
+      "characteristics": null,
+      "isDecoration": true
+    },
+    {
+      "id": 39,
+      "articul": "109",
+      "name": "Ленточные бабочки",
+      "units": "шт",
+      "amount": 12,
+      "type": "украшение",
+      "price": 200,
+      "gost": null,
+      "packing": null,
+      "supplier": "ООО 'БабочкиМечты'",
+      "expirationDate": "2023-10-31",
+      "characteristics": null,
+      "isDecoration": true
+    },
+    {
+      "id": 40,
+      "articul": "110",
+      "name": "Зеркальные шарики",
+      "units": "шт",
+      "amount": 7,
+      "type": "украшение",
+      "price": 300,
+      "gost": null,
+      "packing": null,
+      "supplier": "ИП 'ЗеркальныйСвет'",
+      "expirationDate": "2023-11-30",
+      "characteristics": null,
+      "isDecoration": true
+    },
+    {
+      "id": 41,
+      "articul": "111",
+      "name": "Цветные кристаллы",
+      "units": "г",
+      "amount": 50,
+      "type": "украшение",
+      "price": 160,
+      "gost": null,
+      "packing": null,
+      "supplier": "ЗАО 'КристаллМагия'",
+      "expirationDate": "2023-12-31",
+      "characteristics": null,
+      "isDecoration": true
+    },
+    {
+      "id": 42,
+      "articul": "112",
+      "name": "Пенопластовые звезды",
+      "units": "шт",
+      "amount": 20,
+      "type": "украшение",
+      "price": 120,
+      "gost": null,
+      "packing": null,
+      "supplier": "ИП 'ЗвездныйДекор'",
+      "expirationDate": "2023-11-15",
+      "characteristics": null,
+      "isDecoration": true
+    },
+    {
+      "id": 43,
+      "articul": "113",
+      "name": "Металлические цветы",
+      "units": "шт",
+      "amount": 4,
+      "type": "украшение",
+      "price": 220,
+      "gost": null,
+      "packing": null,
+      "supplier": "ОАО 'МеталлЦветы'",
+      "expirationDate": "2024-01-31",
+      "characteristics": null,
+      "isDecoration": true
+    },
+    {
+      "id": 44,
+      "articul": "114",
+      "name": "Фольгированные бабочки",
+      "units": "шт",
+      "amount": 8,
+      "type": "украшение",
+      "price": 180,
+      "gost": null,
+      "packing": null,
+      "supplier": "ИП 'БабочкиФантазии'",
+      "expirationDate": "2023-12-15",
+      "characteristics": null,
+      "isDecoration": true
+    },
+    {
+      "id": 45,
+      "articul": "115",
+      "name": "Специальный лак для украшений",
+      "units": "мл",
+      "amount": 100,
+      "type": "украшение",
+      "price": 300,
+      "gost": null,
+      "packing": null,
+      "supplier": "ООО 'ЛакМастер'",
+      "expirationDate": "2024-02-28",
+      "characteristics": null,
+      "isDecoration": true
+    },
+    {
+      "id": 46,
+      "articul": "116",
+      "name": "Стеклянные мелочи",
+      "units": "г",
+      "amount": 80,
+      "type": "украшение",
+      "price": 250,
+      "gost": null,
+      "packing": null,
+      "supplier": "ЗАО 'СтеклоArt'",
+      "expirationDate": "2024-03-31",
+      "characteristics": null,
+      "isDecoration": true
+    },
+    {
+      "id": 47,
+      "articul": "117",
+      "name": "Фольгированные сердца",
+      "units": "шт",
+      "amount": 10,
+      "type": "украшение",
+      "price": 200,
+      "gost": null,
+      "packing": null,
+      "supplier": "ИП 'СердцеАрт'",
+      "expirationDate": "2024-02-15",
+      "characteristics": null,
+      "isDecoration": true
+    },
+    {
+      "id": 48,
+      "articul": "118",
+      "name": "Деревянные фигуры",
+      "units": "шт",
+      "amount": 6,
+      "type": "украшение",
+      "price": 180,
+      "gost": null,
+      "packing": null,
+      "supplier": "ООО 'ДеревоМастер'",
+      "expirationDate": "2024-04-30",
+      "characteristics": null,
+      "isDecoration": true
+    },
+    {
+      "id": 49,
+      "articul": "119",
+      "name": "Глиттер для украшений",
+      "units": "г",
+      "amount": 30,
+      "type": "украшение",
+      "price": 150,
+      "gost": null,
+      "packing": null,
+      "supplier": "ИП 'ГлиттерМагия'",
+      "expirationDate": "2024-03-15",
+      "characteristics": null,
+      "isDecoration": true
+    },
+    {
+      "id": 50,
+      "articul": "120",
+      "name": "Специальная краска для украшений",
+      "units": "мл",
+      "amount": 50,
+      "type": "украшение",
+      "price": 280,
+      "gost": null,
+      "packing": null,
+      "supplier": "ООО 'КраскаАрт'",
+      "expirationDate": "2024-05-31",
+      "characteristics": null,
+      "isDecoration": true
     }
   ]
 }

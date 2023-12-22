@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onUnmounted, onMounted, computed } from "vue";
+import { ref, onMounted, watchEffect } from "vue";
 import { storeToRefs } from "pinia";
 import { useEquipmentFailuresStore } from "@/stores/equipmentFailures.store";
 
@@ -24,12 +24,17 @@ const handleNewEquipmentFailure = () => {
   openEquipmentFailureModal();
 };
 
-const { addEquipmentFailures, fetchEquipmentFailures } = useEquipmentFailuresStore();
+const { addEquipmentFailures, fetchEquipmentFailures } =
+  useEquipmentFailuresStore();
 const { allEquipmentFailures } = storeToRefs(useEquipmentFailuresStore());
 
 const equipmentFailures = ref([]);
 onMounted(async () => {
-  equipmentFailures.value = allEquipmentFailures.value.length ? allEquipmentFailures.value : await fetchEquipmentFailures();
+  watchEffect(async () => {
+    equipmentFailures.value = allEquipmentFailures.value.length
+      ? allEquipmentFailures.value
+      : await fetchEquipmentFailures();
+  });
 });
 
 const handleEditEquipmentFailure = (equipment) => {
@@ -59,18 +64,29 @@ const handleEditEquipmentFailure = (equipment) => {
             v-for="equipmentFailure in equipmentFailures"
             :key="equipmentFailure.id"
           >
-          <template v-if="equipmentFailure.complite == false">
-            <td>{{ equipmentFailure.equipment.type.name}} {{ equipmentFailure.equipment.mark }}</td>
-            <td>{{ equipmentFailure.date}}</td>
-            <td>{{ equipmentFailure.time}}</td>
-            <td>{{ equipmentFailure.reason}}</td>
-            <td class="actions"><UIButton @click="handleEditEquipmentFailure(equipmentFailure)">Редактировать</UIButton></td>
-          </template>
+            <template v-if="equipmentFailure.complite == false">
+              <td>
+                {{ equipmentFailure.equipment.type.name }}
+                {{ equipmentFailure.equipment.mark }}
+              </td>
+              <td>{{ equipmentFailure.date }}</td>
+              <td>{{ equipmentFailure.time }}</td>
+              <td>{{ equipmentFailure.reason }}</td>
+              <td class="actions">
+                <UIButton @click="handleEditEquipmentFailure(equipmentFailure)"
+                  >Редактировать</UIButton
+                >
+              </td>
+            </template>
           </tr>
         </tbody>
       </table>
     </div>
-    <EquipmentFailerModal :open="isEquipmentFailureModalOpen" @close="closeEquipmentFailureModal" :equipment="editableEquipmentFailure"/>
+    <EquipmentFailerModal
+      :open="isEquipmentFailureModalOpen"
+      @close="closeEquipmentFailureModal"
+      :equipment="editableEquipmentFailure"
+    />
   </main>
 </template>
 
@@ -90,7 +106,7 @@ th {
   padding-inline-start: 0.25rem;
 }
 
-.actions{
+.actions {
   display: flex;
   justify-content: center;
 }

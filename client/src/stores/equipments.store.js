@@ -1,29 +1,55 @@
-import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import { useNotificationsStore } from "@/stores/notifications.store";
-import { api } from "@/api";
-import { BASE_URL } from "@/config.js";
+import { ref } from "vue";
 
-export const useEquipmentsStore = defineStore("equipments", () => {
+export const useEquipmentsStore = defineStore("equipment", () => {
   const { addError } = useNotificationsStore();
 
-  const allEquipments = ref([]);
+  const allEquipment = ref([]);
 
-  const fetchEquipments = async () => {
-    const { res, err } = await api.fetchEquipments(`${BASE_URL}/equipments.json`);
+  const fetchEquipment = async () => {
+    const { res, err } = await api.fetchEquipment();
 
     if (err !== null) {
       addError(err.message);
       return;
     }
 
-    allEquipments.value = res;
+    allEquipment.value = res;
+
+    return res;
+  };
+
+  const addEquipment = async (tool) => {
+    const { res, err } = await api.addEquipment(tool);
+
+    if (err !== null) {
+      addError(err.message);
+      return;
+    }
+
+    allTools.value.push(res);
+
+    return res;
+  };
+
+  const deleteEquipment = async (tool) => {
+    const { res, err } = await api.deleteEquipment(tool);
+
+    if (err !== null) {
+      addError(err.message);
+      return;
+    }
+
+    allTools.value.push(res);
 
     return res;
   };
 
   return {
-    allEquipments,
-    fetchEquipments,
+    allEquipment,
+    fetchEquipment,
+    addEquipment,
+    deleteEquipment,
   };
 });
