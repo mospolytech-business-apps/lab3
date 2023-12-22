@@ -19,7 +19,7 @@
 - [ ] {Максим} 2.2 Список заказов - [ALL] // Home.vue
 - [ ] {Ваня, Максим} 2.3 Оформление заказа - [Customer, ClientManager] // Home.vue + modal
 - [ ] {Андрей 2} 2.4 Списание ингридиентов
-- [ ] {Даня, Артем} 2.5 Сбои оборудования - [Master] // EquipmentFailure.vue
+- [ ] {Даня, Максим} 2.5 Сбои оборудования - [Master] // EquipmentFailure.vue
 - [x] {Паша} 2.6 Контроль качества - [Master] // QualityControl.vue
 
 4 сессия:
