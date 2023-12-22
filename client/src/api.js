@@ -116,4 +116,92 @@ export const api = {
       return { res: null, err: error };
     }
   },
+
+  fetchTools: async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/tools`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(`${data.error} (${response.status}) `);
+      }
+
+      return { res: data, err: null };
+    } catch (error) {
+      return { res: null, err: error };
+    }
+  },
+
+  addTool: async (tool) => {
+    try {
+      const response = await fetch(`${BASE_URL}/tools`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify(tool),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(`${data.error} (${response.status}) `);
+      }
+
+      return { res: data, err: null };
+    } catch (error) {
+      return { res: null, err: error };
+    }
+  },
+
+  fetchEquipment: async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/equipment`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(`${data.error} (${response.status}) `);
+      }
+
+      return { res: data, err: null };
+    } catch (error) {
+      return { res: null, err: error };
+    }
+  },
+
+  addEquipment: async (tool) => {
+    try {
+      const response = await fetch(`${BASE_URL}/equipment`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify(tool),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(`${data.error} (${response.status}) `);
+      }
+
+      return { res: data, err: null };
+    } catch (error) {
+      return { res: null, err: error };
+    }
+  },
 };

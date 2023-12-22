@@ -1,10 +1,11 @@
 <script setup>
-import { ref, onUnmounted, onMounted, computed } from "vue";
 import { storeToRefs } from "pinia";
-import { useEquipmentStore } from "@/stores/equipment.store";
-import { useNotificationsStore } from "@/stores/notifications.store";
-import { useUsersStore } from "@/stores/users.store";
-import AddToolModal from "@/components/AddToolModal.vue";
+// import { useToolsStore } from "@/stores/tools.store";
+// import { useNotificationsStore } from "@/stores/notifications.store";
+// import AddToolModal from "@/components/AddToolModal.vue";
+
+// const { allTools } = storeToRefs(useToolsStore());
+// const { addAlert } = useNotificationsStore();
 
 const MONTH_IN_MS = 2.628e9;
 const getEquipmentAge = (date) => {
@@ -21,24 +22,25 @@ const getEquipmentAge = (date) => {
       <table class="table">
         <thead>
           <tr>
-            <th>Заказ</th>
-            <th>Дата</th>
             <th>Наименование</th>
-            <th>Статус</th>
+            <th>Тип</th>
+            <th>Возраст</th>
+            <th>Количество</th>
           </tr>
         </thead>
         <tbody>
           <tr
-            v-for="tool in tools"
+            v-for="tool in allTools"
             :key="tool.id"
             @click="selectOrder(order)"
             :class="{
               selected: order === selectedOrder,
             }"
           >
-            <td>№{{ tool }}</td>
-            <td>{{ tool }}</td>
-            <td>{{ tool }}</td>
+            <td>{{ tool.name }}</td>
+            <td>{{ tool.InstanceType }}</td>
+            <td>{{ tool.usageDegree }}</td>
+            <td>{{ tool.amount }}</td>
           </tr>
         </tbody>
       </table>

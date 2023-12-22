@@ -1,6 +1,8 @@
 <script setup>
 import UIButton from "@/components/UIButton.vue";
 import { ref } from "vue";
+import { useUsersStore } from "@/stores/users.store";
+const { addUser } = useUsersStore();
 
 const editedCustomer = ref({});
 const props = defineProps({
@@ -21,14 +23,15 @@ const emit = defineEmits(["close"]);
     </button>
     <main class="customer__main">
       <form
+        id="customer"
         class="customer__form"
-        @submit.prevent="applyRoleChanges(customerData)"
+        @submit.prevent="addUser(customerData)"
       >
         <label class="customer__label"
           >Логин
           <input
             class="input"
-            v-model="editedCustomer.something"
+            v-model="editedCustomer.username"
             type="text"
             required
           />
@@ -37,7 +40,7 @@ const emit = defineEmits(["close"]);
           >Имя
           <input
             class="input"
-            v-model="editedCustomer.something"
+            v-model="editedCustomer.firstName"
             type="text"
             required
           />
@@ -46,14 +49,16 @@ const emit = defineEmits(["close"]);
           >Фамилия
           <input
             class="input"
-            v-model="editedCustomer.something"
+            v-model="editedCustomer.lastName"
             type="text"
             required
           />
         </label>
       </form>
       <div class="customer__actions">
-        <UIButton class="user-add-btn" type="submit">Добавить клиента</UIButton>
+        <UIButton class="user-add-btn" form="customer" type="submit"
+          >Добавить клиента</UIButton
+        >
       </div>
     </main>
   </div>
@@ -70,8 +75,8 @@ const emit = defineEmits(["close"]);
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  padding: 0.5rem 1rem;
-  margin-top: 0.2rem;
+  padding: 0.5rem 2rem;
+  margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   background-color: white;
 }
@@ -83,8 +88,8 @@ const emit = defineEmits(["close"]);
   gap: 1rem;
 }
 .customer__label {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
   flex-grow: 1;
   gap: 0.5rem;
   width: 100%;

@@ -5,16 +5,16 @@ import { storeToRefs } from "pinia";
 import Login from "@/pages/Login.vue";
 import Register from "@/pages/Register.vue";
 import Orders from "@/pages/Orders.vue";
-import Equipment from "@/pages/Equipment.vue";
+import EquipmentFailure from "@/pages/EquipmentFailure.vue";
 import Ingredients from "@/pages/Ingredients.vue";
 import WorkroomScheme from "@/pages/WorkroomScheme.vue";
 import QualityControl from "@/pages/QualityControl.vue";
-import EquipmentFailure from "@/pages/EquipmentFailure.vue";
+import EquipmentFailureReport from "@/pages/EquipmentFailureReport.vue";
 import ProductSpecification from "@/pages/ProductSpecification.vue";
 import Estimates from "@/pages/Estimates.vue";
 import IngredientsReport from "@/pages/IngredientsReport.vue";
-import PurchaseReport from "@/pages/PurchaseReport.vue";
-import EquipmentFailureReport from "@/pages/EquipmentFailureReport.vue";
+import Tools from "@/pages/Tools.vue";
+import ToolsPurchaseReport from "@/pages/ToolsPurchaseReport.vue";
 
 const roles = [
   "Customer",
@@ -46,9 +46,9 @@ const router = createRouter({
       meta: { title: "Регистрация заказчика", roles: roles },
     },
     {
-      path: "/equipment",
-      name: "equipment",
-      component: Equipment,
+      path: "/tools",
+      name: "tools",
+      component: Tools,
       meta: { title: "Учет инструментов", roles: [roles[4]] },
     },
     {
@@ -103,9 +103,9 @@ const router = createRouter({
       },
     },
     {
-      path: "/purchase-report",
-      name: "purchase-report",
-      component: PurchaseReport,
+      path: "/tools-purchase-report",
+      name: "tools-purchase-report",
+      component: ToolsPurchaseReport,
       meta: { title: "Отчет по закупкам инструмента", roles: [roles[4]] },
     },
     {

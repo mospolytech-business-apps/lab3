@@ -5,10 +5,10 @@ import UIButton from "@/components/UIButton.vue";
 import UIHeader from "@/components/UIHeader.vue";
 import UINav from "@/components/UINav.vue";
 
-import { useequipmentStore } from "@/stores/equipment.store";
+import { useEquipmentStore } from "@/stores/equipment.store";
 
-const { equipment } = storeToRefs(useequipmentStore());
-const { addEquipment } = useequipmentStore();
+const { equipment } = storeToRefs(useEquipmentStore());
+const { addEquipment } = useEquipmentStore();
 
 const toISOStringWithTimezone = (date) => {
   const pad = (n) => `${Math.floor(Math.abs(n))}`.padStart(2, "0");

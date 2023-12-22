@@ -9,27 +9,34 @@ import { storeToRefs } from "pinia";
 import { useUsersStore } from "@/stores/users.store";
 import { useOrdersStore } from "@/stores/orders.store";
 
-const { fetchUsers, clientManagers, customers } = useUsersStore();
+const { fetchUsers, addUser } = useUsersStore();
+const { clientManagers, customers } = storeToRefs(useUsersStore());
 const { statuses, numberOfOrdersToday, editOrder, addOrder } = useOrdersStore();
-const { allUsers, currentUser } = storeToRefs(useUsersStore());
 
 const props = defineProps({
   open: { type: Boolean, required: true },
-  editableOrder: { type: Object || null, required: true },
+  order: { type: Object || null, required: true },
   isEditing: { type: Boolean, required: true },
 });
 
 const emit = defineEmits(["close"]);
 
-const editedOrder = ref({});
+const orderData = ref(null);
 
 watchEffect(() => {
-  editedOrder.value = { ...props.order };
+  orderData.value = props.isEditing
+    ? { ...props.order }
+    : {
+        number: null,
+        name: null,
+        price: null,
+        images: [],
+      };
 });
 
 const applyOrderChanges = () => {
-  editOrder(editedOrder.value.id, {
-    ...editedOrder.value,
+  editOrder(orderData.value.id, {
+    ...order.value,
   });
   emit("updateData");
   emit("close");
@@ -39,17 +46,14 @@ const close = () => {
   emit("close");
 };
 
-const isCustomerModalOpen = ref(true);
-
-const editableCustomer = ref(null);
-const selectedCustomer = ref(null);
-
-const closeCustomerModal = async () => {
-  isCustomerModalOpen.value = false;
-  editableCustomer.value = null;
-};
+const isCustomerModalOpen = ref(null);
 
 const newCustomerData = ref(null);
+const closeCustomerModal = async () => {
+  isCustomerModalOpen.value = false;
+  newCustomerData.value = null;
+};
+
 const handleNewCustomer = () => {
   isCustomerModalOpen.value = true;
   addUser(newCustomerData.value);
@@ -69,36 +73,52 @@ onMounted(async () => {
     today.getFullYear() +
     numberOfOrdersToday;
 });
+
+const files = ref(null);
+const imgPaths = ref([]);
+
+const getFile = (event) => {
+  files.value = event.target.files;
+};
+
+const addFiles = () => {
+  if (files.value) {
+    for (let i = 0; i < files.value.length; i++) {
+      const file = files.value[i];
+      const preview = new FileReader();
+
+      preview.readAsDataURL(file);
+      preview.onload = () => {
+        imgPaths.value.push(preview.result);
+      };
+    }
+  }
+};
 </script>
 
 <template>
   <div v-if="props.open" class="modal">
     <UIHeader
-      :title="isEditing ? 'Изменить заказ' : 'Добавить заказ'"
+      :title="props.isEditing ? 'Изменить заказ' : 'Добавить заказ'"
       :closeButtonHandler="close"
     />
 
     <main class="main">
-      <form class="form" action="">
-        <label class="field">
-          <span class="label">Наименование заказа </span>
-          <input
-            class="input"
-            v-model="editedOrder.something"
-            type="text"
-            required
-          />
+      <form class="form" @submit.prevent="applyOrderChanges">
+        <label class="field" v-show="props.isEditing">
+          <span class="label">Номер и дата заказа</span>
+          <b class="field">{{ orderData.number }}</b>
         </label>
 
         <label class="field">
-          <span class="label">Номер и дата заказа</span>
-          <b class="field">{{ orderNumber }}</b>
+          <span class="label">Наименование заказа </span>
+          <input class="input" v-model="orderData.name" type="text" required />
         </label>
 
         <label class="field" v-show="props.isEditing">
           <span class="label">Статус заказа</span>
-          <UISelect class="select-status" v-model="editedOrder.status" required>
-            <option v-for="status in statuses" value="status.name">
+          <UISelect class="select-status" v-model="orderData.status" required>
+            <option v-for="status in statuses" :value="status.status">
               {{ status.title }}
             </option>
           </UISelect>
@@ -106,32 +126,28 @@ onMounted(async () => {
 
         <label class="field">
           <span class="label">Стоимость заказа</span>
-          <input
-            class="input"
-            v-model="editedOrder.something"
-            type="text"
-            required
-          />
+          <input class="input" v-model="orderData.price" type="text" required />
         </label>
 
         <label class="customer-select">
           <span class="label">Заказчик</span>
           <div class="customer">
-            <UISelect v-model="editedOrder.customer" requited>
+            <UISelect v-model="orderData.customer" requited>
               <option v-for="customer in customers" value="customer.id">
                 {{ customer.firstName }} ({{ customer.username }})
               </option>
             </UISelect>
-            <div class="add-customer">
-              <UIButton @click="handleNewCustomer" class="add-customer__btn"
-                >Добавить заказчика</UIButton
-              >
-              <CustomerModal
-                class="add-customer__modal"
-                :open="isCustomerModalOpen"
-                @close="closeCustomerModal"
-              />
-            </div>
+            <UIButton
+              @click="handleNewCustomer"
+              class="add-customer__btn"
+              type="button"
+              >Добавить заказчика</UIButton
+            >
+            <CustomerModal
+              class="add-customer__modal"
+              :open="isCustomerModalOpen"
+              @close="closeCustomerModal"
+            />
           </div>
         </label>
 
@@ -139,17 +155,21 @@ onMounted(async () => {
           <span class="label">Запланированная дата выполнения</span>
           <input
             class="input"
-            v-model="editedOrder.something"
-            type="text"
+            v-model="orderData.finish"
+            type="date"
             required
           />
         </label>
 
-        <label class="filed">
+        <label class="filed" v-show="isEditing">
           <span class="label">Ответственный менеджер</span>
-          <UISelect v-model="editedOrder.customer" requited>
+          <UISelect
+            class="select-customer"
+            v-model="orderData.manager"
+            requited
+          >
             <option v-for="manager in clientManagers" value="manager.id">
-              {{ manager.username }}
+              {{ manager.firstName }} ({{ manager.username }})
             </option>
           </UISelect>
           <div class="add-customer"></div>
@@ -161,19 +181,29 @@ onMounted(async () => {
             <input
               class="input"
               type="file"
-              placeholder="lasdfad"
+              @change="getFile"
               ref="fileInput"
+              multiple
             />
-            <UIButton @click="importData" type>
+            <UIButton @click="addFiles" type="button">
               <img src="@/assets/import.png" width="20" alt="Import icon" />
               <span>Добавить</span>
             </UIButton>
           </div>
+          <div class="photos" ref="photos">
+            <img
+              v-for="(path, index) in imgPaths"
+              :key="index"
+              class="photo"
+              :src="path"
+              alt=""
+            />
+          </div>
         </label>
 
-        <UIButton class="cerate-order" type="modal" @click="applyRoleChanges"
-          >Создать заказ</UIButton
-        >
+        <UIButton class="cerate-order" type="submit">{{
+          props.isEditing ? "Сохранить изменения" : "Создать заказ"
+        }}</UIButton>
       </form>
     </main>
   </div>
@@ -188,7 +218,6 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   max-width: 45%;
-  min-height: 60%;
   max-height: 80%;
   overflow-y: scroll;
   transform: translate(-50%, -50%);
@@ -199,12 +228,12 @@ onMounted(async () => {
 .main {
   gap: 1rem;
   display: flex;
-
   width: 100%;
   height: 100%;
   flex-grow: 1;
   padding: 1.5rem 4rem;
   background-color: white;
+  margin-bottom: 0.5rem;
 }
 
 .form {
@@ -234,34 +263,29 @@ onMounted(async () => {
   width: 100%;
 }
 
+.customer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
 .customer-select {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
 
-.customer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-  justify-content: space-between;
-  align-items: center;
-}
-.add-customer {
-  position: relative;
-  text-wrap: nowrap;
-  width: 100%;
-}
-
 .add-customer__btn {
+  margin-top: 0.5rem;
   width: 100%;
 }
 .add-customer__modal {
   position: absolute;
+  top: 5rem;
   display: block;
+  width: 100%;
   z-index: 1;
-  top: 40px;
-  left: 0;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
 }
 .select-status {
   width: 100%;
@@ -342,6 +366,18 @@ onMounted(async () => {
 
 .cancel-btn:hover {
   background-color: salmon;
+}
+.photos {
+  border: 1px solid lightgray;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
+  height: 5rem;
+  gap: 0.5rem;
+}
+
+.photo {
+  object-fit: contain;
+  display: block;
 }
 .cerate-order {
   margin-top: auto;

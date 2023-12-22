@@ -16,7 +16,7 @@ const { allOrders } = storeToRefs(useOrdersStore());
 
 const { customers, clientManagers } = storeToRefs(useUsersStore());
 
-const { addError } = useNotificationsStore();
+const { addAlert } = useNotificationsStore();
 
 const isEditing = ref(null);
 
@@ -32,7 +32,18 @@ const closeNewOrderModal = () => {
 };
 
 const isEditOrderModalOpen = ref(null);
+
+const handleEditOrder = (order) => {
+  editableOrder.value = order;
+  if (editableOrder.value === null) {
+    addError("Error: Select order first!");
+    return;
+  }
+  openEditOrderModal();
+};
+
 const openEditOrderModal = () => {
+  editableOrder.value = selectedOrder.value;
   isEditOrderModalOpen.value = true;
   isEditing.value = true;
 };
@@ -62,16 +73,7 @@ const isOrderModalOpen = computed(
   () => isNewOrderModalOpen.value || isEditOrderModalOpen.value
 );
 
-const handleEditOrder = (order) => {
-  editableOrder.value = order;
-  if (editableOrder.value === null) {
-    addError("Error: Select order first!");
-    return;
-  }
-  openEditRoleModal();
-};
-
-const selectedStatus = ref(null);
+const selectedStatus = ref("all");
 
 const orders = ref([]);
 onMounted(async () => {
@@ -112,12 +114,8 @@ onUnmounted(() => {
   <main class="main">
     <div class="filter">
       <p class="filter-title">Статус</p>
-      <UISelect
-        v-model="selectedStatus"
-        placeholder="Статус заказа"
-        class="status-filter"
-      >
-        <option value="">Все</option>
+      <UISelect v-model="selectedStatus" class="status-filter">
+        <option value="all">Все</option>
         <option value="fresh">Новые</option>
         <option value="completed">Выполенные</option>
         <option value="current">Текущие</option>
@@ -153,12 +151,16 @@ onUnmounted(() => {
             <td>
               {{ statuses.find((st) => st.status === order.status)?.title }}
             </td>
-            <td>{{ order.price }}</td>
+            <td>₽{{ order.price }}</td>
             <td>
               {{
                 customers.find((customer) => customer.id === order.customer)
-                  ?.username
+                  ?.firstName
               }}
+              ({{
+                customers.find((customer) => customer.id === order.customer)
+                  ?.username
+              }})
             </td>
             <td>{{ order.finish }}</td>
             <td>
@@ -172,7 +174,7 @@ onUnmounted(() => {
       </table>
     </div>
     <div class="buttons">
-      <UIButton @click="openEditOrderModal(selectedorder)"
+      <UIButton @click="handleEditOrder(selectedOrder)"
         >Изменить заказ</UIButton
       >
       <UIButton @click="openNewOrderModal">Новый заказ</UIButton>
@@ -182,7 +184,7 @@ onUnmounted(() => {
     allOrders="orders"
     :open="isOrderModalOpen"
     :isEditing="isEditing"
-    :editableOrder="editableOrder"
+    :order="editableOrder"
     @close="closeOrderModal"
   />
 </template>

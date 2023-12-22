@@ -48,8 +48,8 @@ const showRoute = (route) => {
   justify-content: center;
   align-items: center;
   padding-left: 0.5rem;
-  gap: 2rem;
-  min-height: 4rem;
+  gap: 3rem;
+  row-gap: 0.5rem;
   font-weight: 400;
   border-bottom: 2px solid black;
   background-color: whitesmoke;
@@ -61,6 +61,7 @@ const showRoute = (route) => {
   border: 0;
   text-align: center;
   max-width: 12rem;
+  width: max-content;
   cursor: pointer;
 }
 

@@ -15,7 +15,7 @@ export const useAuthStore = defineStore("auth", () => {
       return;
     }
 
-    const user = allUsers.value.find((user) => user.username === username);
+    const user = allUsers.value?.find((user) => user.username === username);
 
     if (user === undefined) {
       addError("User not found");

@@ -5,7 +5,11 @@ import UIButton from "@/components/UIButton.vue";
 import UISelect from "@/components/UISelect.vue";
 </script>
 
-<template></template>
+<template>
+  <UIHeader />
+  <UINav />
+  <main class="main"></main>
+</template>
 
 <style scoped>
 .main {

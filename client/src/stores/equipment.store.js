@@ -1,26 +1,26 @@
 import { defineStore } from "pinia";
 import { useNotificationsStore } from "@/stores/notifications.store";
 
-export const useToolsStore = defineStore("tools", () => {
+export const useEquipmentStore = defineStore("equipment", () => {
   const { addError } = useNotificationsStore();
 
   const allTools = ref([]);
 
-  const fetchTools = async () => {
-    const { res, err } = await api.fetchTools();
+  const fetchEquipment = async () => {
+    const { res, err } = await api.fetchEquipment();
 
     if (err !== null) {
       addError(err.message);
       return;
     }
 
-    allOrders.value = res;
+    allEquipment.value = res;
 
     return res;
   };
 
-  const addTool = async (tool) => {
-    const { res, err } = await api.addTool(tool);
+  const addEquipments = async (tool) => {
+    const { res, err } = await api.addEquipment(tool);
 
     if (err !== null) {
       addError(err.message);
@@ -33,8 +33,8 @@ export const useToolsStore = defineStore("tools", () => {
   };
 
   return {
-    allTools,
-    fetchTools,
-    addTool,
+    allEquipment,
+    fetchEquipment,
+    addEquipments,
   };
 });
