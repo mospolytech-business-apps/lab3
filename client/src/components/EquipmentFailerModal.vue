@@ -59,7 +59,7 @@ watch(
 //TODO: adding equipment failure
 
 const applyEquipmentFailuresChanges = () => {
-    console.log(editedEquipmentFailures.equipment)
+    console.log(editedEquipmentFailures.value)
 }
 </script>
 
@@ -84,7 +84,7 @@ const applyEquipmentFailuresChanges = () => {
         <label class="label">
           Причина сбоя
           <UISelect v-model="editedEquipmentFailures.equipment" placeholder="Статус заказа" :disabled="editedEquipmentFailures.complite == true">
-            <option v-for="equipment in equipments" :key="equipment.id" :value="JSON.parse(JSON.stringify(equipment))">{{ equipment.type.name }} {{ equipment.mark }}</option>
+            <option v-for="equipment in equipments" :key="equipment.id" :value=equipment>{{ equipment.type.name }} {{ equipment.mark }}</option>
           </UISelect>
         </label>
         <label class="label date">
