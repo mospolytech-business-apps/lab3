@@ -1,4 +1,6 @@
+import { ref } from "vue";
 import { defineStore } from "pinia";
+import { api } from "@/api";
 import { useNotificationsStore } from "@/stores/notifications.store";
 
 export const useIngredientsStore = defineStore("ingredients", () => {
@@ -7,7 +9,7 @@ export const useIngredientsStore = defineStore("ingredients", () => {
   const allIngredients = ref([]);
 
   const fetchIngredients = async () => {
-    const { res, err } = await api.fetchEquipment();
+    const { res, err } = await api.fetchIngredients();
 
     if (err !== null) {
       addError(err.message);
