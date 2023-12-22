@@ -26,6 +26,7 @@ export const api = {
   },
 
   addUser: async (user) => {
+    console.log(user);
     try {
       const response = await fetch(`${BASE_URL}/users`, {
         method: "POST",
@@ -161,6 +162,24 @@ export const api = {
     }
   },
 
+  deleteTool: async (tool) => {
+    console.log(tool);
+    try {
+      const response = await fetch(`${BASE_URL}/tools/${tool.id}`, {
+        method: "DELETE",
+        headers,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      return { res: null, err: null };
+    } catch (error) {
+      return { res: null, err: error };
+    }
+  },
+
   fetchEquipment: async () => {
     try {
       const response = await fetch(`${BASE_URL}/equipment`);
@@ -188,6 +207,26 @@ export const api = {
         headers,
         body: JSON.stringify(tool),
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(`${data.error} (${response.status}) `);
+      }
+
+      return { res: data, err: null };
+    } catch (error) {
+      return { res: null, err: error };
+    }
+  },
+
+  fetchIngredients: async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/ingredients`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);

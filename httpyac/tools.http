@@ -1,0 +1,20 @@
+@BACKEND_URL = http://localhost:3002
+
+
+### Get all tools
+GET {{BACKEND_URL}}/tools
+
+### Create tool
+POST {{BACKEND_URL}}/tools
+Content-Type: application/json
+
+{
+  "username": "random",
+  "password": "radnom",
+  "role": "Customer",
+  "firstName": "Иван",
+  "lastName": "Иванов"
+}
+
+### Delete tool 
+DELETE {{BACKEND_URL}}/tools/21

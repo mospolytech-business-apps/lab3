@@ -5,12 +5,19 @@ import { useUsersStore } from "@/stores/users.store";
 const { addUser } = useUsersStore();
 
 const editedCustomer = ref({});
+
 const props = defineProps({
   open: { type: Boolean, required: true },
 });
 
 const close = () => {
   emit("close");
+};
+
+const handleAddCustomer = () => {
+  addUser(editedCustomer.value);
+  emit("close");
+  emit("fetchCustomers");
 };
 
 const emit = defineEmits(["close"]);
@@ -25,7 +32,7 @@ const emit = defineEmits(["close"]);
       <form
         id="customer"
         class="customer__form"
-        @submit.prevent="addUser(customerData)"
+        @submit.prevent="handleAddCustomer"
       >
         <label class="customer__label"
           >Логин

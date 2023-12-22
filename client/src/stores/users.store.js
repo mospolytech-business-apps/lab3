@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { api } from "@/api";
 import { useNotificationsStore } from "@/stores/notifications.store";
+import { generatePassword } from "@/helpers/generate-password";
 import { computed, ref } from "vue";
 import Cookies from "js-cookie";
 
@@ -12,11 +13,11 @@ export const useUsersStore = defineStore("users", () => {
   const userRole = ref(Cookies.get("USER_ROLE"));
 
   const clientManagers = computed(() => {
-    return allUsers.value.filter((user) => user.role === "ClientManager");
+    return allUsers.value.filter((user) => user?.role === "ClientManager");
   });
 
   const customers = computed(() => {
-    return allUsers.value.filter((user) => user.role === "Customer");
+    return allUsers.value.filter((user) => user?.role === "Customer");
   });
 
   const fetchUsers = async () => {
@@ -31,7 +32,13 @@ export const useUsersStore = defineStore("users", () => {
   };
 
   const addUser = async (user) => {
-    const { res, err } = await api.addUser(user);
+    const data = {
+      ...user,
+      password: generatePassword(),
+      role: "Customer",
+    };
+
+    const { res, err } = await api.addUser(data);
     if (err !== null) {
       addError(err.message);
       return;
