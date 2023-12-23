@@ -43,7 +43,7 @@ onMounted(() => {
   <UINav />
 
   <main class="main">
-    <div class="table-wrapper">
+    <div class="table-wrapper" @click.self="selectedEquipment = null">
       <table class="table">
         <thead>
           <tr>

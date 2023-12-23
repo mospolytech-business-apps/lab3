@@ -7,7 +7,8 @@ import { validatePassword } from "@/helpers/validate-password.js";
 
 export const useAuthStore = defineStore("auth", () => {
   const { addError } = useNotificationsStore();
-  const { currentUser, allUsers, userRole } = storeToRefs(useUsersStore());
+  const { allUsers, userRole, userID } = storeToRefs(useUsersStore());
+  const { currentUser } = useUsersStore();
 
   const login = async (username, password) => {
     if (username === "" || password === "") {
@@ -33,6 +34,7 @@ export const useAuthStore = defineStore("auth", () => {
     userRole.value = user.role;
 
     Cookies.set("USER_ROLE", userRole.value);
+    Cookies.set("USER_ID", currentUser.value.id);
 
     router.push("/");
   };
@@ -56,7 +58,9 @@ export const useAuthStore = defineStore("auth", () => {
     if (confirm("Вы уверены, что хотите выйти?")) {
       currentUser.value = null;
       userRole.value = null;
+      userID.value = null;
       Cookies.remove("USER_ROLE");
+      Cookies.remove("USER_ID");
       router.push("/login");
     }
   };

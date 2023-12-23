@@ -3,12 +3,12 @@
     {
       "id": 1,
       "name": "Торт Наполеон",
-      "date": "2023/12/20",
+      "date": "2023-12-20",
       "number": "1220202301",
       "status": "finished",
       "price": 1599,
       "customer": 9,
-      "finish": "2023/12/25",
+      "finish": "2023-12-25",
       "manager": 1,
       "metrics": [
         {
@@ -32,12 +32,12 @@
     {
       "id": 2,
       "name": "Медовик",
-      "date": "2023/12/20",
+      "date": "2023-12-20",
       "number": "1220202302",
       "status": "finished",
       "price": 1299,
       "customer": 10,
-      "finish": "2023/12/26",
+      "finish": "2023-12-26",
       "manager": 1,
       "metrics": [
         {
@@ -61,12 +61,12 @@
     {
       "id": 3,
       "name": "Чизкейк Нью/Йорк",
-      "date": "2023/12/20",
+      "date": "2023-12-20",
       "number": "1220202303",
       "status": "ready",
       "price": 1199,
       "customer": 11,
-      "finish": "2023/12/24",
+      "finish": "2023-12-24",
       "manager": 2,
       "metrics": [
         {
@@ -90,12 +90,12 @@
     {
       "id": 4,
       "name": "Шоколадный бисквит",
-      "date": "2023/12/21",
+      "date": "2023-12-21",
       "number": "1220202301",
       "status": "ready",
       "price": 999,
       "customer": 14,
-      "finish": "2023/12/27",
+      "finish": "2023-12-27",
       "manager": 1,
       "metrics": [
         {
@@ -119,12 +119,12 @@
     {
       "id": 5,
       "name": "Черничный Чизкейк",
-      "date": "2023/12/21",
+      "date": "2023-12-21",
       "number": "1220202302",
       "status": "checking",
       "price": 899,
       "customer": 9,
-      "finish": "2023/12/28",
+      "finish": "2023-12-28",
       "manager": 2,
       "metrics": [
         {
@@ -148,12 +148,12 @@
     {
       "id": 6,
       "name": "Клубничный Чизкейк",
-      "date": "2023/12/21",
+      "date": "2023-12-21",
       "number": "1220202303",
       "status": "checking",
       "price": 1099,
       "customer": 15,
-      "finish": "2023/12/30",
+      "finish": "2023-12-30",
       "manager": 1,
       "metrics": [
         {
@@ -177,12 +177,12 @@
     {
       "id": 7,
       "name": "Тирамису",
-      "date": "2023/12/22",
+      "date": "2023-12-22",
       "number": "1220202301",
       "status": "production",
       "price": 799,
       "customer": 9,
-      "finish": "2023/12/30",
+      "finish": "2023-12-30",
       "manager": 2,
       "metrics": [
         {
@@ -206,12 +206,12 @@
     {
       "id": 8,
       "name": "Прага",
-      "date": "2023/12/22",
+      "date": "2023-12-22",
       "number": "1220202302",
       "status": "production",
       "price": 899,
       "customer": 14,
-      "finish": "2023/12/25",
+      "finish": "2023-12-25",
       "manager": 2,
       "metrics": [
         {
@@ -235,12 +235,12 @@
     {
       "id": 9,
       "name": "Морковный торт",
-      "date": "2023/12/22",
+      "date": "2023-12-22",
       "number": "1220202303",
       "status": "procurement",
       "price": 1299,
       "customer": 11,
-      "finish": "2023/12/29",
+      "finish": "2023-12-29",
       "manager": 1,
       "metrics": [
         {
@@ -264,12 +264,12 @@
     {
       "id": 10,
       "name": "Фисташковый торт",
-      "date": "2023/12/23",
+      "date": "2023-12-23",
       "number": "1220202301",
       "status": "procurement",
       "price": 1699,
       "customer": 10,
-      "finish": "2023/12/29",
+      "finish": "2023-12-29",
       "manager": 2,
       "metrics": [
         {
@@ -293,12 +293,12 @@
     {
       "id": 11,
       "name": "Красный бархат",
-      "date": "2023/12/23",
+      "date": "2023-12-23",
       "number": "1220202302",
       "status": "specification",
       "price": 1349,
       "customer": 13,
-      "finish": "2023/12/29",
+      "finish": "2023-12-29",
       "manager": 1,
       "metrics": [
         {
@@ -322,12 +322,12 @@
     {
       "id": 12,
       "name": "Орео Чизкейк",
-      "date": "2023/12/23",
+      "date": "2023-12-23",
       "number": "1220202303",
       "status": "approving",
       "price": 1149,
       "customer": 14,
-      "finish": "2023/12/29",
+      "finish": "2023-12-29",
       "manager": 1,
       "metrics": [
         {
@@ -351,12 +351,12 @@
     {
       "id": 13,
       "name": "Черный лес",
-      "date": "2023/12/24",
+      "date": "2023-12-24",
       "number": "1220202301",
       "status": "specification",
       "price": 1299,
       "customer": 9,
-      "finish": "2023/12/31",
+      "finish": "2023-12-31",
       "manager": 1,
       "metrics": [
         {
@@ -380,12 +380,12 @@
     {
       "id": 14,
       "name": "Миндальный торт",
-      "date": "2023/12/24",
+      "date": "2023-12-24",
       "number": "1220202302",
       "status": "cancelled",
       "price": 1599,
       "customer": 10,
-      "finish": "2023/12/31",
+      "finish": "2023-12-31",
       "manager": 1,
       "metrics": [
         {
@@ -409,12 +409,12 @@
     {
       "id": 15,
       "name": "Медовик с орехами",
-      "date": "2023/12/24",
+      "date": "2023-12-24",
       "number": "1220202303",
       "status": "cancelled",
       "price": 1399,
       "customer": 13,
-      "finish": "2023/12/31",
+      "finish": "2023-12-31",
       "manager": 1,
       "metrics": [
         {
@@ -438,12 +438,12 @@
     {
       "id": 16,
       "name": "Шоколадно/банановый",
-      "date": "2023/12/25",
+      "date": "2023-12-25",
       "number": "1220202301",
       "status": "new",
       "price": 1299,
       "customer": 11,
-      "finish": "2023/12/31",
+      "finish": "2023-12-31",
       "manager": 1,
       "metrics": [
         {
@@ -467,12 +467,12 @@
     {
       "id": 17,
       "name": "Вишневый торт",
-      "date": "2023/12/25",
+      "date": "2023-12-25",
       "number": "1220202302",
       "status": "new",
       "price": 1099,
       "customer": 10,
-      "finish": "2023/12/31",
+      "finish": "2023-12-31",
       "manager": 1,
       "metrics": [
         {
@@ -496,12 +496,12 @@
     {
       "id": 18,
       "name": "Творожный Чизкейк",
-      "date": "2023/12/25",
+      "date": "2023-12-25",
       "number": "1220202303",
       "status": "new",
       "price": 799,
       "customer": 9,
-      "finish": "2024/01/05",
+      "finish": "2024-01-05",
       "manager": 1,
       "metrics": [
         {
@@ -525,12 +525,12 @@
     {
       "id": 19,
       "name": "Торт с клубникой",
-      "date": "2023/12/26",
+      "date": "2023-12-26",
       "number": "1220202301",
       "status": "cancelled",
       "price": 1349,
       "customer": 9,
-      "finish": "2024/01/05",
+      "finish": "2024-01-05",
       "manager": 1,
       "metrics": [
         {
@@ -554,12 +554,12 @@
     {
       "id": 20,
       "name": "Чизкейк с лимоном",
-      "date": "2023/12/26",
+      "date": "2023-12-26",
       "number": "1220202302",
       "status": "new",
       "price": 899,
       "customer": 9,
-      "finish": "2024/01/06",
+      "finish": "2024-01-06",
       "manager": 1,
       "metrics": [
         {
@@ -583,12 +583,12 @@
     {
       "id": 21,
       "name": "Вишнёвый Чизкейк",
-      "date": "2023/12/26",
+      "date": "2023-12-26",
       "number": "1220202303",
       "status": "new",
       "price": 999,
       "customer": 10,
-      "finish": "2024/01/07",
+      "finish": "2024-01-07",
       "manager": 1,
       "metrics": [
         {
@@ -612,12 +612,12 @@
     {
       "id": 22,
       "name": "Наполеон",
-      "date": "2023/12/27",
+      "date": "2023-12-27",
       "number": "1220202301",
       "status": "cancelled",
       "price": 1299,
       "customer": 9,
-      "finish": "2024/01/07",
+      "finish": "2024-01-07",
       "manager": 1,
       "metrics": [
         {
@@ -641,12 +641,12 @@
     {
       "id": 23,
       "name": "Маршмеллоу Чизкейк",
-      "date": "2023/12/27",
+      "date": "2023-12-27",
       "number": "1220202302",
       "status": "cancelled",
       "price": 1149,
       "customer": 10,
-      "finish": "2024/01/07",
+      "finish": "2024-01-07",
       "manager": 1,
       "metrics": [
         {
@@ -670,12 +670,12 @@
     {
       "id": 24,
       "name": "Миндальный торт",
-      "date": "2023/12/27",
+      "date": "2023-12-27",
       "number": "1220202303",
       "status": "cancelled",
       "price": 1599,
       "customer": 12,
-      "finish": "2024/01/08",
+      "finish": "2024-01-08",
       "manager": 2,
       "metrics": [
         {
@@ -699,12 +699,12 @@
     {
       "id": 25,
       "name": "Торт Наполеон",
-      "date": "2023/12/27",
+      "date": "2023-12-27",
       "number": "2520202304",
       "status": "new",
       "price": 1599,
       "customer": 11,
-      "finish": "2024/01/08",
+      "finish": "2024-01-08",
       "manager": 2,
       "metrics": [
         {
@@ -733,7 +733,7 @@
       "status": "checking",
       "price": 1599,
       "customer": 9,
-      "finish": "2024/01/08",
+      "finish": "2024-01-08",
       "manager": 1,
       "metrics": [
         {
@@ -762,7 +762,7 @@
       "status": "checking",
       "price": 1599,
       "customer": 9,
-      "finish": "2024/01/09",
+      "finish": "2024-01-09",
       "manager": 2,
       "metrics": [
         {
@@ -791,7 +791,7 @@
       "status": "checking",
       "price": 999,
       "customer": 10,
-      "finish": "2024/01/09",
+      "finish": "2024-01-09",
       "manager": 1,
       "metrics": [
         {

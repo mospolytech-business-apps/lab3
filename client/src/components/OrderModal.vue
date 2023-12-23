@@ -10,8 +10,9 @@ import { useUsersStore } from "@/stores/users.store";
 import { useOrdersStore } from "@/stores/orders.store";
 
 const { fetchUsers, addUser } = useUsersStore();
-const { clientManagers, customers } = storeToRefs(useUsersStore());
-const { statuses, numberOfOrdersToday, editOrder, addOrder } = useOrdersStore();
+const { clientManagers, customers, userRole } = storeToRefs(useUsersStore());
+const { statuses, numberOfOrdersToday, updateOrder, addOrder } =
+  useOrdersStore();
 
 const props = defineProps({
   open: { type: Boolean, required: true },
@@ -27,19 +28,37 @@ watchEffect(() => {
   orderData.value = props.isEditing
     ? { ...props.order }
     : {
+        finish: null,
+        status: null,
+        date: null,
         number: null,
         name: null,
+        customer: null,
+        manager: null,
         price: null,
         images: [],
+        metics: [],
       };
 });
 
 const applyOrderChanges = () => {
-  editOrder(orderData.value.id, {
-    ...order.value,
-  });
-  emit("updateData");
-  emit("close");
+  if (props.isEditing) {
+    updateOrder({
+      ...orderData.value,
+      manager: parseInt(orderData.value.manager),
+      customer: parseInt(orderData.value.customer),
+    });
+  } else {
+    addOrder({
+      ...orderData.value,
+      number: orderNumber.value,
+      manager: Math.floor(Math.random() * 2) + 1,
+      customer: parseInt(orderData.value.customer),
+      status: "specification",
+      date: new Date().toISOString().slice(0, 10),
+    });
+  }
+  close();
 };
 
 const close = () => {
@@ -50,6 +69,7 @@ const isCustomerModalOpen = ref(null);
 
 const newCustomerData = ref(null);
 const closeCustomerModal = async () => {
+  customers.value = await fetchUsers();
   isCustomerModalOpen.value = false;
   newCustomerData.value = null;
 };
@@ -106,8 +126,8 @@ const addFiles = () => {
     <main class="main">
       <form class="form" @submit.prevent="applyOrderChanges">
         <label class="field" v-show="props.isEditing">
-          <span class="label">Номер и дата заказа</span>
-          <b class="field">{{ orderData.number }}</b>
+          <span class="label">Заказ</span>
+          <b class="field">№{{ orderData.number }}</b>
         </label>
 
         <label class="field">
@@ -117,7 +137,12 @@ const addFiles = () => {
 
         <label class="field" v-show="props.isEditing">
           <span class="label">Статус заказа</span>
-          <UISelect class="select-status" v-model="orderData.status" required>
+          <UISelect
+            class="select-status"
+            v-model="orderData.status"
+            :disabled="userRole === 'Director'"
+            required
+          >
             <option v-for="status in statuses" :value="status.status">
               {{ status.title }}
             </option>
@@ -125,15 +150,20 @@ const addFiles = () => {
         </label>
 
         <label class="field">
-          <span class="label">Стоимость заказа</span>
-          <input class="input" v-model="orderData.price" type="text" required />
+          <span class="label">Стоимость заказа (₽)</span>
+          <input
+            class="input"
+            v-model="orderData.price"
+            type="number"
+            required
+          />
         </label>
 
         <label class="customer-select">
           <span class="label">Заказчик</span>
           <div class="customer">
             <UISelect v-model="orderData.customer" requited>
-              <option v-for="customer in customers" value="customer.id">
+              <option v-for="customer in customers" :value="customer.id">
                 {{ customer.firstName }} ({{ customer.username }})
               </option>
             </UISelect>
@@ -168,7 +198,7 @@ const addFiles = () => {
             v-model="orderData.manager"
             requited
           >
-            <option v-for="manager in clientManagers" value="manager.id">
+            <option v-for="manager in clientManagers" :value="manager.id">
               {{ manager.firstName }} ({{ manager.username }})
             </option>
           </UISelect>
@@ -201,9 +231,14 @@ const addFiles = () => {
           </div>
         </label>
 
-        <UIButton class="cerate-order" type="submit">{{
-          props.isEditing ? "Сохранить изменения" : "Создать заказ"
-        }}</UIButton>
+        <UIButton
+          @click="applyOrderChanges"
+          class="cerate-order"
+          type="submit"
+          >{{
+            props.isEditing ? "Сохранить изменения" : "Создать заказ"
+          }}</UIButton
+        >
       </form>
     </main>
   </div>
@@ -217,7 +252,7 @@ const addFiles = () => {
   background-color: white;
   display: flex;
   flex-direction: column;
-  max-width: 45%;
+  min-width: 40%;
   max-height: 80%;
   overflow-y: scroll;
   transform: translate(-50%, -50%);
@@ -229,6 +264,8 @@ const addFiles = () => {
   gap: 1rem;
   display: flex;
   width: 100%;
+  margin: 0 auto;
+  justify-content: center;
   height: 100%;
   flex-grow: 1;
   padding: 1.5rem 4rem;
@@ -239,6 +276,7 @@ const addFiles = () => {
 .form {
   display: flex;
   flex-direction: column;
+  width: 100%;
   gap: 1.5rem;
 }
 

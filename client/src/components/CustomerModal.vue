@@ -15,6 +15,7 @@ const close = () => {
 };
 
 const handleAddCustomer = () => {
+  console.log(editedCustomer.value);
   addUser(editedCustomer.value);
   emit("close");
   emit("fetchCustomers");
@@ -25,7 +26,7 @@ const emit = defineEmits(["close"]);
 
 <template>
   <div v-if="props.open" class="customer">
-    <button @click="close" class="customer__close-btn">
+    <button @click="close" class="customer__close-btn" type="button">
       <img src="@/assets/cross-icon.png" width="20" alt="" />
     </button>
     <main class="customer__main">
@@ -64,7 +65,7 @@ const emit = defineEmits(["close"]);
       </form>
       <div class="customer__actions">
         <UIButton class="user-add-btn" form="customer" type="submit"
-          >Добавить клиента</UIButton
+          >Добавить заказчика</UIButton
         >
       </div>
     </main>
