@@ -44,9 +44,8 @@ const changeOption = (event) => {
   width: 100%;
   font-size: 1rem;
   padding: 0.2em 0.5em 0.2em 0.5em;
-  background-color: #fff;
-  border: 1px solid #757575;
-  border-radius: 0.15rem;
+  background-color: rgb(255, 201, 252);
+  border: 0.1px solid #c2c2c2;
   color: #000;
   cursor: pointer;
   padding-inline-end: 30px;
@@ -72,7 +71,7 @@ const changeOption = (event) => {
     right: 0;
     background-size: contain;
     pointer-events: none;
-    border-left: 1px solid #757575;
+    border-left: 1px solid #792196;
   }
   &:has(.select:disabled)::after {
     opacity: 0.2;
@@ -84,7 +83,7 @@ const changeOption = (event) => {
 }
 
 .placeholderBlue {
-  color: blue;
+  color: rgb(242, 0, 255);
 }
 
 .placeholderUnderline {

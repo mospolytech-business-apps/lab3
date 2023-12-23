@@ -21,6 +21,6 @@ errorStore.$subscribe((state) => {
 
 <style scoped>
 .err {
-  color: darkred;
+  color: rgb(139, 0, 116);
 }
 </style>

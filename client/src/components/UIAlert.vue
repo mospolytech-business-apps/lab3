@@ -23,7 +23,7 @@ errorStore.$subscribe((state) => {
 
 <style scoped>
 .err {
-  background-color: rgba(255, 175, 46);
+  background-color: rgb(192, 255, 46);
   display: flex;
   min-width: 10rem;
   padding: 2rem 6rem;

@@ -365,7 +365,7 @@ const addFiles = () => {
 }
 
 .cancel-btn:hover {
-  background-color: salmon;
+  background-color: rgb(250, 205, 114);
 }
 .photos {
   border: 1px solid lightgray;
