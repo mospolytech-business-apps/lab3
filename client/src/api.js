@@ -178,6 +178,24 @@ export const api = {
     }
   },
 
+  deleteIngredient: async (obj) => {
+    console.log(obj);
+    try {
+      const response = await fetch(`${BASE_URL}/ingredients/${obj.id}`, {
+        method: "DELETE",
+        headers,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      return { res: null, err: null };
+    } catch (error) {
+      return { res: null, err: error };
+    }
+  },
+
   fetchEquipment: async () => {
     try {
       const response = await fetch(`${BASE_URL}/equipment`);

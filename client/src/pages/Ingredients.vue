@@ -1,17 +1,23 @@
 <script setup>
-import { ref, onUnmounted, onMounted, computed } from "vue";
+import { ref, onUnmounted, onMounted, computed, watchEffect } from "vue";
 import { storeToRefs } from "pinia";
 import { useIngredientsStore } from "@/stores/ingredients.store";
-
+import { useUsersStore } from "@/stores/users.store";
+import EditIngredientModal from "@/components/EditIngredientModal.vue";
+import ComfirmModal from "@/components/ComfirmModal.vue";
 import UIHeader from "@/components/UIHeader.vue";
 import UINav from "@/components/UINav.vue";
+import UIButton from "@/components/UIButton.vue";
 
-const { fetchIngredients } = useIngredientsStore();
+const { userRole } = storeToRefs(useUsersStore());
+const { fetchIngredients, deleteIngredient, updateIngredient } = useIngredientsStore();
 const { allIngredients } = storeToRefs(useIngredientsStore());
 
 const all = ref([]);
 onMounted(async () => {
-  all.value = allIngredients.value.length ? allIngredients.value : await fetchIngredients();
+  watchEffect(async () => {
+    all.value = allIngredients.value.length ? allIngredients.value : await fetchIngredients();
+  });
 });
 
 const inputedDate = ref(null);
@@ -45,9 +51,59 @@ const filteredArray = computed(() => {
   return result
 })
 
-onUnmounted(() => {
-  inputedDate.value = null;
-});
+
+const selectedObject = ref(null);
+const editableObject = ref(null);
+
+const selectObject = (obj) => {
+  selectedObject.value = obj;
+};
+
+const handleDeleteObject = (obj) => {
+  console.log(obj)
+  openDeleteObjectModal();
+};
+
+const isEditObjectModalOpen = ref(null);
+const isDeleteObjectModalOpen = ref(null);
+
+const handleEditObject = (obj) => {
+  editableObject.value = obj;
+  if (editableObject.value === null) {
+    addError("Error: Select object first!");
+    return;
+  }
+  openEditObjectModal();
+};
+
+const deleteObject = (obj) => {
+  deleteIngredient(obj)
+}
+
+const openEditObjectModal = () => {
+  editableObject.value = selectedObject.value;
+  isEditObjectModalOpen.value = true;
+};
+
+const closeEditObjectModal = () => {
+  isEditObjectModalOpen.value = false;
+  editableObject.value = null;
+};
+
+const openDeleteObjectModal = () => {
+  console.log(selectedObject)
+  isDeleteObjectModalOpen.value = true;
+};
+
+const closeDeleteObjectModal = () => {
+  isDeleteObjectModalOpen.value = false;
+};
+
+const updateObject = (obj) => {
+  console.log("Редактирование ", obj)
+  updateIngredient(obj);
+};
+
 </script>
 
 <template>
@@ -58,6 +114,10 @@ onUnmounted(() => {
       <input type="date" v-model="inputedDate">
       <p v-if="inputedDate != null">Количество выведенных позиций: {{ filteredArray.positions }}</p>
       <p v-if="inputedDate != null">Общая закупочная стоимость {{ filteredArray.cost }}</p>
+    </div>
+    <div v-show="userRole!=='Master' && userRole!=='ClientManager'" class="buttons">
+      <UIButton @click="handleEditObject(selectedObject)" :disabled="!selectedObject">Редактировать</UIButton>
+      <UIButton @click="handleDeleteObject(selectedObject)" :disabled="!selectedObject || selectedObject.amount!==0">Удалить объект</UIButton>  
     </div>
     <h2 class="section-heading">Ингредиенты <span v-if="inputedDate != null">{{ filteredArray.filteredIngredients.length }}</span></h2>
     <div class="table-wrapper">
@@ -77,8 +137,12 @@ onUnmounted(() => {
           <tr
             v-for="ingredient in filteredArray.filteredIngredients"
             :key="ingredient.id"
+            @click="selectObject(ingredient)"
+            :class="{
+              selected: ingredient === selectedObject,
+            }"
           >
-            <td>{{ ingredient.articul }}</td>
+            <td>{{ ingredient.article }}</td>
             <td>{{ ingredient.name }}</td>
             <td>{{ ingredient.amount }}</td>
             <td>{{ ingredient.units }}</td>
@@ -107,8 +171,12 @@ onUnmounted(() => {
           <tr
             v-for="decoration in filteredArray.filteredDecorations"
             :key="decoration.id"
+            @click="selectObject(decoration)"
+            :class="{
+              selected: decoration === selectedObject,
+            }"
           >
-            <td>{{ decoration.articul }}</td>
+            <td>{{ decoration.article }}</td>
             <td>{{ decoration.name }}</td>
             <td>{{ decoration.amount }}</td>
             <td>{{ decoration.units }}</td>
@@ -120,6 +188,13 @@ onUnmounted(() => {
       </table>
     </div>
   </main>
+  <EditIngredientModal
+    :open="isEditObjectModalOpen"
+    :object="editableObject"
+    @close="closeEditObjectModal"
+    @updateData="updateObject"
+  />
+  <ComfirmModal :open="isDeleteObjectModalOpen" @close="closeDeleteObjectModal" @deleteData="deleteObject" :object="selectedObject"/>
 </template>
 
 <style scoped>
@@ -147,5 +222,9 @@ th {
   width: 100%;
   border-collapse: collapse;
   overflow: scroll;
+}
+
+.selected {
+  box-shadow: inset 0 0 0 2px black;
 }
 </style>
