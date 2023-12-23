@@ -1,4 +1,4 @@
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { defineStore } from "pinia";
 import { useNotificationsStore } from "@/stores/notifications.store";
 import { api } from "@/api";
@@ -8,6 +8,15 @@ export const useEquipmentFailuresStore = defineStore(
   "equipmentFailures",
   () => {
     const { addError } = useNotificationsStore();
+
+    const reasons = [
+      "Плохое обслуживание и неисправности",
+      "Износ материалов",
+      "Неправильная эксплуатация",
+      "Перебои в электроснабжении",
+      "Механические повреждения",
+      "Ошибки оператора",
+    ];
 
     const allEquipmentFailures = ref([]);
 
@@ -26,14 +35,32 @@ export const useEquipmentFailuresStore = defineStore(
       return res;
     };
 
-    const addEquipmentFailures = (equipmentFailures) => {
-      allEquipmentFailures.value.push(equipmentFailures);
+    const addEquipmentFailures = async (equipmentFailures) => {
+      const { res, err } = await api.addEquipmentFailures(equipmentFailures);
+      if (err !== null) {
+        addError(err.message);
+        return;
+      }
+
+      return res;
+    };
+
+    const editEquipmentFailures = async (equipmentFailures) => {
+      const { res, err } = await api.editEquipmentFailures(equipmentFailures);
+      if (err !== null) {
+        addError(err.message);
+        return;
+      }
+
+      return res;
     };
 
     return {
       allEquipmentFailures,
       fetchEquipmentFailures,
       addEquipmentFailures,
+      editEquipmentFailures,
+      reasons,
     };
   }
 );

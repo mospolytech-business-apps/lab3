@@ -2,14 +2,19 @@
 import { ref, onMounted, watchEffect } from "vue";
 import { storeToRefs } from "pinia";
 import { useEquipmentFailuresStore } from "@/stores/equipmentFailures.store";
+import { useEquipmentsStore } from "@/stores/equipments.store";
 
 import UIHeader from "@/components/UIHeader.vue";
 import UINav from "@/components/UINav.vue";
 import UIButton from "@/components/UIButton.vue";
 import EquipmentFailerModal from "@/components/EquipmentFailerModal.vue";
 
-const isEquipmentFailureModalOpen = ref(false);
+const { allEquipments } = storeToRefs(useEquipmentsStore());
+const { fetchEquipment } = useEquipmentsStore();
 
+const equipments = ref([]);
+
+const isEquipmentFailureModalOpen = ref(false);
 const editableEquipmentFailure = ref(null);
 
 const openEquipmentFailureModal = () => {
@@ -18,6 +23,7 @@ const openEquipmentFailureModal = () => {
 
 const closeEquipmentFailureModal = async () => {
   isEquipmentFailureModalOpen.value = false;
+  equipmentFailures.value = await fetchEquipmentFailures();
 };
 
 const handleNewEquipmentFailure = () => {
@@ -29,18 +35,23 @@ const { addEquipmentFailures, fetchEquipmentFailures } =
 const { allEquipmentFailures } = storeToRefs(useEquipmentFailuresStore());
 
 const equipmentFailures = ref([]);
-onMounted(async () => {
-  watchEffect(async () => {
-    equipmentFailures.value = allEquipmentFailures.value.length
-      ? allEquipmentFailures.value
-      : await fetchEquipmentFailures();
-  });
-});
 
 const handleEditEquipmentFailure = (equipment) => {
   editableEquipmentFailure.value = equipment;
   openEquipmentFailureModal();
 };
+
+onMounted(() => {
+  watchEffect(async () => {
+    equipments.value = allEquipments.value.length
+      ? allEquipments.value
+      : await fetchEquipment();
+
+    equipmentFailures.value = allEquipmentFailures.value.length
+      ? allEquipmentFailures.value
+      : await fetchEquipmentFailures();
+  });
+});
 </script>
 
 <template>
@@ -52,25 +63,30 @@ const handleEditEquipmentFailure = (equipment) => {
       <table class="table">
         <thead>
           <tr>
-            <th>Equipment</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Reason</th>
-            <th>Actions</th>
+            <th>Название</th>
+            <th>Дата и время поломки</th>
+            <th>Причина</th>
+            <th>Действия</th>
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="equipmentFailure in equipmentFailures"
-            :key="equipmentFailure.id"
-          >
+          <tr v-for="equipmentFailure in equipmentFailures">
             <template v-if="equipmentFailure.complete == false">
               <td>
-                {{ equipmentFailure.equipment.type.name }}
-                {{ equipmentFailure.equipment.mark }}
+                {{
+                  equipments.find((e) => e.id == equipmentFailure.equipment)
+                    .name
+                }}
               </td>
-              <td>{{ equipmentFailure.date }}</td>
-              <td>{{ equipmentFailure.time }}</td>
+              <td>
+                {{
+                  new Date(equipmentFailure.break).toLocaleString("ru-RU", {
+                    dateStyle: "short",
+                    timeStyle: "short",
+                    timeZone: "Europe/London",
+                  })
+                }}
+              </td>
               <td>{{ equipmentFailure.reason }}</td>
               <td class="actions">
                 <UIButton @click="handleEditEquipmentFailure(equipmentFailure)"
@@ -85,7 +101,8 @@ const handleEditEquipmentFailure = (equipment) => {
     <EquipmentFailerModal
       :open="isEquipmentFailureModalOpen"
       @close="closeEquipmentFailureModal"
-      :equipment="editableEquipmentFailure"
+      :failure="editableEquipmentFailure"
+      :isEditing="!!editableEquipmentFailure"
     />
   </main>
 </template>

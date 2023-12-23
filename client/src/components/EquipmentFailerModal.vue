@@ -1,42 +1,44 @@
 <script setup>
 import UIHeader from "@/components/UIHeader.vue";
 
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, watchEffect } from "vue";
 import { useEquipmentFailuresStore } from "@/stores/equipmentFailures.store";
+import { useEquipmentsStore } from "@/stores/equipments.store";
 import { storeToRefs } from "pinia";
 import UIButton from "@/components/UIButton.vue";
 import UISelect from "@/components/UISelect.vue";
 
-const emit = defineEmits(["close"]);
+const { allEquipments } = storeToRefs(useEquipmentsStore());
+const { fetchEquipment } = useEquipmentsStore();
+
+const {
+  reasons,
+  addEquipmentFailures,
+  editEquipmentFailures,
+  fetchEquipmentFailures,
+} = useEquipmentFailuresStore();
+const { allEquipmentFailures } = storeToRefs(useEquipmentFailuresStore());
+
+const failure = ref({
+  break: null,
+  fix: null,
+  equipment: null,
+  reason: null,
+  complete: false,
+});
 
 const props = defineProps({
   open: { type: Boolean, required: true },
-  equipment: { type: Object || null, required: true },
+  failure: { type: Object || null, required: true },
+  isEditing: { type: Boolean, required: true },
 });
-
-const reasons = ref([
-  "Плохое обслуживание и неисправности",
-  "Износ материалов",
-  "Неправильная эксплуатация",
-  "Перебои в электроснабжении",
-  "Механические повреждения",
-  "Ошибки оператора",
-]);
-
-const { allEquipments } = storeToRefs(useEquipmentsStore());
-
-const {} = useEquipmentFailuresStore();
 
 const equipments = ref([]);
 onMounted(async () => {
   equipments.value = allEquipments.value.length
     ? allEquipments.value
-    : await fetchEquipments();
+    : await fetchEquipment();
 });
-
-const { addEquipmentFailures, fetchEquipmentFailures } =
-  useEquipmentFailuresStore();
-const { allEquipmentFailures } = storeToRefs(useEquipmentFailuresStore());
 
 const equipmentFailures = ref([]);
 onMounted(async () => {
@@ -45,81 +47,117 @@ onMounted(async () => {
     : await fetchEquipmentFailures();
 });
 
-const editedEquipmentFailures = ref({
-  id: equipmentFailures.value.length + 1,
-  complete: false,
-});
+const emit = defineEmits(["close"]);
 
 const close = () => {
   emit("close");
-  editedEquipmentFailures.value = {
-    id: equipmentFailures.value.length + 1,
+  failure.value = {
+    date: null,
+    time: null,
+    equipment: null,
+    reason: null,
     complete: false,
   };
 };
 
-watch(
-  () => props.equipment,
-  (newVal) => {
-    editedEquipmentFailures.value = {
-      ...newVal,
-    };
-  },
-  { immediate: true }
-);
+const isFixed = (failure) =>
+  !failure.date || !failure.time || !failure.equipment || !failure.reason;
 
-const handleAddEquipmentFailures = () => {};
+onMounted(() => {
+  watchEffect(() => {
+    failure.value = props.isEditing
+      ? {
+          date: new Date(props.failure.break).toISOString().slice(0, 10),
+          time: new Date(props.failure.break).toISOString().slice(11, 16),
+          equipment: props.failure.equipment,
+          reason: props.failure.reason,
+          complete: props.failure.complete,
+        }
+      : failure.value;
+  });
+});
+
+const handleAddEquipmentFailures = () => {
+  if (!props.isEditing) {
+    addEquipmentFailures({
+      break: new Date(
+        `${failure.value.date}T${failure.value.time}:00.000Z`
+      ).toISOString(),
+      fix:
+        failure?.value.result_date && failure?.value.result_time
+          ? new Date(
+              `${failure.value?.result_date}T${failure?.value.result_time}:00.000Z`
+            ).toISOString()
+          : null,
+      equipment: failure.value.equipment,
+      reason: failure.value.reason,
+      complete: failure.value.complete,
+    });
+  } else {
+    editEquipmentFailures({
+      id: props.failure.id,
+      break: new Date(
+        `${failure.value.date}T${failure.value.time}:00.000Z`
+      ).toISOString(),
+      fix:
+        failure?.value.result_date && failure?.value.result_time
+          ? new Date(
+              `${failure.value?.result_date}T${failure?.value.result_time}:00.000Z`
+            ).toISOString()
+          : null,
+      equipment: failure.value.equipment,
+      reason: failure.value.reason,
+      complete: failure.value.complete,
+    });
+  }
+
+  close();
+};
 </script>
 
 <template>
   <div class="modal" v-if="props.open">
-    <UIHeader title="Добавить заказ" :closeButtonHandler="close" />
+    <UIHeader title="Новый сбой" :closeButtonHandler="close" />
     <main class="main">
       <form @submit.prevent="handleAddEquipmentFailures">
         <label class="label"
           >Дата и время сбоя
           <div class="date">
             <input
-              v-model="editedEquipmentFailures.date"
+              v-model="failure.date"
               type="date"
-              :disabled="editedEquipmentFailures.complete == true"
+              :disabled="failure.complete == true"
+              required
             />
             <input
-              v-model="editedEquipmentFailures.time"
+              v-model="failure.time"
               type="time"
-              :disabled="editedEquipmentFailures.complete == true"
+              :disabled="failure.complete == true"
+              required
             />
           </div>
         </label>
         <label class="label"
           >Оборудование
           <UISelect
-            v-model="editedEquipmentFailures.reason"
-            placeholder="Статус заказа"
-            :disabled="editedEquipmentFailures.complete == true"
+            v-model="failure.equipment"
+            :disabled="failure.complete == true"
+            required
           >
-            <option
-              v-for="(reason, index) in reasons"
-              :key="index"
-              :value="reason"
-            >
-              {{ reason }}
+            <option v-for="equipment in equipments" :value="equipment.id">
+              {{ equipment.name }}
             </option>
           </UISelect>
         </label>
         <label class="label">
           Причина сбоя
           <UISelect
-            v-model="editedEquipmentFailures.equipment"
-            placeholder="Статус заказа"
-            :disabled="editedEquipmentFailures.complete == true"
+            v-model="failure.reason"
+            :disabled="failure.complete == true"
+            required
           >
-            <option
-              v-for="equipment in equipments"
-              :key="equipment.id"
-              :value="equipment"
-            >
-              {{ equipment.type.name }} {{ equipment.mark }}
+            <option v-for="reason in reasons" :value="reason">
+              {{ reason }}
             </option>
           </UISelect>
         </label>
@@ -127,27 +165,29 @@ const handleAddEquipmentFailures = () => {};
           Сбой устранён:
           <input
             type="checkbox"
-            v-model="editedEquipmentFailures.complete"
-            :disabled="
-              !editedEquipmentFailures.date ||
-              !editedEquipmentFailures.time ||
-              !editedEquipmentFailures.equipment ||
-              !editedEquipmentFailures.reason
-            "
+            v-model="failure.complete"
+            :disabled="isFixed(failure)"
           />
         </label>
-        <label class="label" v-if="editedEquipmentFailures.complete == true"
+        <label class="label" v-if="failure.complete == true"
           >Дата и время устранения неполадки
           <div class="date">
-            <input v-model="editedEquipmentFailures.result_date" type="date" />
-            <input v-model="editedEquipmentFailures.result_time" type="time" />
+            <input v-model="failure.result_date" type="date" />
+            <input v-model="failure.result_time" type="time" />
           </div>
         </label>
         <div class="actions">
-          <UIButton @click="applyEquipmentFailuresChanges()"
+          <UIButton
+            @click="applyEquipmentFailuresChanges"
+            :required="isFixed(failure)"
             >Применить</UIButton
           >
-          <UIButton class="cancel-btn" @click="close">Отмена</UIButton>
+          <UIButton
+            class="cancel-btn"
+            @click="close"
+            :required="isFixed(failure)"
+            >Отмена</UIButton
+          >
         </div>
       </form>
     </main>

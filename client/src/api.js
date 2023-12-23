@@ -334,4 +334,25 @@ export const api = {
       return { res: null, err: error };
     }
   },
+
+  editEquipmentFailures: async (equipmentFailures) => {
+    try {
+      const response = await fetch(
+        `${BASE_URL}/equipmentFailures/${equipmentFailures.id}`,
+        {
+          method: "PUT",
+          headers,
+          body: JSON.stringify(equipmentFailures),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      return { res: null, err: null };
+    } catch (error) {
+      return { res: null, err: error };
+    }
+  },
 };

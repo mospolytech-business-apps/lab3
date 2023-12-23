@@ -1,74 +1,45 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watchEffect, computed } from "vue";
 import { storeToRefs } from "pinia";
 import UIHeader from "@/components/UIHeader.vue";
 import UINav from "@/components/UINav.vue";
 import UIButton from "@/components/UIButton.vue";
 import UISelect from "@/components/UISelect.vue";
+import { useEquipmentFailuresStore } from "@/stores/equipmentFailures.store";
+import { useEquipmentsStore } from "@/stores/equipments.store";
 
-// import { useEquipmentFailureStore } from "@/stores/equipmentFailures.store";
+const { fetchEquipmentFailures, reasons } = useEquipmentFailuresStore();
+const { allEquipments } = storeToRefs(useEquipmentsStore());
+const { fetchEquipment } = useEquipmentsStore();
 
-const { allEquipmentFailures } = storeToRefs(useEquipmentFailureStore());
-
+const equipments = ref([]);
 const failures = ref([]);
 const reportData = ref([]);
 const sortDirection = ref(true);
-const selectedReason = ref(null);
-
-const availableReasons = ref(["Износ материалов", "Истечение гарантии"]);
-
-onMounted(async () => {
-  try {
-    const response = await fetch("/src/data/equipmentFailures.json");
-    const data = await response.json();
-    reportData.value = data;
-    failures.value = processFailures(data);
-    availableReasons.value = getAvailableReasons(data);
-  } catch (error) {
-    console.error("Error loading data", error);
-  }
-});
-
-const processFailures = (data) => {
-  return data.map((item) => {
-    const duration = calculateDuration(item);
-    return {
-      equipmentName: item.equipment.type.name + " " + item.equipment.mark,
-      reason: item.reason,
-      time: item.date + " " + item.time,
-      result_time:
-        item.complite && item.result_date && item.result_time
-          ? item.result_date + " " + item.result_time
-          : null,
-      duration: duration !== null ? duration + " минут" : null,
-    };
-  });
-};
-
-const calculateDuration = (currentFailure) => {
-  if (
-    currentFailure.complite &&
-    currentFailure.result_date &&
-    currentFailure.result_time &&
-    currentFailure.date &&
-    currentFailure.time
-  ) {
-    const startDateTime = new Date(
-      `${currentFailure.date}T${currentFailure.time}`
-    );
-    const endDateTime = new Date(
-      `${currentFailure.result_date}T${currentFailure.result_time}`
-    );
-    const durationInMinutes = (endDateTime - startDateTime) / (1000 * 60);
-    return Math.round(durationInMinutes);
-  }
-  return null;
-};
+const selectedReason = ref("Все");
 
 const calculateTotalTime = (failures) => {
-  const totalDuration = failures.reduce((sum, failure) => {
-    return sum + (failure.duration ? parseInt(failure.duration) : 0);
-  }, 0);
+  const totalDuration = failures.reduce(
+    (acc, failure) => {
+      const breakDate = new Date(failure.break);
+      const fixDate = new Date(failure.fix);
+
+      const durationInMilliseconds = fixDate - breakDate;
+
+      // Convert duration to hours and minutes
+      const hours = Math.floor(durationInMilliseconds / (1000 * 60 * 60));
+      const minutes = Math.floor(
+        (durationInMilliseconds % (1000 * 60 * 60)) / (1000 * 60)
+      );
+
+      return {
+        totalHours: acc.totalHours + hours,
+        totalMinutes: acc.totalMinutes + minutes,
+      };
+    },
+    { totalHours: 0, totalMinutes: 0 }
+  );
+
   return totalDuration;
 };
 
@@ -88,49 +59,60 @@ const printTable = () => {
     }
   }
 
-  // Копируем содержимое таблицы в новое окно
   const tableClone = document.querySelector("table").cloneNode(true);
   printDocument.body.appendChild(tableClone);
 
-  // Вызываем окно печати для нового документа
   printWindow.print();
   printWindow.onafterprint = function () {
     printWindow.close();
   };
 };
 
-const toggleSort = () => {
-  sortDirection.value = !sortDirection.value;
-  failures.value = sortData(failures.value);
-};
-
-const sortData = (data) => {
-  const sortedData = [...data];
-  sortedData.sort((a, b) => {
-    const order = sortDirection.value ? 1 : -1;
-    return a.reason.localeCompare(b.reason) * order;
-  });
-  return sortedData;
-};
-
-const getAvailableReasons = (data) => {
-  const uniqueReasons = new Set(data.map((item) => item.reason));
-  return ["Все", ...Array.from(uniqueReasons)];
-};
-
-const filterByReasons = () => {
-  failures.value = processFailures(
-    selectedReasons.value.includes("Все")
-      ? reportData.value
-      : reportData.value.filter((item) =>
-          selectedReasons.value.includes(item.reason)
-        )
+const filteredFailures = computed(() => {
+  return failures.value.filter((item) =>
+    selectedReason.value === "Все" ? item : item.reason === selectedReason.value
   );
+});
+
+const calculateDuration = (breakTime, fixTime) => {
+  const breakDate = new Date(breakTime);
+  const fixDate = new Date(fixTime);
+
+  const durationInMilliseconds = fixDate - breakDate;
+
+  // Convert duration to days, hours, minutes, seconds
+  const days = Math.floor(durationInMilliseconds / (1000 * 60 * 60 * 24));
+  const hours = Math.floor(
+    (durationInMilliseconds % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+  const minutes = Math.floor(
+    (durationInMilliseconds % (1000 * 60 * 60)) / (1000 * 60)
+  );
+  const seconds = Math.floor((durationInMilliseconds % (1000 * 60)) / 1000);
+
+  return `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
 };
+
+const formatDateTime = (dateTime) => {
+  const options = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    timeZoneName: "short",
+  };
+  return new Date(dateTime).toLocaleString("en-US", options);
+};
+
 onMounted(() => {
-  document
-    .getElementById("reasonSelect")
-    .addEventListener("change", filterByReasons);
+  watchEffect(async () => {
+    failures.value = await fetchEquipmentFailures();
+    equipments.value = allEquipments.value.length
+      ? allEquipments.value
+      : await fetchEquipment();
+  });
 });
 </script>
 
@@ -141,11 +123,8 @@ onMounted(() => {
     <div class="controls">
       <label for="reasonSelect">Выберите причину: </label>
       <UISelect id="reasonSelect" v-model="selectedReason">
-        <option
-          v-for="reason in availableReasons"
-          :key="reason"
-          :value="reason"
-        >
+        <option value="Все">Все</option>
+        <option v-for="reason in reasons" :key="reason" :value="reason">
           {{ reason }}
         </option>
       </UISelect>
@@ -154,25 +133,29 @@ onMounted(() => {
       <thead>
         <tr>
           <th>Название оборудования</th>
-          <th @click="toggleSort">Причина сбоя</th>
-          <th>Время начала сбоя</th>
-          <th>Время устранения сбоя</th>
+          <th>Причина сбоя</th>
+          <th>Начало сбоя</th>
+          <th>Устранение сбоя</th>
           <th>Длительность устранения</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(failure, index) in failures" :key="index">
-          <td>{{ failure.equipmentName }}</td>
+        <tr v-for="failure in filteredFailures">
+          <td>
+            {{ equipments?.find((e) => e.id == failure.equipment)?.name }}
+          </td>
           <td>{{ failure.reason }}</td>
-          <td>{{ failure.time }}</td>
-          <td>{{ failure.result_time || "Не завершено" }}</td>
-          <td>{{ failure.duration || "N/A" }}</td>
+          <td>{{ new Date(failure.break).toLocaleString() }}</td>
+          <td>{{ new Date(failure.fix).toLocaleString() }}</td>
+          <td>{{ calculateDuration(failure.break, failure.fix) }}</td>
         </tr>
       </tbody>
     </table>
     <div class="summary">
       <p>
-        Суммарное время сбоев: {{ calculateTotalTime(failures) ?? 0 }} минут
+        Суммарное время сбоев:
+        {{ calculateTotalTime(filteredFailures).totalHours }} часов
+        {{ calculateTotalTime(filteredFailures).totalMinutes }} минут
       </p>
     </div>
     <UIButton @click="printTable">Печать отчета</UIButton>
@@ -192,6 +175,8 @@ onMounted(() => {
 .controls {
   margin-bottom: 1rem;
   display: flex;
+  align-items: center;
+  gap: 0.25rem;
   justify-content: center;
 }
 
