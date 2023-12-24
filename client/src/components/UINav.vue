@@ -76,4 +76,10 @@ const showRoute = (route) => {
 .active {
   color: darkgreen;
 }
+
+@media print {
+  .nav-menu {
+    display: none;
+  }
+}
 </style>
