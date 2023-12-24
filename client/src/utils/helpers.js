@@ -22,7 +22,7 @@ export const sortIngredientsOrDecorationsInDaysGroup = (ingredientsOrDecorations
 }
 
 export const addDaysToDate = (date, daysCount) => {
-    const currentDate = new Date(date.split('.').reverse().join('.'));
+    const currentDate = new Date(date);
     currentDate.setDate(currentDate.getDate() + daysCount);
     return currentDate.toLocaleDateString();
 }

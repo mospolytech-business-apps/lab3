@@ -105,7 +105,7 @@ const filteredAndMappedElements = computed(() => {
       </thead>
       <tbody>
       <template v-for="(dateGroupElements, date) in filteredAndMappedElements" :key="date">
-        <tr><th colspan="4">срок годности {{ date }} - {{ addDaysToDate(date, 3) }}</th></tr>
+        <tr><th colspan="4">срок годности {{ date }} - {{ addDaysToDate(date.split('.').reverse().join('.'), 3) }}</th></tr>
         <tr v-for="element in dateGroupElements" :key="element.id">
           <td>
             {{ element.name }}
