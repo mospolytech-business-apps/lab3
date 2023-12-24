@@ -6,6 +6,7 @@ import {storeToRefs} from "pinia";
 import {computed, onMounted, ref, watchEffect} from "vue";
 import UISelect from "@/components/UISelect.vue";
 import {addDaysToDate, sortIngredientsOrDecorationsInDaysGroup} from "@/utils/helpers";
+import UIButton from "@/components/UIButton.vue";
 
 const { fetchIngredients } = useIngredientsStore();
 const { allIngredients } = storeToRefs(useIngredientsStore());
@@ -52,6 +53,10 @@ const filteredAndMappedElements = computed(() => {
   return sortIngredientsOrDecorationsInDaysGroup(resultList)
 })
 
+const printTable = () => {
+  window.print();
+}
+
 </script>
 
 <template>
@@ -93,6 +98,7 @@ const filteredAndMappedElements = computed(() => {
             {{ type }}
           </option>
         </UISelect>
+        <UIButton class="print_button" @click="printTable">Печать отчета</UIButton>
       </div>
     <table>
       <thead>
@@ -127,7 +133,7 @@ const filteredAndMappedElements = computed(() => {
 
 .control {
 display: grid;
-  grid-template-columns: 300px 200px;
+  grid-template-columns: 300px 200px 200px;
   gap: 10px;
   margin-bottom: 10px;
 }
@@ -141,6 +147,16 @@ td {
 
 th {
   background-color: #f2f2f2;
+}
+
+@media print {
+  table {
+    margin-top: 0.5rem;
+  }
+
+  .print_button {
+    display: none;
+  }
 }
 
 </style>
