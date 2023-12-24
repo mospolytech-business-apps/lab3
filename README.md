@@ -28,7 +28,7 @@
 - [ ] {Артем} 3.2 Оценка затрат ингредиентов - [ClientManager.vue] // Estimates.vue
 - [ ] {Артем} 3.3 Оценка времени - [ClientManager] // Estimates.vue
 - [ ] {Паша, Витя} 3.4 Диаграмма Ганта - [ClientManager] // Estimates.vue
-- [ ] {Эмиль} 3.5 Отчет по ингридиентам - [Director, PurchaseManager] // IngredientsReport.vue
+- [x] {Паша} 3.5 Отчет по ингридиентам - [Director, PurchaseManager] // IngredientsReport.vue
 
 4 сессия:
 
