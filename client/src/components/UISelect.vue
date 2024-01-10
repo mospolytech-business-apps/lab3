@@ -44,8 +44,8 @@ const changeOption = (event) => {
   width: 100%;
   font-size: 1rem;
   padding: 0.2em 0.5em 0.2em 0.5em;
-  background-color: #fff
-  border: 0.1px solid #757575
+  background-color: #fff;
+  border: 0.1px solid #757575;
   color: #000;
   cursor: pointer;
   padding-inline-end: 30px;
