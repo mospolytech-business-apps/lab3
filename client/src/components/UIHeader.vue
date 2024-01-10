@@ -26,9 +26,7 @@ const router = useRouter();
     <h1 class="title">
       {{ props.title ?? router.currentRoute.value.meta?.title }}
     </h1>
-    <button @click="closeButtonHandler" class="exit-btn">
-      <img width="20" src="@/assets/cross-icon.png" alt="Exit button" />
-    </button>
+    <button @click="closeButtonHandler" class="exit-btn">Выход</button>
   </header>
 </template>
 
@@ -38,7 +36,6 @@ const router = useRouter();
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid black;
   height: 30px;
   background-color: #98d728;
 }

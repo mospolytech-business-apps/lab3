@@ -9,8 +9,8 @@
 <style scoped>
 .btn {
   padding: 0.25rem 2rem;
-  border: 1px solid black;
-  border-radius: 5px;
+  border: 0.1px solid black;
+  border-radius: 0px;
   background-color: white;
   cursor: pointer;
   display: flex;

@@ -16,19 +16,20 @@
 2 сессия:
 
 - [x] {Андрей} 2.1 Планировка цехов - [Director] // WorkroomScheme.vue
-- [ ] {Максим} 2.2 Список заказов - [ALL] // Home.vue
-- [ ] {Ваня, Максим} 2.3 Оформление заказа - [Customer, ClientManager] // Home.vue + modal
-- [ ] {Андрей 2} 2.4 Списание ингридиентов
+- [x] {Максим} 2.2 Список заказов - [ALL] // Home.vue
+- [x] {Ваня, Максим} 2.3 Оформление заказа - [Customer, ClientManager] // Home.vue + modal
+- [x] {Андрей 2} 2.4 Списание ингридиентов
 - [x] {Даня, Максим} 2.5 Сбои оборудования - [Master] // EquipmentFailure.vue
 - [x] {Паша} 2.6 Контроль качества - [Master] // QualityControl.vue
 
 3 сессия:
 
-- [ ] {Максим} 3.1 Спецификации - [Master] // ProductSpecification.vue
+- [ ] {Виктор 2} 3.1 Спецификации - [Master] // ProductSpecification.vue
 - [ ] {Артем} 3.2 Оценка затрат ингредиентов - [ClientManager.vue] // Estimates.vue
 - [ ] {Артем} 3.3 Оценка времени - [ClientManager] // Estimates.vue
 - [ ] {Паша, Витя} 3.4 Диаграмма Ганта - [ClientManager] // Estimates.vue
 - [x] {Паша} 3.5 Отчет по ингридиентам - [Director, PurchaseManager] // IngredientsReport.vue
+
 
 4 сессия:
 

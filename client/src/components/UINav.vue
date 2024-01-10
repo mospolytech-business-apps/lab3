@@ -51,9 +51,17 @@ const showRoute = (route) => {
   gap: 3rem;
   row-gap: 0.5rem;
   font-weight: 400;
-  border-bottom: 2px solid black;
   background-color: whitesmoke;
   padding: 1rem;
+}
+
+.nav-menu a {
+  border: 1px solid gray;
+  padding: 4px;
+  line-height: 1.3;
+  &:hover {
+    background-color: gray;
+  }
 }
 
 .nav-menu > * {
@@ -74,7 +82,8 @@ const showRoute = (route) => {
 }
 
 .active {
-  color: darkgreen;
+  background-color: #e277cd;
+  color: whitesmoke;
 }
 
 @media print {
