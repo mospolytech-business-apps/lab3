@@ -1,4 +1,5 @@
 import { defineStore, storeToRefs } from "pinia";
+import { ref } from "vue";
 import { useUsersStore } from "@/stores/users.store";
 import { useNotificationsStore } from "@/stores/notifications.store";
 import router from "@/router";
@@ -7,9 +8,12 @@ import { api } from "@/api";
 import { validatePassword } from "@/helpers/validate-password.js";
 
 export const useAuthStore = defineStore("auth", () => {
-  const { addError } = useNotificationsStore();
+  const { addError, addAlert } = useNotificationsStore();
   const { allUsers, userRole, userID } = storeToRefs(useUsersStore());
   const { currentUser } = useUsersStore();
+
+  const isLoginFormBlocked = ref(false);
+  const attemptsCount = ref(0);
 
   const login = async (username, password) => {
     if (username === "" || password === "") {
@@ -22,7 +26,23 @@ export const useAuthStore = defineStore("auth", () => {
     console.log(user);
 
     if (user === undefined) {
-      addError("User not found");
+      addError("Ошибка в логине или пароле");
+
+      attemptsCount.value += 1;
+      console.log(attemptsCount.value);
+
+      if (attemptsCount.value === 3) {
+        addAlert("Вы заблокированы на 5 секунд");
+
+        isLoginFormBlocked.value = true;
+
+        setTimeout(() => {
+          isLoginFormBlocked.value = false;
+          attemptsCount.value = 0;
+        }, 5000);
+
+        return;
+      }
       return;
     }
 
@@ -39,26 +59,40 @@ export const useAuthStore = defineStore("auth", () => {
     Cookies.set("USER_ROLE", userRole.value);
     Cookies.set("USER_ID", currentUser.value.id);
 
+    console.log(Cookies.get("USER_ROLE"));
+    console.log(Cookies.get("USER_ID"));
+
     router.push("/");
   };
 
   const register = async (user) => {
     if (user.password !== user.passwordRepeat) {
       addError("Пароли не совпадают");
+
       return;
     }
 
-    if (!validatePassword(user.password)) {
-      addError("Пароли должен быть не менее 5 символов");
+    const validationMessage = validatePassword(user.password, user.username);
+    if (validationMessage !== null) {
+      addError(validationMessage);
       return;
     }
+
+    user.role = "Customer";
+    user.passwordRepeat = undefined;
+
+    console.log(user);
 
     allUsers.value.push({
       ...user,
-      role: "Customer",
     });
 
     const { err, res } = await api.addUser(user);
+    if (err) {
+      console.log(err);
+      addError(err);
+      return;
+    }
     console.log(res);
 
     Cookies.set("USER_ROLE", "Customer");
@@ -82,5 +116,6 @@ export const useAuthStore = defineStore("auth", () => {
     login,
     register,
     logout,
+    isLoginFormBlocked,
   };
 });

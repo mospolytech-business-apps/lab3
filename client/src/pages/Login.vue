@@ -2,13 +2,14 @@
 import UIHeader from "@/components/UIHeader.vue";
 import UIButton from "@/components/UIButton.vue";
 
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watchEffect } from "vue";
 import { storeToRefs } from "pinia";
 import { useUsersStore } from "@/stores/users.store";
 import { useAuthStore } from "@/stores/auth.store";
 import UINav from "@/components/UINav.vue";
 
 const { login } = useAuthStore();
+const { isLoginFormBlocked } = storeToRefs(useAuthStore());
 const { allUsers } = storeToRefs(useUsersStore());
 const { fetchUsers } = useUsersStore();
 
@@ -35,13 +36,21 @@ onMounted(async () => {
           type="text"
           v-model="username"
           ref="usernameInput"
+          :disabled="isLoginFormBlocked"
         />
       </label>
       <label class="label">
         <span class="span">Пароль</span>
-        <input class="input" type="password" v-model="password" />
+        <input
+          class="input"
+          type="password"
+          v-model="password"
+          :disabled="isLoginFormBlocked"
+        />
       </label>
-      <UIButton class="button" type="submit">Войти</UIButton>
+      <UIButton class="button" type="submit" :disabled="isLoginFormBlocked"
+        >Войти</UIButton
+      >
     </form>
   </main>
 </template>

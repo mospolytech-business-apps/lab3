@@ -1,20 +1,20 @@
 export function validatePassword(password, username) {
   // Проверить, что пароль содержит от 5 до 20 символов
   if (password.length < 5 || password.length > 20) {
-    return false;
+    return "Пароль должен быть больше 5 и меньше 20 символов";
   }
   // Проверить, что пароль не содержит логин
   if (password.includes(username)) {
-    return false;
+    return "Пароль не должен содержать логин";
   }
   // Проверить, что пароль содержит хотя бы одну заглавную букву
   if (!password.match(/[A-Z]/)) {
-    return false;
+    return "Пароль должен содержать хотя бы одну заглавную букву";
   }
   // Проверить, что пароль содержит хотя бы одну маленькую букву
   if (!password.match(/[a-z]/)) {
-    return false;
+    return "Пароль должен содержать хотя бы одну маленькую букву";
   }
   // Если все проверки пройдены, вернуть true
-  return true;
+  return null;
 }
