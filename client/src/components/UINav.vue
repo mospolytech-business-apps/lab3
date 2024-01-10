@@ -57,10 +57,11 @@ const showRoute = (route) => {
 
 .nav-menu a {
   border: 1px solid gray;
+  border-radius: 4px;
   padding: 4px;
   line-height: 1.3;
   &:hover {
-    background-color: gray;
+    background-color: rgb(233, 230, 177);
   }
 }
 
@@ -78,12 +79,12 @@ const showRoute = (route) => {
 }
 
 .nav-menu > *:active {
-  color: blue;
+  color: rgb(255, 153, 51);
 }
 
 .active {
-  background-color: #e277cd;
-  color: whitesmoke;
+  background-color: rgb(255, 153, 51);
+  color: black;
 }
 
 @media print {

@@ -11,7 +11,7 @@
   padding: 0.25rem 2rem;
   border: 0.1px solid black;
   border-radius: 0px;
-  background-color: white;
+  background-color: rgb(255, 215, 127);
   cursor: pointer;
   display: flex;
   gap: 0.5rem;
@@ -20,11 +20,11 @@
   position: relative;
 }
 .btn:hover {
-  background-color: lightgray;
+  background-color: rgb(255, 153, 51);
 }
 
 .btn:active {
-  background-color: grey;
+  background-color: rgb(233, 230, 177);
 }
 
 .btn:disabled {

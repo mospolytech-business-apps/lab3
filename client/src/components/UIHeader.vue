@@ -23,10 +23,15 @@ const router = useRouter();
 </script>
 <template>
   <header class="header">
+    <a class="link-logo" href="/">
+      <img src="../assets/logo.png" alt="logo" class="logo">
+    </a>
     <h1 class="title">
       {{ props.title ?? router.currentRoute.value.meta?.title }}
     </h1>
-    <button @click="closeButtonHandler" class="exit-btn">Выход</button>
+    <button @click="closeButtonHandler" class="exit-btn">
+      <img src="../assets/cross-icon.png" alt="logo" class="close">
+    </button>
   </header>
 </template>
 
@@ -36,8 +41,8 @@ const router = useRouter();
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 30px;
-  background-color: #98d728;
+  height: 40px;
+  background-color: rgb(255, 215, 127);
 }
 
 .title {
@@ -53,6 +58,28 @@ const router = useRouter();
 
 .exit-btn:hover {
   cursor: pointer;
+}
+
+.logo{
+  width: 38px;
+  background-color: white;
+  border-radius: 20px;
+}
+
+.link-logo{ 
+  text-decoration: none;
+}
+
+.close {
+  width: 32px;
+  height: 32px;
+  padding: 6px;
+  border-radius: 20px;
+  border: 1px solid transparent;
+  &:hover {
+    border: 1px solid black;
+    background-color: rgb(233, 230, 177);
+  }
 }
 
 @media print {
