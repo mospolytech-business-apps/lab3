@@ -2,8 +2,8 @@
 import { ref, onUnmounted, onMounted, computed } from "vue";
 import { storeToRefs } from "pinia";
 import { useOrdersStore } from "@/stores/orders.store";
-import { useNotificationsStore } from "@/stores/notifications.store";
 import { useUsersStore } from "@/stores/users.store";
+import Cookies from "js-cookie";
 
 import UIHeader from "@/components/UIHeader.vue";
 import UINav from "@/components/UINav.vue";
@@ -11,12 +11,12 @@ import UIButton from "@/components/UIButton.vue";
 import UISelect from "@/components/UISelect.vue";
 import OrderModal from "@/components/OrderModal.vue";
 
-const { fetchOrders, statuses } = useOrdersStore();
+const { fetchOrders, statuses, changeStatus } = useOrdersStore();
 const { allOrders } = storeToRefs(useOrdersStore());
 
-const { customers, clientManagers } = storeToRefs(useUsersStore());
-
-const { addAlert } = useNotificationsStore();
+const { customers, clientManagers, userRole, userID } = storeToRefs(
+  useUsersStore()
+);
 
 const isEditing = ref(null);
 
@@ -33,7 +33,7 @@ const closeNewOrderModal = () => {
 
 const isEditOrderModalOpen = ref(null);
 
-const handleEditOrder = (order) => {
+const editOrder = (order) => {
   editableOrder.value = order;
   if (editableOrder.value === null) {
     addError("Error: Select order first!");
@@ -54,12 +54,14 @@ const closeEditOrderModal = () => {
   isEditing.value = null;
 };
 
-const closeOrderModal = () => {
+const closeOrderModal = async () => {
   if (isEditing.value) {
     closeEditOrderModal();
     return;
   }
   closeNewOrderModal();
+  orders.value = await fetchOrders();
+  console.log(orders.value);
 };
 
 const editableOrder = ref(null);
@@ -78,6 +80,7 @@ const selectedStatus = ref("all");
 const orders = ref([]);
 onMounted(async () => {
   orders.value = allOrders.value.length ? allOrders.value : await fetchOrders();
+  userID.value = Cookies.get("USER_ID");
 });
 
 const filteredOrders = computed(() => {
@@ -100,8 +103,39 @@ const filteredOrders = computed(() => {
       ["cancelled"].includes(order.status)
     );
   }
+
   return allOrders.value;
 });
+
+const roleFiltered = computed(() => {
+  if (userRole.value === "Customer") {
+    return filteredOrders.value.filter((order) => {
+      return order.customer == userID.value;
+    });
+  } else if (userRole.value === "ClientManager") {
+    return filteredOrders.value.filter(
+      (order) => order.status === "new" || order.manager === userID.value
+    );
+  } else if (userRole.value === "Director") {
+    return filteredOrders.value;
+  } else if (userRole.value === "PurchaseManager") {
+    return filteredOrders.value.filter(
+      (order) => order.status === "procurement"
+    );
+  } else if (userRole.value === "Master") {
+    return filteredOrders.value.filter(
+      (order) => order.status === "production" || order.status === "checking"
+    );
+  }
+
+  return filteredOrders.value;
+});
+
+// TODO: implement
+const deleteOrder = (order) => {};
+
+// TODO: implement
+const cancelOrder = (order) => {};
 
 onUnmounted(() => {
   selectedOrder.value = null;
@@ -122,7 +156,7 @@ onUnmounted(() => {
         <option value="rejected">Отклоненные</option>
       </UISelect>
     </div>
-    <div class="table-wrapper">
+    <div class="table-wrapper" @click.self="selectedOrder = null">
       <table class="table">
         <thead>
           <tr>
@@ -138,9 +172,9 @@ onUnmounted(() => {
         </thead>
         <tbody>
           <tr
-            v-for="order in filteredOrders"
+            v-for="order of roleFiltered"
             :key="order.id"
-            @click="selectOrder(order)"
+            @click.stop="selectOrder(order)"
             :class="{
               selected: order === selectedOrder,
             }"
@@ -148,9 +182,34 @@ onUnmounted(() => {
             <td>№{{ order.number }}</td>
             <td>{{ order.date }}</td>
             <td>{{ order.name }}</td>
-            <td>
+            <td
+              v-if="['Director', 'ClientManager'].includes(userRole)"
+              class="status-cell"
+            >
+              <span>
+                ⇩
+                {{ statuses.find((st) => st.status === order.status)?.title }}
+              </span>
+              <div class="popup">
+                <ul class="status-list">
+                  <li
+                    :class="{
+                      passed:
+                        statuses.findIndex((o) => o.status === order.status) >
+                        statuses.findIndex((o) => o.status === status.status),
+                      canceled: order.status === 'cancelled',
+                    }"
+                    v-for="status in statuses"
+                  >
+                    {{ status.title }}
+                  </li>
+                </ul>
+              </div>
+            </td>
+            <td v-else>
               {{ statuses.find((st) => st.status === order.status)?.title }}
             </td>
+
             <td>₽{{ order.price }}</td>
             <td>
               {{
@@ -174,10 +233,45 @@ onUnmounted(() => {
       </table>
     </div>
     <div class="buttons">
-      <UIButton @click="handleEditOrder(selectedOrder)"
-        >Изменить заказ</UIButton
-      >
-      <UIButton @click="openNewOrderModal">Новый заказ</UIButton>
+      <template v-if="userRole === 'Customer'">
+        <UIButton @click="openNewOrderModal">Новый</UIButton>
+        <UIButton :disabled="!selectedOrder" @click="deleteOrder(selectedOrder)"
+          >Удалить</UIButton
+        >
+        <UIButton :disabled="!selectedOrder" @click="cancelOrder(selectedOrder)"
+          >Отклонить</UIButton
+        >
+      </template>
+      <template v-else-if="userRole === 'ClientManager'">
+        <UIButton @click="openNewOrderModal">Новый</UIButton>
+        <UIButton :disabled="!selectedOrder" @click="acceptOrderModal"
+          >Принять заказ</UIButton
+        >
+        <UIButton :disabled="!selectedOrder" @click="changeStatus('accept')"
+          >Изменить заказ</UIButton
+        >
+      </template>
+      <template v-else-if="userRole === 'Director'">
+        <UIButton @click="openNewOrderModal">Новый</UIButton>
+        <UIButton :disabled="!selectedOrder" @click="deleteOrder(selectedOrder)"
+          >Удалить</UIButton
+        >
+        <UIButton :disabled="!selectedOrder" @click="editOrder('accept')"
+          >Изменить заказ</UIButton
+        >
+      </template>
+      <template v-else-if="userRole === 'PurchaseManager'">
+        <UIButton @click="openNewOrderModal">Новый</UIButton>
+        <UIButton @click="changeStatus('production')">На производство</UIButton>
+      </template>
+      <template v-else-if="userRole === 'Master'">
+        <UIButton :disabled="!selectedOrder" @click="openNewOrderModal"
+          >На контроль</UIButton
+        >
+        <UIButton :disabled="!selectedOrder" @click="deleteOrder('finished')"
+          >Готов</UIButton
+        >
+      </template>
     </div>
   </main>
   <OrderModal
@@ -248,5 +342,48 @@ th {
 .buttons {
   display: flex;
   gap: 5rem;
+}
+
+.popup {
+  opacity: 0;
+  width: 100%;
+  position: absolute;
+  min-height: 150px;
+  background-color: #fff;
+  top: 30px;
+  left: 0;
+  border: 1px solid black;
+  border-top: 0px;
+  padding: 1rem;
+  z-index: 1;
+  margin: 0;
+  transition: opacity 0.5s ease; /* Set a shorter transition time */
+}
+
+.status-cell {
+  position: relative;
+  min-width: 200px;
+}
+
+.status-cell:hover .popup {
+  opacity: 1;
+  transition-delay: 0.5s; /* Add this line to delay the transition */
+}
+.status-cell:hover {
+  background-color: rgba(200, 200, 200, 0.5);
+}
+.status-list {
+  color: darkgray;
+  list-style: none;
+  font-size: 0.9rem;
+  padding: 0;
+  margin: 0;
+}
+
+.passed {
+  color: green;
+}
+.canceled {
+  color: red;
 }
 </style>

@@ -16,11 +16,20 @@ errorStore.$subscribe((state) => {
 </script>
 
 <template>
-  <span class="err" v-show="errors.length"> {{ "🚨 " + errors?.at(-1) }}</span>
+  <div class="err" v-show="errors.length">
+    <span class="message" v-show="errors.length">
+      {{ "🚨 " + errors?.at(-1) }}</span
+    >
+  </div>
 </template>
 
 <style scoped>
 .err {
-  color: rgb(139, 0, 116);
+  background-color: #ff8a63;
+  display: flex;
+  min-width: 10rem;
+  padding: 2rem 6rem;
+  border: 1px solid black;
+  transform: translate(-50%, 0);
 }
 </style>

@@ -15,10 +15,6 @@ export const useOrdersStore = defineStore("orders", () => {
       status: "new",
     },
     {
-      title: "Отменен",
-      status: "cancelled",
-    },
-    {
       title: "Составление спецификации",
       status: "specification",
     },
@@ -46,6 +42,10 @@ export const useOrdersStore = defineStore("orders", () => {
       title: "Выполнен",
       status: "finished",
     },
+    {
+      title: "Отменен",
+      status: "cancelled",
+    },
   ];
 
   const numberOfOrdersToday = computed(() => {
@@ -67,10 +67,51 @@ export const useOrdersStore = defineStore("orders", () => {
     return res;
   };
 
+  const addOrder = async (order) => {
+    const { res, err } = await api.addOrder(order);
+
+    if (err !== null) {
+      addError(err.message);
+      return;
+    }
+
+    allOrders.value.push(res);
+
+    return res;
+  };
+
+  const updateOrder = async (order) => {
+    const { res, err } = await api.updateOrder(order);
+
+    if (err !== null) {
+      addError(err.message);
+      return;
+    }
+
+    return res;
+  };
+
+  const changeStatus = async (order, status) => {
+    const { res, err } = await updateOrder({
+      ...order,
+      status,
+    });
+
+    if (err !== null) {
+      addError(err.message);
+      return;
+    }
+
+    return res;
+  };
+
   return {
     allOrders,
     fetchOrders,
+    addOrder,
+    updateOrder,
     statuses,
     numberOfOrdersToday,
+    changeStatus,
   };
 });

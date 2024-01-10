@@ -10,13 +10,16 @@ import UINav from "@/components/UINav.vue";
 import UIButton from "@/components/UIButton.vue";
 
 const { userRole } = storeToRefs(useUsersStore());
-const { fetchIngredients, deleteIngredient, updateIngredient } = useIngredientsStore();
+const { fetchIngredients, deleteIngredient, updateIngredient } =
+  useIngredientsStore();
 const { allIngredients } = storeToRefs(useIngredientsStore());
 
 const all = ref([]);
 onMounted(async () => {
   watchEffect(async () => {
-    all.value = allIngredients.value.length ? allIngredients.value : await fetchIngredients();
+    all.value = allIngredients.value.length
+      ? allIngredients.value
+      : await fetchIngredients();
   });
 });
 
@@ -27,30 +30,36 @@ const filteredArray = computed(() => {
     filteredIngredients: [],
     filteredDecorations: [],
     positions: null,
-    cost: null
-  }
-  if (inputedDate.value == null){
-    result.filteredIngredients = all.value.filter((all) =>
-      all.isDecoration == false)
-    result.filteredDecorations = all.value.filter((all) =>
-      all.isDecoration == true)
+    cost: null,
+  };
+  if (inputedDate.value == null) {
+    result.filteredIngredients = all.value.filter(
+      (all) => all.isDecoration == false
+    );
+    result.filteredDecorations = all.value.filter(
+      (all) => all.isDecoration == true
+    );
   } else {
-    let endDate = new Date(inputedDate.value)
+    let endDate = new Date(inputedDate.value);
     result.filteredIngredients = all.value.filter((all) => {
-      let startDate = new Date(all.expirationDate)
-      return (endDate < startDate && all.isDecoration == false)
-    })
+      let startDate = new Date(all.expirationDate);
+      return endDate < startDate && all.isDecoration == false;
+    });
     result.filteredDecorations = all.value.filter((all) => {
-      let startDate = new Date(all.expirationDate)
-      return (endDate < startDate && all.isDecoration == true)
-    })
+      let startDate = new Date(all.expirationDate);
+      return endDate < startDate && all.isDecoration == true;
+    });
   }
-  result.positions = result.filteredDecorations.length + result.filteredIngredients.length
-  result.filteredDecorations.forEach((e) => {result.cost += e.price})
-  result.filteredIngredients.forEach((e) => {result.cost += e.price})
-  return result
-})
-
+  result.positions =
+    result.filteredDecorations.length + result.filteredIngredients.length;
+  result.filteredDecorations.forEach((e) => {
+    result.cost += e.price;
+  });
+  result.filteredIngredients.forEach((e) => {
+    result.cost += e.price;
+  });
+  return result;
+});
 
 const selectedObject = ref(null);
 const editableObject = ref(null);
@@ -60,7 +69,7 @@ const selectObject = (obj) => {
 };
 
 const handleDeleteObject = (obj) => {
-  console.log(obj)
+  console.log(obj);
   openDeleteObjectModal();
 };
 
@@ -77,8 +86,8 @@ const handleEditObject = (obj) => {
 };
 
 const deleteObject = (obj) => {
-  deleteIngredient(obj)
-}
+  deleteIngredient(obj);
+};
 
 const openEditObjectModal = () => {
   editableObject.value = selectedObject.value;
@@ -91,7 +100,7 @@ const closeEditObjectModal = () => {
 };
 
 const openDeleteObjectModal = () => {
-  console.log(selectedObject)
+  console.log(selectedObject);
   isDeleteObjectModalOpen.value = true;
 };
 
@@ -100,26 +109,46 @@ const closeDeleteObjectModal = () => {
 };
 
 const updateObject = (obj) => {
-  console.log("Редактирование ", obj)
+  console.log("Редактирование ", obj);
   updateIngredient(obj);
 };
-
 </script>
 
 <template>
   <UIHeader />
   <UINav />
   <main class="main">
-    <div class="filter">
-      <input type="date" v-model="inputedDate">
-      <p v-if="inputedDate != null">Количество выведенных позиций: {{ filteredArray.positions }}</p>
-      <p v-if="inputedDate != null">Общая закупочная стоимость {{ filteredArray.cost }}</p>
+    <div style="display: flex; gap: 2rem">
+      <div class="filter">
+        <input type="date" v-model="inputedDate" />
+        <p v-if="inputedDate != null">
+          Количество выведенных позиций: {{ filteredArray.positions }}
+        </p>
+        <p v-if="inputedDate != null">
+          Общая закупочная стоимость {{ filteredArray.cost }}
+        </p>
+      </div>
+      <div
+        v-show="userRole !== 'Master' && userRole !== 'ClientManager'"
+        class="buttons"
+      ></div>
+      <UIButton
+        @click="handleEditObject(selectedObject)"
+        :disabled="!selectedObject"
+        >Редактировать</UIButton
+      >
+      <UIButton
+        @click="handleDeleteObject(selectedObject)"
+        :disabled="!selectedObject || selectedObject.amount !== 0"
+        >Удалить объект</UIButton
+      >
     </div>
-    <div v-show="userRole!=='Master' && userRole!=='ClientManager'" class="buttons">
-      <UIButton @click="handleEditObject(selectedObject)" :disabled="!selectedObject">Редактировать</UIButton>
-      <UIButton @click="handleDeleteObject(selectedObject)" :disabled="!selectedObject || selectedObject.amount!==0">Удалить объект</UIButton>  
-    </div>
-    <h2 class="section-heading">Ингредиенты <span v-if="inputedDate != null">{{ filteredArray.filteredIngredients.length }}</span></h2>
+    <h2 class="section-heading">
+      Ингредиенты
+      <span v-if="inputedDate != null">{{
+        filteredArray.filteredIngredients.length
+      }}</span>
+    </h2>
     <div class="table-wrapper">
       <table class="table">
         <thead>
@@ -153,7 +182,12 @@ const updateObject = (obj) => {
         </tbody>
       </table>
     </div>
-    <h2 class="section-heading">Украшения <span v-if="inputedDate != null">{{ filteredArray.filteredDecorations.length }}</span></h2>
+    <h2 class="section-heading">
+      Украшения
+      <span v-if="inputedDate != null">{{
+        filteredArray.filteredDecorations.length
+      }}</span>
+    </h2>
     <div class="table-wrapper">
       <table class="table">
         <thead>
@@ -194,7 +228,12 @@ const updateObject = (obj) => {
     @close="closeEditObjectModal"
     @updateData="updateObject"
   />
-  <ComfirmModal :open="isDeleteObjectModalOpen" @close="closeDeleteObjectModal" @deleteData="deleteObject" :object="selectedObject"/>
+  <ComfirmModal
+    :open="isDeleteObjectModalOpen"
+    @close="closeDeleteObjectModal"
+    @deleteData="deleteObject"
+    :object="selectedObject"
+  />
 </template>
 
 <style scoped>
@@ -215,6 +254,7 @@ th {
 .table-wrapper {
   flex-grow: 1;
   width: 100%;
+  height: 300px;
   border: 2px solid black;
   overflow: scroll;
 }

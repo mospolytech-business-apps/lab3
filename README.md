@@ -11,7 +11,7 @@
 - [x] {Максим} 1.3 Логин // Login.vue
 - [x] {Максим} 1.4 Регистрация // Register.vue
 - [x] {Артем} 1.5 Инструменты - [Director] // Tools.vue
-- [ ] {Андрей 1, Даня} 1.6 Ингридиенты - [PurchaseManager, Director] // Ingredients.vue
+- [x] {Андрей 1, Даня} 1.6 Ингридиенты - [PurchaseManager, Director] // Ingredients.vue
 
 2 сессия:
 
@@ -19,16 +19,9 @@
 - [ ] {Максим} 2.2 Список заказов - [ALL] // Home.vue
 - [ ] {Ваня, Максим} 2.3 Оформление заказа - [Customer, ClientManager] // Home.vue + modal
 - [ ] {Андрей 2} 2.4 Списание ингридиентов
-- [ ] {Даня, Максим} 2.5 Сбои оборудования - [Master] // EquipmentFailure.vue
+- [x] {Даня, Максим} 2.5 Сбои оборудования - [Master] // EquipmentFailure.vue
 - [x] {Паша} 2.6 Контроль качества - [Master] // QualityControl.vue
 
-4 сессия:
-
-- [x] {Артем} 4.1 Тесты на пароль
-- [ ] {Андрей 2, Максим} 4.2 Отчет по закупкам - [Director] // ToolsPurchaseReport.vue
-- [x] {Андрей 2} 4.3 Отчет по сбоям - [Director] // EquipmentFailureReport.vue
-
-```text
 3 сессия:
 
 - [ ] {Максим} 3.1 Спецификации - [Master] // ProductSpecification.vue
@@ -36,4 +29,9 @@
 - [ ] {Артем} 3.3 Оценка времени - [ClientManager] // Estimates.vue
 - [ ] {Паша, Витя} 3.4 Диаграмма Ганта - [ClientManager] // Estimates.vue
 - [ ] {Эмиль} 3.5 Отчет по ингридиентам - [Director, PurchaseManager] // IngredientsReport.vue
-```
+
+4 сессия:
+
+- [x] {Артем} 4.1 Тесты на пароль
+- [x] {Андрей 2, Максим} 4.2 Отчет по закупкам - [Director] // ToolsPurchaseReport.vue
+- [x] {Андрей 2} 4.3 Отчет по сбоям - [Director] // EquipmentFailureReport.vue

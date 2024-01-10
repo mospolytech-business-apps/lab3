@@ -8,10 +8,11 @@ import Cookies from "js-cookie";
 export const useUsersStore = defineStore("users", () => {
   const { addError } = useNotificationsStore();
 
-  const currentUser = ref({});
   const allUsers = ref([]);
   const userRole = ref(Cookies.get("USER_ROLE"));
+  const userID = ref(Cookies.get("USER_ID"));
 
+  const currentUser = ref({});
   const clientManagers = computed(() => {
     return allUsers.value.filter((user) => user?.role === "ClientManager");
   });
@@ -52,6 +53,7 @@ export const useUsersStore = defineStore("users", () => {
     allUsers,
     addUser,
     userRole,
+    userID,
     currentUser,
     fetchUsers,
     clientManagers,

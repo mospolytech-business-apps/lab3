@@ -17,6 +17,7 @@ const userData = ref({
   firstName: null,
   lastName: null,
   password: null,
+  passwordRepeat: null,
   role: null,
 });
 
@@ -52,17 +53,12 @@ onMounted(async () => {
       </label>
       <label class="label">
         <span class="span">Пароль</span>
-        <input
-          v-model="userData.firstName"
-          class="input"
-          type="text"
-          required
-        />
+        <input v-model="userData.password" class="input" type="text" required />
       </label>
       <label class="label">
         <span class="span">Подтверждение пароля</span>
         <input
-          v-model="userData.firstName"
+          v-model="userData.passwordRepeat"
           class="input"
           type="text"
           required
