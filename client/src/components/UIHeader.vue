@@ -4,11 +4,6 @@ import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth.store";
 
 const props = defineProps({
-  title: {
-    type: String,
-    required: false,
-    default: "Title",
-  },
   closeButtonHandler: {
     type: Function,
     required: false,
@@ -60,5 +55,11 @@ const router = useRouter();
 
 .exit-btn:hover {
   cursor: pointer;
+}
+
+@media print {
+  .header {
+    display: none;
+  }
 }
 </style>

@@ -187,7 +187,7 @@ onUnmounted(() => {
               class="status-cell"
             >
               <span>
-                ⇩
+                🔽
                 {{ statuses.find((st) => st.status === order.status)?.title }}
               </span>
               <div class="popup">

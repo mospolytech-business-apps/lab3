@@ -85,4 +85,10 @@ const showRoute = (route) => {
   background-color: #e277cd;
   color: rgb(100, 0, 92);
 }
+
+@media print {
+  .nav-menu {
+    display: none;
+  }
+}
 </style>
