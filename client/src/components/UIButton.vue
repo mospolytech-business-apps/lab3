@@ -11,7 +11,7 @@
   padding: 0.25rem 2rem;
   border: 0.1px solid black;
   border-radius: 0px;
-  background-color: rgb(255, 201, 252);
+  background-color: white;
   cursor: pointer;
   display: flex;
   gap: 0.5rem;
@@ -24,7 +24,7 @@
 }
 
 .btn:active {
-  background-color: rgb(254, 213, 255);
+  background-color: grey;
 }
 
 .btn:disabled {

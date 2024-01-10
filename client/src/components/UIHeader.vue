@@ -26,9 +26,7 @@ const router = useRouter();
     <h1 class="title">
       {{ props.title ?? router.currentRoute.value.meta?.title }}
     </h1>
-    <button @click="closeButtonHandler" class="exit-btn">
-      Выход
-    </button>
+    <button @click="closeButtonHandler" class="exit-btn">Выход</button>
   </header>
 </template>
 
@@ -39,7 +37,7 @@ const router = useRouter();
   justify-content: space-between;
   align-items: center;
   height: 30px;
-  background-color: rgb(255, 201, 252);
+  background-color: #98d728;
 }
 
 .title {

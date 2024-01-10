@@ -51,7 +51,7 @@ const showRoute = (route) => {
   gap: 3rem;
   row-gap: 0.5rem;
   font-weight: 400;
-  background-color: rgb(252, 238, 255);
+  background-color: whitesmoke;
   padding: 1rem;
 }
 
@@ -78,7 +78,7 @@ const showRoute = (route) => {
 }
 
 .nav-menu > *:active {
-  color: rgb(255, 0, 238);
+  color: blue;
 }
 
 .active {
