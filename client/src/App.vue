@@ -1,9 +1,15 @@
 <template>
-  <div class="wrapper">
-    <RouterView />
-    <UIError class="err" />
-    <UIAlert class="err" />
-  </div>
+    <div class="wrapper">
+        <router-view v-slot="{ Component }">
+            <!-- кэширование страниц -->
+            <keep-alive>
+              <component :is="Component" />
+            </keep-alive>
+        </router-view>
+
+        <UIError class="err" />
+        <UIAlert class="err" />
+    </div>
 </template>
 
 <script setup>
@@ -14,21 +20,21 @@ import UIAlert from "@/components/UIAlert.vue";
 
 <style>
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  height: 100%;
-  background-color: white;
-  position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    background-color: white;
+    position: relative;
 }
 
 .err {
-  position: fixed;
-  top: 10px;
-  right: 0;
+    position: fixed;
+    top: 10px;
+    right: 0;
 }
 
 .main {
-  height: calc(100% - 3.6rem);
+    height: calc(100% - 3.6rem);
 }
 </style>

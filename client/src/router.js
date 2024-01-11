@@ -89,7 +89,7 @@ const router = createRouter({
       path: "/product-specification",
       name: "product-specification",
       component: ProductSpecification,
-      meta: { title: "Спецификация изделий", roles: [roles[4]] },
+      meta: { title: "Спецификация изделий", roles: [roles[4], roles[3]] },
     },
     {
       path: "/estimates",
