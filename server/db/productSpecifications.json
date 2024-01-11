@@ -1,145 +1,188 @@
 {
     "productSpecifications": [
         {
+            "id": 1,
             "product": "Торт Рафаэль (готовый заказ)",
             "semi_finished_products": [
-                "Торт Рафаэль непропитанный"
+                {
+                    "id": 1,
+                    "name": "Торт Рафаэль непропитанный"
+                }
             ],
-            "ingredients": {
-                "кокосовая стружка": {
+            "ingredients": [
+                {
+                    "id": 1,
+                    "name": "кокосовая стружка", 
                     "amount": 30,
                     "units": "г"
                 }
-            },
-            "decoration": {
-                "конфеты Рафаэлло": {
+            ],
+            "decorations": [
+                {
+                    "id": 1,
+                    "name": "конфеты Рафаэлло", 
                     "amount": 3,
                     "units": "шт."
                 }
-            },
-            "operations": {
-                "Пропитка": {
+            ],
+            "operations": [
+                {
+                    "id": 1,
+                    "name": "Пропитка", 
                     "type_equipment": "без оборудования",
                     "time_for_operation": {
                         "amount": 12,
                         "units": "часов"
                     }
                 }
-            }
+            ]
         },
         {
+            "id": 2,
             "product": "Торт Рафаэль непропитанный (полуфабрикат)",
             "semi_finished_products": [
-                "Коржи для торта Рафаэль",
-                "Основной крем для торта Рафаэль",
-                "Крем для украшения для торта Рафаэль"
+                {"id": 1, "name": "Коржи для торта Рафаэль"},
+                {"id": 2, "name": "Основной крем для торта Рафаэль"},
+                {"id": 3, "name": "Крем для украшения для торта Рафаэль"}
             ],
             "ingredients": null,
-            "decoration": null,
-            "operations": {
-                "Монтаж тортов": {
+            "decorations": null,
+            "operations": [
+                {
+                    "name": "Монтаж тортов", 
                     "type_equipment": "без оборудования",
                     "time_for_operation": {
                         "amount": 30,
                         "units": "минут"
                     }
                 }
-            }
+            ]
         },
         {
+            "id":3,
             "product": "Коржи для торта Рафаэль (полуфабрикат)",
             "semi_finished_products": null,
-            "ingredients": {
-                "Яйцо куриное": {
+            "ingredients": [
+                {
+                    "id": 1,
+                    "name": "Яйцо куриное", 
                     "amount": 4,
                     "units": "шт."
                 },
-                "Сахар": {
+                {
+                    "id": 2,
+                    "name": "Сахар", 
                     "amount": 200,
                     "units": "г"
                 },
-                "Мука": {
+                {
+                    "id": 3,
+                    "name": "Мука", 
                     "amount": 200,
                     "units": "г"
                 },
-                "Разрыхлитель": {
+                {
+                    "id": 4,
+                    "name": "Разрыхлитель", 
                     "amount": 10,
                     "units": "г"
                 }
-            },
-            "decoration": null,
-            "operations": {
-                "Взбивание": {
+            ],
+            "decorations": null,
+            "operations": [
+                {
+                    "id": 1,
+                    "name": "Взбивание", 
                     "type_equipment": "миксер",
                     "time_for_operation": {
                         "amount": 20,
                         "units": "минут"
                     }
                 },
-                "Выпекание": {
+                {
+                    "id": 2,
+                    "name": "Выпекание", 
                     "type_equipment": "духовая печь",
                     "time_for_operation": {
                         "amount": 40,
                         "units": "минут"
                     }
                 }
-            }
+            ]
         },
         {
+            "id": 4,
             "product": "Основной крем для торта Рафаэль (полуфабрикат)",
             "semi_finished_products": null,
-            "ingredients": {
-                "Сгущенное молоко": {
+            "ingredients": [
+                {
+                    "id": 1,
+                    "name": "Сгущенное молоко", 
                     "amount": 400,
                     "units": "г"
                 },
-                "Кукурузные палочки": {
+                {
+                    "id": 2,
+                    "name": "Кукурузные палочки", 
                     "amount": 30,
                     "units": "г"
                 },
-                "Масло сливочное": {
+                {
+                    "id": 3,
+                    "name": "Масло сливочное", 
                     "amount": 100,
                     "units": "г"
                 },
-                "Кокосовая стружка": {
+                {
+                    "id": 4,
+                    "name": "Кокосовая стружка", 
                     "amount": 150,
                     "units": "г"
                 }
-            },
-            "decoration": null,
-            "operations": {
-                "Взбивание": {
+            ],
+            "decorations": null,
+            "operations": [
+                {
+                    "id": 1,
+                    "name": "Взбивание", 
                     "type_equipment": "миксер",
                     "time_for_operation": {
                         "amount": 30,
                         "units": "минут"
                     }
                 }
-            }
+            ]
         },
         {
+            "id": 5,
             "product": "Крем для украшения для торта Рафаэль",
             "semi_finished_products": null,
-            "ingredients": {
-                "Сливки молочные (33-38%)": {
+            "ingredients": [
+                {
+                    "id": 1,
+                    "name": "Сливки молочные (33-38%)", 
                     "amount": 500,
                     "units": "мл"
                 },
-                "Сахарная пудра": {
+                {
+                    "id": 2,
+                    "name": "Сахарная пудра", 
                     "amount": 60,
                     "units": "г"
                 }
-            },
-            "decoration": null,
-            "operations": {
-                "Взбивание": {
+            ],
+            "decorations": null,
+            "operations": [
+                {
+                    "id": 1,
+                    "name": "Взбивание", 
                     "type_equipment": "миксер",
                     "time_for_operation": {
                         "amount": 20,
                         "units": "минут"
                     }
                 }
-            }
+            ]
         }
     ]
 }
