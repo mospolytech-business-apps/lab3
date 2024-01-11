@@ -23,7 +23,8 @@ onMounted(async () => {
   });
 });
 
-const inputedDate = ref(null);
+const filterStartDate = ref(null);
+const filterEndDate = ref(null);
 
 const filteredArray = computed(() => {
   let result = {
@@ -32,7 +33,7 @@ const filteredArray = computed(() => {
     positions: null,
     cost: null,
   };
-  if (inputedDate.value == null) {
+  if (filterStartDate.value == null && filterEndDate.value == null) {
     result.filteredIngredients = all.value.filter(
       (all) => all.isDecoration == false
     );
@@ -40,14 +41,33 @@ const filteredArray = computed(() => {
       (all) => all.isDecoration == true
     );
   } else {
-    let endDate = new Date(inputedDate.value);
-    result.filteredIngredients = all.value.filter((all) => {
-      let startDate = new Date(all.expirationDate);
-      return endDate < startDate && all.isDecoration == false;
+    let startDate = filterStartDate.value
+      ? new Date(filterStartDate.value)
+      : null;
+    let endDate = filterEndDate.value ? new Date(filterEndDate.value) : null;
+
+    console.log(startDate, endDate, filterEndDate);
+
+    result.filteredIngredients = all.value.filter((item) => {
+      let expirationDate = item.expirationDate
+        ? new Date(item.expirationDate)
+        : null;
+      return (
+        (!startDate || expirationDate >= startDate) &&
+        (!endDate || expirationDate <= endDate) &&
+        item.isDecoration === false
+      );
     });
-    result.filteredDecorations = all.value.filter((all) => {
-      let startDate = new Date(all.expirationDate);
-      return endDate < startDate && all.isDecoration == true;
+
+    result.filteredDecorations = all.value.filter((item) => {
+      let expirationDate = item.expirationDate
+        ? new Date(item.expirationDate)
+        : null;
+      return (
+        (!startDate || expirationDate >= startDate) &&
+        (!endDate || expirationDate <= endDate) &&
+        item.isDecoration === true
+      );
     });
   }
   result.positions =
@@ -118,40 +138,46 @@ const updateObject = (obj) => {
   <UIHeader />
   <UINav />
   <main class="main">
-    <div style="display: flex; gap: 2rem">
+    <div>
       <div class="filter">
-        <input type="date" v-model="inputedDate" />
-        <p v-if="inputedDate != null">
-          Количество выведенных позиций: {{ filteredArray.positions }}
-        </p>
-        <p v-if="inputedDate != null">
-          Общая закупочная стоимость {{ filteredArray.cost }}
-        </p>
+        <div class="dateFilter">
+          <p class="section-heading">Срок годности:</p>
+          <span>C</span>
+          <input type="date" v-model="filterStartDate" />
+          <span>по</span>
+          <input type="date" v-model="filterEndDate" />
+        </div>
+        <div
+          v-show="userRole !== 'Master' && userRole !== 'ClientManager'"
+          class="buttons"
+        ></div>
+        <UIButton
+          @click="handleEditObject(selectedObject)"
+          :disabled="!selectedObject"
+          >Редактировать</UIButton
+        >
+        <UIButton
+          @click="handleDeleteObject(selectedObject)"
+          :disabled="!selectedObject || selectedObject.amount !== 0"
+          >Удалить объект</UIButton
+        >
       </div>
-      <div
-        v-show="userRole !== 'Master' && userRole !== 'ClientManager'"
-        class="buttons"
-      ></div>
-      <UIButton
-        @click="handleEditObject(selectedObject)"
-        :disabled="!selectedObject"
-        >Редактировать</UIButton
-      >
-      <UIButton
-        @click="handleDeleteObject(selectedObject)"
-        :disabled="!selectedObject || selectedObject.amount !== 0"
-        >Удалить объект</UIButton
-      >
+      <p v-if="filterStartDate != null && filterEndDate != null">
+        Количество выведенных позиций: {{ filteredArray.positions }}
+      </p>
+      <p v-if="filterStartDate != null && filterEndDate != null">
+        Общая закупочная стоимость {{ filteredArray.cost }}
+      </p>
     </div>
     <h2 class="section-heading">
       Ингредиенты
-      <span v-if="inputedDate != null">{{
+      <span v-if="filterStartDate != null && filterEndDate != null">{{
         filteredArray.filteredIngredients.length
       }}</span>
     </h2>
     <div class="table-wrapper">
       <table class="table">
-        <thead>
+        <thead class="thead">
           <tr>
             <th>Артикул</th>
             <th>Наименование</th>
@@ -171,26 +197,26 @@ const updateObject = (obj) => {
               selected: ingredient === selectedObject,
             }"
           >
-            <td>{{ ingredient.article }}</td>
-            <td>{{ ingredient.name }}</td>
-            <td>{{ ingredient.amount }}</td>
-            <td>{{ ingredient.units }}</td>
-            <td>{{ ingredient.price }}</td>
-            <td>{{ ingredient.supplier }}</td>
-            <td>{{ ingredient.expirationDate }}</td>
+            <td>{{ ingredient?.article ?? "–" }}</td>
+            <td>{{ ingredient?.name ?? "–" }}</td>
+            <td>{{ ingredient?.amount ?? "–" }}</td>
+            <td>{{ ingredient?.units ?? "–" }}</td>
+            <td>${{ ingredient?.price ?? "–" }}</td>
+            <td>{{ ingredient?.supplier ?? "–" }}</td>
+            <td>{{ ingredient?.deliveryTime ?? "–" }}</td>
           </tr>
         </tbody>
       </table>
     </div>
     <h2 class="section-heading">
       Украшения
-      <span v-if="inputedDate != null">{{
+      <span v-if="filterStartDate != null && filterEndDate != null">{{
         filteredArray.filteredDecorations.length
       }}</span>
     </h2>
     <div class="table-wrapper">
       <table class="table">
-        <thead>
+        <thead class="thead">
           <tr>
             <th>Артикул</th>
             <th>Наименование</th>
@@ -210,13 +236,13 @@ const updateObject = (obj) => {
               selected: decoration === selectedObject,
             }"
           >
-            <td>{{ decoration.article }}</td>
-            <td>{{ decoration.name }}</td>
-            <td>{{ decoration.amount }}</td>
-            <td>{{ decoration.units }}</td>
-            <td>{{ decoration.price }}</td>
-            <td>{{ decoration.supplier }}</td>
-            <td>{{ decoration.expirationDate }}</td>
+            <td>{{ decoration?.article ?? "–" }}</td>
+            <td>{{ decoration?.name ?? "–" }}</td>
+            <td>{{ decoration?.amount ?? "–" }}</td>
+            <td>{{ decoration?.units ?? "–" }}</td>
+            <td>${{ decoration?.price ?? "–" }}</td>
+            <td>{{ decoration?.supplier ?? "–" }}</td>
+            <td>{{ decoration?.deliveryTime ?? "–" }}</td>
           </tr>
         </tbody>
       </table>
@@ -245,6 +271,7 @@ const updateObject = (obj) => {
   justify-content: center;
   align-items: start;
   gap: 1rem;
+  padding-bottom: 4rem;
 }
 td,
 th {
@@ -263,8 +290,23 @@ th {
   border-collapse: collapse;
   overflow: scroll;
 }
+.thead {
+  position: sticky;
+  top: 0px;
+  background-color: white;
+}
 
 .selected {
   box-shadow: inset 0 0 0 2px black;
+}
+
+.filter {
+  display: flex;
+  gap: 3rem;
+}
+.dateFilter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 </style>

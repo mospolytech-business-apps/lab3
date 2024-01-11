@@ -43,7 +43,7 @@ onMounted(() => {
   <main class="main">
     <div class="table-wrapper" @click.self="selectedTool = null">
       <table class="table">
-        <thead>
+        <thead style="position: sticky">
           <tr>
             <th>Наименование</th>
             <th>Тип</th>
