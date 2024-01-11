@@ -61,7 +61,6 @@ const closeOrderModal = async () => {
   }
   closeNewOrderModal();
   orders.value = await fetchOrders();
-  console.log(orders.value);
 };
 
 const editableOrder = ref(null);
@@ -80,7 +79,6 @@ const selectedStatus = ref("all");
 const orders = ref([]);
 onMounted(async () => {
   orders.value = allOrders.value.length ? allOrders.value : await fetchOrders();
-  userID.value = Cookies.get("USER_ID");
 });
 
 const filteredOrders = computed(() => {
@@ -114,7 +112,7 @@ const roleFiltered = computed(() => {
     });
   } else if (userRole.value === "ClientManager") {
     return filteredOrders.value.filter(
-      (order) => order.status === "new" || order.manager === userID.value
+      (order) => order.status === "new" || order.manager == userID.value
     );
   } else if (userRole.value === "Director") {
     return filteredOrders.value;
@@ -161,7 +159,7 @@ onUnmounted(() => {
         <thead>
           <tr>
             <th>Заказ</th>
-            <th>Дата</th>
+            <th style="min-width: 90px">Дата</th>
             <th>Наименование</th>
             <th>Статус</th>
             <th>Стоимость</th>
@@ -235,7 +233,9 @@ onUnmounted(() => {
     <div class="buttons">
       <template v-if="userRole === 'Customer'">
         <UIButton @click="openNewOrderModal">Новый</UIButton>
-        <UIButton :disabled="!selectedOrder" @click="deleteOrder(selectedOrder)"
+        <UIButton
+          :disabled="!selectedOrder && selectedOrder?.status === 'new'"
+          @click="deleteOrder(selectedOrder)"
           >Удалить</UIButton
         >
         <UIButton :disabled="!selectedOrder" @click="cancelOrder(selectedOrder)"
@@ -247,21 +247,25 @@ onUnmounted(() => {
         <UIButton :disabled="!selectedOrder" @click="acceptOrderModal"
           >Принять заказ</UIButton
         >
-        <UIButton :disabled="!selectedOrder" @click="changeStatus('accept')"
+        <UIButton
+          :disabled="!selectedOrder && selectedOrder?.status === 'new'"
+          @click="changeStatus('accept')"
           >Изменить заказ</UIButton
         >
       </template>
       <template v-else-if="userRole === 'Director'">
-        <UIButton @click="openNewOrderModal">Новый</UIButton>
-        <UIButton :disabled="!selectedOrder" @click="deleteOrder(selectedOrder)"
+        <UIButton
+          :disabled="!selectedOrder && selectedOrder?.status === 'new'"
+          @click="deleteOrder(selectedOrder)"
           >Удалить</UIButton
         >
-        <UIButton :disabled="!selectedOrder" @click="editOrder('accept')"
+        <UIButton
+          :disabled="!selectedOrder && selectedOrder?.status === 'new'"
+          @click="editOrder('accept')"
           >Изменить заказ</UIButton
         >
       </template>
       <template v-else-if="userRole === 'PurchaseManager'">
-        <UIButton @click="openNewOrderModal">Новый</UIButton>
         <UIButton @click="changeStatus('production')">На производство</UIButton>
       </template>
       <template v-else-if="userRole === 'Master'">
@@ -275,7 +279,7 @@ onUnmounted(() => {
     </div>
   </main>
   <OrderModal
-    allOrders="orders"
+    :allOrders="orders"
     :open="isOrderModalOpen"
     :isEditing="isEditing"
     :order="editableOrder"

@@ -23,13 +23,10 @@ export const useAuthStore = defineStore("auth", () => {
 
     const user = allUsers.value?.find((user) => user.username === username);
 
-    console.log(user);
-
     if (user === undefined) {
       addError("Ошибка в логине или пароле");
 
       attemptsCount.value += 1;
-      console.log(attemptsCount.value);
 
       if (attemptsCount.value === 3) {
         addAlert("Вы заблокированы на 5 секунд");
@@ -58,9 +55,7 @@ export const useAuthStore = defineStore("auth", () => {
 
     Cookies.set("USER_ROLE", userRole.value);
     Cookies.set("USER_ID", currentUser.value.id);
-
-    console.log(Cookies.get("USER_ROLE"));
-    console.log(Cookies.get("USER_ID"));
+    userID.value = currentUser.value.id;
 
     router.push("/");
   };
@@ -81,19 +76,15 @@ export const useAuthStore = defineStore("auth", () => {
     user.role = "Customer";
     user.passwordRepeat = undefined;
 
-    console.log(user);
-
     allUsers.value.push({
       ...user,
     });
 
     const { err, res } = await api.addUser(user);
     if (err) {
-      console.log(err);
       addError(err);
       return;
     }
-    console.log(res);
 
     Cookies.set("USER_ROLE", "Customer");
     Cookies.set("USER_ID", res.id);

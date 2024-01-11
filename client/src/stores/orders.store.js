@@ -48,12 +48,6 @@ export const useOrdersStore = defineStore("orders", () => {
     },
   ];
 
-  const numberOfOrdersToday = computed(() => {
-    const today = new Date().toLocaleDateString();
-
-    return allOrders.value.filter((order) => order.date === today).length;
-  });
-
   const fetchOrders = async () => {
     const { res, err } = await api.fetchOrders(`${BASE_URL}/orders.json`);
 
@@ -111,7 +105,6 @@ export const useOrdersStore = defineStore("orders", () => {
     addOrder,
     updateOrder,
     statuses,
-    numberOfOrdersToday,
     changeStatus,
   };
 });

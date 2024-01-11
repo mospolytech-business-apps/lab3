@@ -69,6 +69,26 @@ export const api = {
     }
   },
 
+  fetchUserById: async (id) => {
+    try {
+      const response = await fetch(`${BASE_URL}/users/${id}`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const user = await response.json();
+
+      if (!response.ok) {
+        throw new Error(`${user.error} (${response.status}) `);
+      }
+
+      return { res: user, err: null };
+    } catch (error) {
+      return { res: null, err: error };
+    }
+  },
+
   addOrder: async (order) => {
     try {
       const response = await fetch(`${BASE_URL}/orders`, {

@@ -4,20 +4,44 @@ import UIButton from "@/components/UIButton.vue";
 import UISelect from "@/components/UISelect.vue";
 import CustomerModal from "@/components/CustomerModal.vue";
 
-import { ref, onMounted, watchEffect } from "vue";
+import { ref, onMounted, watchEffect, computed, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useUsersStore } from "@/stores/users.store";
 import { useOrdersStore } from "@/stores/orders.store";
 
-const { fetchUsers, addUser } = useUsersStore();
-const { clientManagers, customers, userRole } = storeToRefs(useUsersStore());
-const { statuses, numberOfOrdersToday, updateOrder, addOrder } =
-  useOrdersStore();
+const { fetchUsers, addUser, fetchUserById } = useUsersStore();
+const { clientManagers, customers, userRole, currentUser, userID } =
+  storeToRefs(useUsersStore());
+const { statuses, updateOrder, addOrder } = useOrdersStore();
+
+onMounted(async () => {
+  currentUser.value = await fetchUserById(userID.value);
+});
 
 const props = defineProps({
   open: { type: Boolean, required: true },
   order: { type: Object || null, required: true },
   isEditing: { type: Boolean, required: true },
+  allOrders: { type: Array, required: true },
+});
+
+const allOrders = ref(null);
+watchEffect(() => {
+  allOrders.value = props.allOrders;
+});
+
+const numberOfOrdersToday = computed(() => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const number = allOrders.value.filter((order) => {
+    const orderDate = new Date(order.date);
+    orderDate.setHours(0, 0, 0, 0);
+
+    return orderDate.getTime() === today.getTime();
+  });
+
+  return number.length + 1;
 });
 
 const emit = defineEmits(["close"]);
@@ -41,20 +65,41 @@ watchEffect(() => {
       };
 });
 
-const applyOrderChanges = () => {
+const applyOrderChanges = async () => {
   if (props.isEditing) {
     updateOrder({
       ...orderData.value,
-      manager: parseInt(orderData.value.manager),
-      customer: parseInt(orderData.value.customer),
+      manager: +orderData.value.manager,
+      customer: +orderData.value.customer,
     });
   } else {
+    orderData.value.customer =
+      userRole.value === "Customer"
+        ? +currentUser.value.id
+        : +orderData.value.customer;
+
+    orderData.value.manager =
+      userRole.value === "ClientManager"
+        ? +currentUser.value.id
+        : Math.floor(Math.random() * 2) + 1;
+
+    const user = await fetchUserById(+orderData.value.customer);
+
+    const orderNumber =
+      "" +
+      today.getDate() +
+      today.getMonth() +
+      today.getFullYear() +
+      (user?.firstName?.slice(0, 1) ?? "_") +
+      (user?.lastName?.slice(0, 1) ?? "_") +
+      (numberOfOrdersToday.value < 10
+        ? "0" + numberOfOrdersToday.value
+        : numberOfOrdersToday.value);
+
     addOrder({
       ...orderData.value,
-      number: orderNumber.value,
-      manager: Math.floor(Math.random() * 2) + 1,
-      customer: parseInt(orderData.value.customer),
-      status: "specification",
+      number: orderNumber,
+      status: userRole.value === "ClientManager" ? "specification" : "new",
       date: new Date().toISOString().slice(0, 10),
     });
   }
@@ -69,7 +114,6 @@ const isCustomerModalOpen = ref(null);
 
 const newCustomerData = ref(null);
 const closeCustomerModal = async () => {
-  customers.value = await fetchUsers();
   isCustomerModalOpen.value = false;
   newCustomerData.value = null;
 };
@@ -80,18 +124,11 @@ const handleNewCustomer = () => {
 };
 
 const today = new Date();
-const orderNumber = ref(null);
 
 const users = ref([]);
 onMounted(async () => {
+  console.log(props.allOrders);
   users.value = await fetchUsers();
-
-  orderNumber.value =
-    "" +
-    today.getDate() +
-    today.getMonth() +
-    today.getFullYear() +
-    numberOfOrdersToday;
 });
 
 const files = ref(null);
@@ -159,7 +196,7 @@ const addFiles = () => {
           />
         </label>
 
-        <label class="customer-select">
+        <label class="customer-select" v-show="userRole === 'ClientManager'">
           <span class="label">Заказчик</span>
           <div class="customer">
             <UISelect v-model="orderData.customer" requited>
@@ -177,6 +214,7 @@ const addFiles = () => {
               class="add-customer__modal"
               :open="isCustomerModalOpen"
               @close="closeCustomerModal"
+              @fetchCustomers="fetchUsers()"
             />
           </div>
         </label>
@@ -187,6 +225,7 @@ const addFiles = () => {
             class="input"
             v-model="orderData.finish"
             type="date"
+            :min="new Date().toISOString().slice(0, 10)"
             required
           />
         </label>
@@ -234,6 +273,11 @@ const addFiles = () => {
         <UIButton
           @click="applyOrderChanges"
           class="cerate-order"
+          :disabled="
+            userRole === 'ClientManager' && orderData.customer === null
+              ? false
+              : null
+          "
           type="submit"
           >{{
             props.isEditing ? "Сохранить изменения" : "Создать заказ"
@@ -247,6 +291,7 @@ const addFiles = () => {
 <style scoped>
 .modal {
   position: absolute;
+  z-index: 2;
   top: 50%;
   left: 50%;
   background-color: white;
@@ -329,7 +374,7 @@ const addFiles = () => {
   width: 100%;
 }
 
-.select-customer {
+.select-manager {
   display: flex;
   flex-direction: column;
 }
