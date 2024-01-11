@@ -137,6 +137,23 @@ export const api = {
     }
   },
 
+  deleteOrder: async (order) => {
+    try {
+      const response = await fetch(`${BASE_URL}/orders/${order.id}`, {
+        method: "DELETE",
+        headers,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      return { res: null, err: null };
+    } catch (error) {
+      return { res: null, err: error };
+    }
+  },
+
   fetchTools: async () => {
     try {
       const response = await fetch(`${BASE_URL}/tools`);

@@ -1,11 +1,8 @@
 <script setup>
 import UIHeader from "@/components/UIHeader.vue";
 import UIButton from "@/components/UIButton.vue";
-import UISelect from "@/components/UISelect.vue";
-import CustomerModal from "@/components/CustomerModal.vue";
 
-import { ref, onMounted, watchEffect } from "vue";
-import { storeToRefs } from "pinia";
+import { ref, watchEffect } from "vue";
 
 const props = defineProps({
   open: { type: Boolean, required: true },
@@ -17,11 +14,11 @@ const emit = defineEmits(["close"]);
 const objectData = ref(null);
 
 watchEffect(() => {
-  objectData.value = props.object
+  objectData.value = props.object;
 });
 
 const applyObjectChanges = () => {
-  console.log("Удаление подтверждено для объекта с id #", props.object.id)
+  console.log("Удаление подтверждено для объекта с id #", props.object.id);
   emit("deleteData", props.object);
   emit("close");
 };
@@ -29,28 +26,23 @@ const applyObjectChanges = () => {
 const close = () => {
   emit("close");
 };
-
 </script>
 
 <template>
   <div v-if="props.open" class="modal">
-    <UIHeader
-      title="Удалить объект"
-      :closeButtonHandler="close"
-    />
+    <UIHeader title="Удалить объект" :closeButtonHandler="close" />
 
     <main class="main">
       <form class="form" @submit.prevent="applyObjectChanges">
         Подтвердите удаление объекта
         <div class="buttons">
-            <UIButton class="cerate-order" @click="close">{{
-                "Отмена"
-              }}</UIButton>
-              <UIButton class="cerate-order" type="submit">{{
-                "Удалить"
-              }}</UIButton>
+          <UIButton class="cerate-order" @click="close">{{
+            "Отмена"
+          }}</UIButton>
+          <UIButton class="cerate-order" type="submit">{{
+            "Удалить"
+          }}</UIButton>
         </div>
-        
       </form>
     </main>
   </div>

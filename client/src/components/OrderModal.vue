@@ -79,9 +79,7 @@ const applyOrderChanges = async () => {
         : +orderData.value.customer;
 
     orderData.value.manager =
-      userRole.value === "ClientManager"
-        ? +currentUser.value.id
-        : Math.floor(Math.random() * 2) + 1;
+      userRole.value === "ClientManager" ? +currentUser.value.id : null;
 
     const user = await fetchUserById(+orderData.value.customer);
 
@@ -226,7 +224,6 @@ const addFiles = () => {
             v-model="orderData.finish"
             type="date"
             :min="new Date().toISOString().slice(0, 10)"
-            required
           />
         </label>
 

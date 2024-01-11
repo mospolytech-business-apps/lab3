@@ -3,15 +3,16 @@ import { ref, onUnmounted, onMounted, computed } from "vue";
 import { storeToRefs } from "pinia";
 import { useOrdersStore } from "@/stores/orders.store";
 import { useUsersStore } from "@/stores/users.store";
-import Cookies from "js-cookie";
 
 import UIHeader from "@/components/UIHeader.vue";
 import UINav from "@/components/UINav.vue";
 import UIButton from "@/components/UIButton.vue";
 import UISelect from "@/components/UISelect.vue";
 import OrderModal from "@/components/OrderModal.vue";
+import ReasonModal from "@/components/ReasonModal.vue";
 
-const { fetchOrders, statuses, changeStatus } = useOrdersStore();
+const { fetchOrders, statuses, changeStatus, deleteOrder, updateOrder } =
+  useOrdersStore();
 const { allOrders } = storeToRefs(useOrdersStore());
 
 const { customers, clientManagers, userRole, userID } = storeToRefs(
@@ -31,7 +32,17 @@ const closeNewOrderModal = () => {
   isEditing.value = null;
 };
 
-const isEditOrderModalOpen = ref(null);
+const isEditOrderModalOpen = ref(false);
+
+const isReasonModalOpen = ref(false);
+
+const openReasonModal = () => {
+  isReasonModalOpen.value = true;
+};
+
+const closeReasonModal = () => {
+  isReasonModalOpen.value = false;
+};
 
 const editOrder = (order) => {
   editableOrder.value = order;
@@ -48,10 +59,12 @@ const openEditOrderModal = () => {
   isEditing.value = true;
 };
 
-const closeEditOrderModal = () => {
+const closeEditOrderModal = async () => {
   isEditOrderModalOpen.value = false;
   editableOrder.value = null;
   isEditing.value = null;
+
+  orders.value = await fetchOrders();
 };
 
 const closeOrderModal = async () => {
@@ -129,11 +142,44 @@ const roleFiltered = computed(() => {
   return filteredOrders.value;
 });
 
-// TODO: implement
-const deleteOrder = (order) => {};
+const handleDeleteOrder = async (order) => {
+  if (order === null) {
+    addError("Error: Select order first!");
+    return;
+  }
+  await deleteOrder(order);
 
-// TODO: implement
-const cancelOrder = (order) => {};
+  orders.value = await fetchOrders();
+  selectOrder(null);
+};
+
+const handleCancelOrder = async (order) => {
+  if (order === null) {
+    addError("Error: Select order first!");
+    return;
+  }
+
+  if (userRole.value === "ClientManager") {
+    await changeStatus({ ...order, manager: +userID.value }, "cancelled");
+  } else if (userRole.value === "Client") {
+    await changeStatus(order, "cancelled");
+  }
+
+  orders.value = await fetchOrders();
+  selectOrder(null);
+};
+
+const handleAcceptOrder = async (order) => {
+  if (order === null) {
+    addError("Error: Select order first!");
+    return;
+  }
+
+  await changeStatus({ ...order, manager: +userID.value }, "specification");
+
+  orders.value = await fetchOrders();
+  selectOrder(null);
+};
 
 onUnmounted(() => {
   selectedOrder.value = null;
@@ -234,45 +280,79 @@ onUnmounted(() => {
       <template v-if="userRole === 'Customer'">
         <UIButton @click="openNewOrderModal">Новый</UIButton>
         <UIButton
-          :disabled="!selectedOrder && selectedOrder?.status === 'new'"
-          @click="deleteOrder(selectedOrder)"
+          :disabled="!selectedOrder || selectedOrder?.status !== 'new'"
+          @click="handleDeleteOrder(selectedOrder)"
           >Удалить</UIButton
         >
-        <UIButton :disabled="!selectedOrder" @click="cancelOrder(selectedOrder)"
+        <UIButton
+          :disabled="
+            !selectedOrder ||
+            selectedOrder.status === 'cancelled' ||
+            (selectedOrder.status !== 'approving' &&
+              selectedOrder.status !== 'specification')
+          "
+          @click="handleCancelOrder(selectedOrder)"
           >Отклонить</UIButton
         >
       </template>
       <template v-else-if="userRole === 'ClientManager'">
         <UIButton @click="openNewOrderModal">Новый</UIButton>
-        <UIButton :disabled="!selectedOrder" @click="acceptOrderModal"
+        <UIButton
+          :disabled="!selectedOrder || selectedOrder.manager !== null"
+          @click="handleAcceptOrder(selectedOrder)"
           >Принять заказ</UIButton
         >
         <UIButton
           :disabled="!selectedOrder && selectedOrder?.status === 'new'"
-          @click="changeStatus('accept')"
+          @click="editOrder(selectedOrder)"
           >Изменить заказ</UIButton
+        >
+        <UIButton
+          :disabled="
+            !selectedOrder ||
+            (selectedOrder.status !== 'new' &&
+              selectedOrder.status !== 'approving')
+          "
+          @click="handleCancelOrder(selectedOrder) && openReasonModal()"
+          >Отклонить</UIButton
+        >
+        <UIButton
+          :disabled="!selectedOrder || selectedOrder?.status !== 'approving'"
+          @click="changeStatus(selectedOrder, 'procurement')"
+          >В закупку</UIButton
+        >
+        <UIButton
+          :disabled="!selectedOrder || selectedOrder?.status !== 'ready'"
+          @click="changeStatus(selectedOrder, 'finished')"
+          >Выполнен</UIButton
         >
       </template>
       <template v-else-if="userRole === 'Director'">
         <UIButton
           :disabled="!selectedOrder && selectedOrder?.status === 'new'"
-          @click="deleteOrder(selectedOrder)"
+          @click="handleDeleteOrder(selectedOrder)"
           >Удалить</UIButton
         >
         <UIButton
           :disabled="!selectedOrder && selectedOrder?.status === 'new'"
-          @click="editOrder('accept')"
+          @click="editOrder(selectedOrder)"
           >Изменить заказ</UIButton
         >
       </template>
       <template v-else-if="userRole === 'PurchaseManager'">
-        <UIButton @click="changeStatus('production')">На производство</UIButton>
+        <UIButton @click="changeStatus(selectedOrder, 'production')"
+          >На производство</UIButton
+        >
       </template>
       <template v-else-if="userRole === 'Master'">
-        <UIButton :disabled="!selectedOrder" @click="openNewOrderModal"
+        <UIButton
+          :disabled="!selectedOrder || selectedOrder?.status !== 'production'"
+          @click="changeStatus(selectedOrder, 'checking')"
           >На контроль</UIButton
         >
-        <UIButton :disabled="!selectedOrder" @click="deleteOrder('finished')"
+        <UIButton
+          :disabled="!selectedOrder || selectedOrder?.status !== 'checking'"
+          @click="changeStatus(selectedOrder, 'finished')"
           >Готов</UIButton
         >
       </template>
@@ -285,6 +365,7 @@ onUnmounted(() => {
     :order="editableOrder"
     @close="closeOrderModal"
   />
+  <ReasonModal :open="isReasonModalOpen" @close="closeReasonModal" />
 </template>
 
 <style scoped>
@@ -345,7 +426,7 @@ th {
 
 .buttons {
   display: flex;
-  gap: 5rem;
+  gap: 1rem;
 }
 
 .popup {

@@ -85,11 +85,8 @@ export const useOrdersStore = defineStore("orders", () => {
     return res;
   };
 
-  const changeStatus = async (order, status) => {
-    const { res, err } = await updateOrder({
-      ...order,
-      status,
-    });
+  const deleteOrder = async (order) => {
+    const { res, err } = await api.deleteOrder(order);
 
     if (err !== null) {
       addError(err.message);
@@ -99,11 +96,23 @@ export const useOrdersStore = defineStore("orders", () => {
     return res;
   };
 
+  const changeStatus = async (order, status) => {
+    const res = await updateOrder({
+      ...order,
+      status: status,
+    });
+
+    await fetchOrders();
+
+    return res;
+  };
+
   return {
     allOrders,
     fetchOrders,
     addOrder,
     updateOrder,
+    deleteOrder,
     statuses,
     changeStatus,
   };

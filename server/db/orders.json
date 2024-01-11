@@ -444,7 +444,7 @@
       "price": 1299,
       "customer": 11,
       "finish": "2023-12-31",
-      "manager": 1,
+      "manager": null,
       "metrics": [
         {
           "name": "Вес",
@@ -473,7 +473,7 @@
       "price": 1099,
       "customer": 10,
       "finish": "2023-12-31",
-      "manager": 1,
+      "manager": null,
       "metrics": [
         {
           "name": "Вес",
@@ -502,7 +502,7 @@
       "price": 799,
       "customer": 9,
       "finish": "2024-01-05",
-      "manager": 1,
+      "manager": null,
       "metrics": [
         {
           "name": "Вес",
@@ -560,7 +560,7 @@
       "price": 899,
       "customer": 9,
       "finish": "2024-01-06",
-      "manager": 1,
+      "manager": null,
       "metrics": [
         {
           "name": "Вес",
@@ -589,7 +589,7 @@
       "price": 999,
       "customer": 10,
       "finish": "2024-01-07",
-      "manager": 1,
+      "manager": null,
       "metrics": [
         {
           "name": "Вес",
@@ -705,7 +705,7 @@
       "price": 1599,
       "customer": 11,
       "finish": "2024-01-08",
-      "manager": 2,
+      "manager": null,
       "metrics": [
         {
           "name": "Вес",
