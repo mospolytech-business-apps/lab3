@@ -8,62 +8,83 @@ import UIHeader from "@/components/UIHeader.vue";
 import UINav from "@/components/UINav.vue";
 import UIButton from "@/components/UIButton.vue";
 import UISelect from "@/components/UISelect.vue";
+import ListIngredients from '@/components/ListIngredients.vue'
 
-const { fetchProductSpecifications, deleteIngredient, updateIngredient } = useProductSpecificationsStore();
+const { fetchProductSpecifications, updateProductSpecification } = useProductSpecificationsStore();
 const { allProductSpecifications } = storeToRefs(useProductSpecificationsStore());
 
-const all = ref([]);
+const productSpecifications = ref([]);
 onMounted(async () => {
-  watchEffect(async () => {
-    all.value = allProductSpecifications.value.length ? allProductSpecifications.value : await fetchProductSpecifications();
-  });
+  productSpecifications.value = allProductSpecifications.value.length ? allProductSpecifications.value : await fetchProductSpecifications();
+  // watchEffect(async () => {
+  //   console.log('watchEffect')
+  //   productSpecifications.value = allProductSpecifications.value.length ? allProductSpecifications.value : await fetchProductSpecifications();
+  // });
 });
+
+const editSpecification = (id) => {
+  const specification = productSpecifications.value.find(el => el.id === id);
+
+  specification.being_edited = true;
+}
+
+const saveEdited = (id) => {
+  const specification = productSpecifications.value.find(el => el.id === id);
+  console.log(specification);
+
+  updateProductSpecification(specification);
+
+  specification.being_edited = false;
+}
+
+const test = async () => {
+  console.log(await fetchProductSpecifications());
+}
 </script>
 
 <template>
   <UIHeader />
   <UINav />
+  <UIButton @click="test">test</UIButton>
 
   <main class="main">
 
-    <ul v-for="specification in all">
-      <h3>{{ specification.product }}</h3>
+    <ul v-for="specification in productSpecifications">
+      <div class="header">
+        <h3>{{ specification.product }}</h3> 
+        <UIButton v-if="!specification.being_edited" @click="editSpecification(specification.id)">Редактировать</UIButton>
+        <UIButton v-else @click="saveEdited(specification.id)">Сохранить</UIButton>
+      </div>
+      
 
       <li>
-        <h4>Полуфабрикаты: <span v-if="specification.semi_finished_products == null">–</span></h4>
+        <h4>
+          <span>Полуфабрикаты: </span>
+          <span v-if="specification.semi_finished_products == null">–</span>
+        </h4>
         
         <ol v-if="specification.semi_finished_products != null">
-          <li v-for="semi_finished_product in specification.semi_finished_products">{{ semi_finished_product.name }}</li>
+          <li v-for="semi_finished_product in specification.semi_finished_products">
+            <span v-if="!specification.being_edited">{{ semi_finished_product.name }}</span>
+            <input v-else type="text" v-model="semi_finished_product.name">
+          </li>
         </ol>
       </li>
 
-      <li> <!-- по хорошому сделать компонент -->
-        <h4>Ингредиенты: <span v-if="specification.ingredients == null">–</span></h4>
-
-        <ol v-if="specification.ingredients != null">
-          <li v-for="ingredient in specification.ingredients"> 
-            <span>{{ ingredient.name }}</span>
-            <span> – </span>
-            <span>{{ ingredient.amount }}</span>
-            <span>&nbsp;</span> <!-- пробел -->
-            <span>{{ ingredient.units }}</span>
-          </li>
-        </ol>
-        
+      <li>
+        <ListIngredients 
+          v-model:ingredients="specification.ingredients"
+          header="Ингредиенты"
+          :being_edited="specification.being_edited"
+        />
       </li>
 
-      <li> <!-- по хорошому сделать компонент -->
-        <h4>Украшения: <span v-if="specification.decorations == null">–</span></h4>
-
-        <ol v-if="specification.decorations != null">
-          <li v-for="decoration in specification.decorations"> 
-            <span>{{ decoration.name }}</span>
-            <span> – </span>
-            <span>{{ decoration.amount }}</span>
-            <span>&nbsp;</span> <!-- пробел -->
-            <span>{{ decoration.units }}</span>
-          </li>
-        </ol>
+      <li>
+        <ListIngredients 
+          v-model:ingredients="specification.decorations"
+          header="Украшения"
+          :being_edited="specification.being_edited"
+        />
       </li>
 
       <li>
@@ -71,11 +92,29 @@ onMounted(async () => {
         
         <ol>
           <li v-for="operation in specification.operations">
-            <i>{{ operation.name }}</i>
+            <i v-if="!specification.being_edited">{{ operation.name }}</i>
+            <input v-else type="text" v-model="operation.name">
             
             <ul>
-              <li>Тип оборудования: {{ operation.type_equipment }}</li>
-              <li>Время на операцию: {{ operation.time_for_operation.amount }} {{ operation.time_for_operation.units }}</li>
+              <li>
+                <span>Тип оборудования: </span>
+                <span v-if="!specification.being_edited">{{ operation.type_equipment }}</span>
+                <input v-else type="text" v-model="operation.type_equipment">
+              </li>
+              <li>
+                <span>Время на операцию: </span>
+
+                <template v-if="!specification.being_edited">
+                  <span>{{ operation.time_for_operation.amount }}</span>
+                  <span>&nbsp;</span> <!-- пробел -->
+                  <span>{{ operation.time_for_operation.units }}</span>
+                </template>
+
+                <template v-else>
+                  <input type="text" v-model="operation.time_for_operation.amount">
+                  <input type="text" v-model="operation.time_for_operation.units">
+                </template>
+                </li>
             </ul>
           </li>
         </ol>
@@ -99,7 +138,21 @@ onMounted(async () => {
   width: 50%;
   margin: 0 auto;
 }
+h3 {
+  margin-top: 0;
+}
 h4 {
   margin-top: 0.5rem;
+}
+input {
+  height: 1.2rem;
+}
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.header h3 {
+  margin-right: 1rem;
 }
 </style>

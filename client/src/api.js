@@ -398,53 +398,29 @@ export const api = {
     }
   },
 
-  // addProductSpecifications: async (order) => { // вставил не думая (скорее всего не работает)
-  //   try {
-  //     const response = await fetch(`${BASE_URL}/productSpecifications`, {
-  //       method: "POST",
-  //       headers,
-  //       body: JSON.stringify(order),
-  //     });
+  updateProductSpecification: async (productSpecification) => {
+    try {
+      const response = await fetch(`${BASE_URL}/orders/${productSpecification.id}`, {
+        method: "PUT",
+        headers,
+        body: JSON.stringify(productSpecification),
+      });
 
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! Status: ${response.status}`);
-  //     }
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
 
-  //     const data = await response.json();
+      const data = await response.json();
 
-  //     if (!response.ok) {
-  //       throw new Error(`${data.error} (${response.status}) `);
-  //     }
+      if (!response.ok) {
+        throw new Error(`${data.error} (${response.status}) `);
+      }
 
-  //     return { res: data, err: null };
-  //   } catch (error) {
-  //     return { res: null, err: error };
-  //   }
-  // },
-
-  // updateProductSpecifications: async (order) => { // вставил не думая (скорее всего не работает)
-  //   try {
-  //     const response = await fetch(`${BASE_URL}/productSpecifications/${order.id}`, {
-  //       method: "PUT",
-  //       headers,
-  //       body: JSON.stringify(order),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! Status: ${response.status}`);
-  //     }
-
-  //     const data = await response.json();
-
-  //     if (!response.ok) {
-  //       throw new Error(`${data.error} (${response.status}) `);
-  //     }
-
-  //     return { res: data, err: null };
-  //   } catch (error) {
-  //     return { res: null, err: error };
-  //   }
-  // },
+      return { res: data, err: null };
+    } catch (error) {
+      return { res: null, err: error };
+    }
+  },
 
 
 };

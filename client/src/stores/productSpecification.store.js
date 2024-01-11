@@ -21,6 +21,18 @@ export const useProductSpecificationsStore = defineStore("productSpecifications"
     return res;
   };
 
+  const updateProductSpecification = async (productSpecification) => {
+    const { res, err } = await api.updateProductSpecification(productSpecification);
+
+    if (err !== null) {
+      addError(err.message);
+      return;
+    }
+
+    await fetchProductSpecifications();
+    return res;
+  };
+
 //   const deleteIngredient = async (obj) => {
 //     console.log(obj.id)
 //     const { res, err } = await api.deleteIngredient(obj);
@@ -32,16 +44,12 @@ export const useProductSpecificationsStore = defineStore("productSpecifications"
 //     return res;
 //   };
 
-//   const updateIngredient = (updatedObj) => {
-//     const index = allIngredients.value.findIndex((o) => o.id === updatedObj.id);
-//     if (index !== -1) {
-//       allIngredients.value.splice(index, 1, updatedObj);
-//     }
-//   };
+
 
   return {
     allProductSpecifications,
     fetchProductSpecifications,
+    updateProductSpecification
     // deleteIngredient,
     // updateIngredient,
   };
