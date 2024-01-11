@@ -1,6 +1,11 @@
 <template>
   <div class="wrapper">
-    <RouterView />
+    <router-view v-slot="{ Component }">
+       <keep-alive> <!-- кэширование страниц -->
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
+
     <UIError class="err" />
     <UIAlert class="err" />
   </div>
