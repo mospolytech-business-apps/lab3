@@ -23,6 +23,7 @@ const router = useRouter();
 </script>
 <template>
   <header class="header">
+    <img width="40" src="@/assets/logo.png" alt="Exit button" class="logo"/>
     <h1 class="title">
       {{ props.title ?? router.currentRoute.value.meta?.title }}
     </h1>
@@ -36,8 +37,8 @@ const router = useRouter();
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 30px;
-  background-color: #98d728;
+  border-bottom: 2px solid black;
+  background-color: RGB(255, 215, 127);
 }
 
 .title {
@@ -59,5 +60,8 @@ const router = useRouter();
   .header {
     display: none;
   }
+.logo{
+  margin: 15px;
+}
 }
 </style>
