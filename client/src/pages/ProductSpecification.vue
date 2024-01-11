@@ -36,16 +36,11 @@ const saveEdited = (id) => {
 
   specification.being_edited = false;
 }
-
-const test = async () => {
-  console.log(await fetchProductSpecifications());
-}
 </script>
 
 <template>
   <UIHeader />
   <UINav />
-  <UIButton @click="test">test</UIButton>
 
   <main class="main">
 
