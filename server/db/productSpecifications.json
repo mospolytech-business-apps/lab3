@@ -248,42 +248,10 @@
             ],
             "operations": [
                 {
-                    "name": "Смешивание ингредиентов для коржей", 
-                    "type_equipment": "миксер",
+                    "name": "Ручная сборка торта", 
+                    "type_equipment": "без оборудования",
                     "time_for_operation": {
                         "amount": 20,
-                        "units": "минут"
-                    }
-                },
-                {
-                    "name": "Выпекание коржей", 
-                    "type_equipment": "духовая печь",
-                    "time_for_operation": {
-                        "amount": 30,
-                        "units": "минут"
-                    }
-                },
-                {
-                    "name": "Приготовление крема из сливочного сыра", 
-                    "type_equipment": "миксер",
-                    "time_for_operation": {
-                        "amount": 15,
-                        "units": "минут"
-                    }
-                },
-                {
-                    "name": "Приготовление крема из маскарпоне", 
-                    "type_equipment": "миксер",
-                    "time_for_operation": {
-                        "amount": 15,
-                        "units": "минут"
-                    }
-                },
-                {
-                    "name": "Приготовление глазури для торта", 
-                    "type_equipment": "микроволновка",
-                    "time_for_operation": {
-                        "amount": 10,
                         "units": "минут"
                     }
                 }
@@ -528,10 +496,26 @@
             "decorations": null,
             "operations": [
                 {
-                    "name": "Взбивание глазури", 
+                    "name": "Приготовление теста", 
                     "type_equipment": "миксер",
                     "time_for_operation": {
-                        "amount": 10,
+                        "amount":30,
+                        "units": "минут"
+                    }
+                },
+                {
+                    "name": "Формирование слоев теста", 
+                    "type_equipment": "без оборудования",
+                    "time_for_operation": {
+                        "amount": 20,
+                        "units": "минут"
+                    }
+                },
+                {
+                    "name": "Выпекание слоев теста", 
+                    "type_equipment": "духовая печь",
+                    "time_for_operation": {
+                        "amount": 15,
                         "units": "минут"
                     }
                 }

@@ -27,8 +27,13 @@
           "value": "5"
         }
       ],
-      "images": ["/images/napoleon.jpeg"],
-      "specs": [1, 2]
+      "images": [
+        "/images/napoleon.jpeg"
+      ],
+      "specs": [
+        1,
+        2
+      ]
     },
     {
       "id": 2,
@@ -57,8 +62,13 @@
           "value": "5"
         }
       ],
-      "images": ["/images/medovik.png"],
-      "specs": [1, 2]
+      "images": [
+        "/images/medovik.png"
+      ],
+      "specs": [
+        1,
+        2
+      ]
     },
     {
       "id": 3,
@@ -87,8 +97,13 @@
           "value": "4"
         }
       ],
-      "images": ["/images/newyork.jpeg"],
-      "specs": [1, 2]
+      "images": [
+        "/images/newyork.jpeg"
+      ],
+      "specs": [
+        1,
+        2
+      ]
     },
     {
       "id": 4,
@@ -117,8 +132,13 @@
           "value": "5"
         }
       ],
-      "images": ["/images/biskvit.jpeg"],
-      "specs": [1, 2]
+      "images": [
+        "/images/biskvit.jpeg"
+      ],
+      "specs": [
+        1,
+        2
+      ]
     },
     {
       "id": 5,
@@ -147,8 +167,13 @@
           "value": "6"
         }
       ],
-      "images": ["/images/cheasecake.jpeg"],
-      "specs": [1, 2]
+      "images": [
+        "/images/cheasecake.jpeg"
+      ],
+      "specs": [
+        1,
+        2
+      ]
     },
     {
       "id": 6,
@@ -177,8 +202,14 @@
           "value": "5"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [1, 2]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        1,
+        2
+      ]
     },
     {
       "id": 7,
@@ -208,7 +239,10 @@
         }
       ],
       "images": [],
-      "specs": [1, 2]
+      "specs": [
+        1,
+        2
+      ]
     },
     {
       "id": 8,
@@ -237,8 +271,14 @@
           "value": "8"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [1, 2]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        1,
+        2
+      ]
     },
     {
       "id": 9,
@@ -267,9 +307,15 @@
           "value": "5"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [1, 2],
-      "product_specifications_ids": [6]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        1,
+        2
+      ],
+      "product_specifications_id": 6
     },
     {
       "id": 10,
@@ -298,8 +344,14 @@
           "value": "6"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [1, 2]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        1,
+        2
+      ]
     },
     {
       "id": 11,
@@ -328,8 +380,14 @@
           "value": "5"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [1, 2]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        1,
+        2
+      ]
     },
     {
       "id": 12,
@@ -358,8 +416,14 @@
           "value": "4"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [1, 2]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        1,
+        2
+      ]
     },
     {
       "id": 13,
@@ -388,8 +452,14 @@
           "value": "7"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [1, 2]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        1,
+        2
+      ]
     },
     {
       "id": 14,
@@ -418,8 +488,14 @@
           "value": "6"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [1, 2]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        1,
+        2
+      ]
     },
     {
       "id": 15,
@@ -448,8 +524,14 @@
           "value": "6"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [1, 2]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        1,
+        2
+      ]
     },
     {
       "id": 16,
@@ -478,9 +560,15 @@
           "value": "5"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [1, 2],
-      "product_specifications_ids": [1]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        1,
+        2
+      ],
+      "product_specifications_id": 1
     },
     {
       "id": 17,
@@ -509,9 +597,15 @@
           "value": "6"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [1, 2],
-      "product_specifications_ids": [1]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        1,
+        2
+      ],
+      "product_specifications_id": 1
     },
     {
       "id": 18,
@@ -540,8 +634,14 @@
           "value": "5"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [1, 2]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        1,
+        2
+      ]
     },
     {
       "id": 19,
@@ -570,8 +670,14 @@
           "value": "6"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [1, 2]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        1,
+        2
+      ]
     },
     {
       "id": 20,
@@ -600,8 +706,14 @@
           "value": "4"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [1, 2]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        1,
+        2
+      ]
     },
     {
       "id": 21,
@@ -630,8 +742,13 @@
           "value": "5"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [4]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        4
+      ]
     },
     {
       "id": 22,
@@ -660,8 +777,13 @@
           "value": "6"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [4]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        4
+      ]
     },
     {
       "id": 23,
@@ -690,8 +812,14 @@
           "value": "5"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [1, 2]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        1,
+        2
+      ]
     },
     {
       "id": 24,
@@ -720,8 +848,13 @@
           "value": "5"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [4]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        4
+      ]
     },
     {
       "id": 25,
@@ -750,8 +883,13 @@
           "value": "5"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [4]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        4
+      ]
     },
     {
       "id": 26,
@@ -780,9 +918,14 @@
           "value": "5"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [4],
-      "product_specifications_ids": [10]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        4
+      ],
+      "product_specifications_id": 10
     },
     {
       "id": 27,
@@ -811,8 +954,14 @@
           "value": "5"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [1, 3]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        1,
+        3
+      ]
     },
     {
       "id": 28,
@@ -841,8 +990,14 @@
           "value": "5"
         }
       ],
-      "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [1, 3]
+      "images": [
+        "/images/cheasecake.jpeg",
+        "/images/medovik.png"
+      ],
+      "specs": [
+        1,
+        3
+      ]
     }
   ]
 }

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onUnmounted, onMounted, computed } from "vue";
+import { ref, onUnmounted, computed } from "vue";
 import { useProductSpecificationsStore } from "@/stores/productSpecification.store.js";
 import { useIngredientsStore } from "@/stores/ingredients.store";
 import { storeToRefs } from "pinia";
@@ -9,32 +9,23 @@ import Cookies from "js-cookie";
 
 import UIHeader from "@/components/UIHeader.vue";
 import UINav from "@/components/UINav.vue";
-import UIButton from "@/components/UIButton.vue";
-import UISelect from "@/components/UISelect.vue";
-import OrderModal from "@/components/OrderModal.vue";
 
-const { fetchOrders, statuses, changeStatus } = useOrdersStore();
+const { fetchOrders } = useOrdersStore();
 const { allOrders } = storeToRefs(useOrdersStore());
-const { fetchIngredients, deleteIngredient, updateIngredient } = useIngredientsStore();
+const { fetchIngredients } = useIngredientsStore();
 const { allIngredients } = storeToRefs(useIngredientsStore());
 const ingredients = ref([]);
 ingredients.value = allIngredients.value.length ? allIngredients.value : await fetchIngredients();
-const { customers, clientManagers, userRole, userID } = storeToRefs(
+const { userRole, userID } = storeToRefs(
   useUsersStore()
 );
 
 const selectedOrder = ref(null);
-
-
 const selectedStatus = ref("all");
 
 const orders = ref([]);
 orders.value = allOrders.value.length ? allOrders.value : await fetchOrders();
 userID.value = Cookies.get("USER_ID");
-
-// onMounted(async () => {
-  
-// });
 
 const filteredOrders = computed(() => {
   if (selectedStatus.value === null) {
@@ -137,39 +128,21 @@ function getIngredients(ids, type, productSpecifications, ingredients) {
     return arr;
 }
 
-// const ids = getIdsProductSpecifications(1, productSpecifications.value);
-
-// let test = []
-// roleFiltered.value.forEach(el => {
-//   if (el.product_specifications_ids) {
-//     test.push(...el.product_specifications_ids);
-//   }
-// })
-let test = []
+let tables = []
 roleFiltered.value.forEach(el => {
-  if (el.product_specifications_ids) {
-    test.push({
+  if (el.product_specifications_id) {
+    const idsProductSpecifications = getIdsProductSpecifications(el.product_specifications_id, productSpecifications.value);
+    
+    tables.push({
       name: el.name,
-      ids: [...el.product_specifications_ids]
+      id: el.product_specifications_id,
+      idsProductSpecifications,
+      ingredients: getIngredients(idsProductSpecifications, 'ingredients', productSpecifications.value, ingredients.value),
+      decorations: getIngredients(idsProductSpecifications, 'decorations', productSpecifications.value, ingredients.value),
+      
     });
   }
 })
-
-console.log(test);
-
-function getProductName(id, ) {
-
-}
-// console.log("test", test);
-// test.forEach(el => {
-//   console.log(getIdsProductSpecifications(el, productSpecifications.value));
-
-// })
-
-// console.log(getIngredients(ids, "ingredients", productSpecifications.value, ingredients.value));
-// console.log(getIngredients(ids, "decorations", productSpecifications.value, ingredients.value));
-
-
 
 const lack = (a, b) => {
   const difference = b - a;
@@ -180,11 +153,10 @@ const lack = (a, b) => {
 <template>
   <UIHeader />
   <UINav />
-  <div v-for="el in test">
+
+  <div v-for="el in tables">
     <h2>{{ el.name }}</h2>
-    <table class="table" >
-    <!-- <table> -->
-      
+    <table class="table">
       <thead>
         <tr>
           <th>Артикул</th>
@@ -204,7 +176,7 @@ const lack = (a, b) => {
         <tr>
           <td colspan="10"><b>Ингредиенты</b></td>
         </tr>
-        <tr v-for="ingredient in getIngredients(getIdsProductSpecifications(el.ids, productSpecifications), 'ingredients', productSpecifications, ingredients)">
+        <tr v-for="ingredient in el.ingredients">
           <td>{{ ingredient.article }}</td>
           <td>{{ ingredient.name }}</td>
           <td>{{ ingredient.amount }}</td>
@@ -219,7 +191,7 @@ const lack = (a, b) => {
         <tr>
           <td colspan="10"><b>Декорации</b></td>
         </tr>
-        <tr v-for="ingredient in getIngredients(getIdsProductSpecifications(el.ids, productSpecifications), 'decorations', productSpecifications, ingredients)">
+        <tr v-for="ingredient in el.decorations">
           <td>{{ ingredient.article }}</td>
           <td>{{ ingredient.name }}</td>
           <td>{{ ingredient.amount }}</td>
