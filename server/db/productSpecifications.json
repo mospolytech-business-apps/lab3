@@ -1,193 +1,198 @@
 {
-    "productSpecifications": [
+  "productSpecifications": [
+    {
+      "being_edited": false,
+      "id": 1,
+      "product": "Торт Рафаэль (готовый заказ)",
+      "semi_finished_products": [
         {
-            "being_edited": false,
-            "id": 1,
-            "product": "Торт Рафаэль (готовый заказ)",
-            "semi_finished_products": [
-                {
-                    "id": 1,
-                    "name": "Торт Рафаэль непропитанный"
-                }
-            ],
-            "ingredients": [
-                {
-                    "id": 1,
-                    "name": "кокосовая стружка", 
-                    "amount": 30,
-                    "units": "г"
-                }
-            ],
-            "decorations": [
-                {
-                    "id": 1,
-                    "name": "конфеты Рафаэлло", 
-                    "amount": 3,
-                    "units": "шт."
-                }
-            ],
-            "operations": [
-                {
-                    "id": 1,
-                    "name": "Пропитка", 
-                    "type_equipment": "без оборудования",
-                    "time_for_operation": {
-                        "amount": 12,
-                        "units": "часов"
-                    }
-                }
-            ]
-        },
-        {
-            "being_edited": false,
-            "id": 2,
-            "product": "Торт Рафаэль непропитанный (полуфабрикат)",
-            "semi_finished_products": [
-                {"id": 1, "name": "Коржи для торта Рафаэль"},
-                {"id": 2, "name": "Основной крем для торта Рафаэль"},
-                {"id": 3, "name": "Крем для украшения для торта Рафаэль"}
-            ],
-            "ingredients": null,
-            "decorations": null,
-            "operations": [
-                {
-                    "name": "Монтаж тортов", 
-                    "type_equipment": "без оборудования",
-                    "time_for_operation": {
-                        "amount": 30,
-                        "units": "минут"
-                    }
-                }
-            ]
-        },
-        {
-            "being_edited": false,
-            "id":3,
-            "product": "Коржи для торта Рафаэль (полуфабрикат)",
-            "semi_finished_products": null,
-            "ingredients": [
-                {
-                    "id": 1,
-                    "name": "Яйцо куриное", 
-                    "amount": 4,
-                    "units": "шт."
-                },
-                {
-                    "id": 2,
-                    "name": "Сахар", 
-                    "amount": 200,
-                    "units": "г"
-                },
-                {
-                    "id": 3,
-                    "name": "Мука", 
-                    "amount": 200,
-                    "units": "г"
-                },
-                {
-                    "id": 4,
-                    "name": "Разрыхлитель", 
-                    "amount": 10,
-                    "units": "г"
-                }
-            ],
-            "decorations": null,
-            "operations": [
-                {
-                    "id": 1,
-                    "name": "Взбивание", 
-                    "type_equipment": "миксер",
-                    "time_for_operation": {
-                        "amount": 20,
-                        "units": "минут"
-                    }
-                },
-                {
-                    "id": 2,
-                    "name": "Выпекание", 
-                    "type_equipment": "духовая печь",
-                    "time_for_operation": {
-                        "amount": 40,
-                        "units": "минут"
-                    }
-                }
-            ]
-        },
-        {
-            "being_edited": false,
-            "id": 4,
-            "product": "Основной крем для торта Рафаэль (полуфабрикат)",
-            "semi_finished_products": null,
-            "ingredients": [
-                {
-                    "id": 1,
-                    "name": "Сгущенное молоко", 
-                    "amount": 400,
-                    "units": "г"
-                },
-                {
-                    "id": 2,
-                    "name": "Кукурузные палочки", 
-                    "amount": 30,
-                    "units": "г"
-                },
-                {
-                    "id": 3,
-                    "name": "Масло сливочное", 
-                    "amount": 100,
-                    "units": "г"
-                },
-                {
-                    "id": 4,
-                    "name": "Кокосовая стружка", 
-                    "amount": 150,
-                    "units": "г"
-                }
-            ],
-            "decorations": null,
-            "operations": [
-                {
-                    "id": 1,
-                    "name": "Взбивание", 
-                    "type_equipment": "миксер",
-                    "time_for_operation": {
-                        "amount": 30,
-                        "units": "минут"
-                    }
-                }
-            ]
-        },
-        {
-            "being_edited": false,
-            "id": 5,
-            "product": "Крем для украшения для торта Рафаэль",
-            "semi_finished_products": null,
-            "ingredients": [
-                {
-                    "id": 1,
-                    "name": "Сливки молочные (33-38%)", 
-                    "amount": 500,
-                    "units": "мл"
-                },
-                {
-                    "id": 2,
-                    "name": "Сахарная пудра", 
-                    "amount": 60,
-                    "units": "г"
-                }
-            ],
-            "decorations": null,
-            "operations": [
-                {
-                    "id": 1,
-                    "name": "Взбивание", 
-                    "type_equipment": "миксер",
-                    "time_for_operation": {
-                        "amount": 20,
-                        "units": "минут"
-                    }
-                }
-            ]
+          "id": 1,
+          "name": "Торт Рафаэль непропитанный"
         }
-    ]
+      ],
+      "ingredients": [
+        {
+          "id": 1,
+          "name": "кокосовая стружка",
+          "amount": 30,
+          "units": "г"
+        }
+      ],
+      "decorations": [
+        {
+          "id": 1,
+          "name": "конфеты Рафаэлло",
+          "amount": 3,
+          "units": "шт."
+        }
+      ],
+      "operations": [
+        {
+          "id": 1,
+          "name": "Пропитка",
+          "type_equipment": "без оборудования",
+          "time_for_operation": {
+            "amount": 12,
+            "units": "часов"
+          }
+        }
+      ],
+      "description": "1. Взять готовый торт Рафаэль непропитанный. 2. Поместить торт в холодильник на 12 часов для пропитки. 3. Декорировать торт кокосовой стружкой и конфетами Рафаэлло."
+    },
+    {
+      "being_edited": false,
+      "id": 2,
+      "product": "Торт Рафаэль непропитанный (полуфабрикат)",
+      "semi_finished_products": [
+        { "id": 1, "name": "Коржи для торта Рафаэль" },
+        { "id": 2, "name": "Основной крем для торта Рафаэль" },
+        { "id": 3, "name": "Крем для украшения для торта Рафаэль" }
+      ],
+      "ingredients": null,
+      "decorations": null,
+      "operations": [
+        {
+          "name": "Монтаж тортов",
+          "type_equipment": "без оборудования",
+          "time_for_operation": {
+            "amount": 30,
+            "units": "минут"
+          }
+        }
+      ],
+      "description": "1. Взять готовые коржи, основной крем и крем для украшения. 2. Собрать торт, чередуя слои. 3. Украсить торт кремом для украшения."
+    },
+    {
+      "being_edited": false,
+      "id": 3,
+      "product": "Коржи для торта Рафаэль (полуфабрикат)",
+      "semi_finished_products": null,
+      "ingredients": [
+        {
+          "id": 1,
+          "name": "Яйцо куриное",
+          "amount": 4,
+          "units": "шт."
+        },
+        {
+          "id": 2,
+          "name": "Сахар",
+          "amount": 200,
+          "units": "г"
+        },
+        {
+          "id": 3,
+          "name": "Мука",
+          "amount": 200,
+          "units": "г"
+        },
+        {
+          "id": 4,
+          "name": "Разрыхлитель",
+          "amount": 10,
+          "units": "г"
+        }
+      ],
+      "decorations": null,
+      "operations": [
+        {
+          "id": 1,
+          "name": "Взбивание",
+          "type_equipment": "миксер",
+          "time_for_operation": {
+            "amount": 20,
+            "units": "минут"
+          }
+        },
+        {
+          "id": 2,
+          "name": "Выпекание",
+          "type_equipment": "духовая печь",
+          "time_for_operation": {
+            "amount": 40,
+            "units": "минут"
+          }
+        }
+      ],
+      "description": "1. Взбить яйца с сахаром миксером в течение 20 минут. 2. Добавить муку с разрыхлителем, аккуратно перемешать. 3. Выпекать в духовке при 180°C 40 минут."
+    },
+    {
+      "being_edited": false,
+      "id": 4,
+      "product": "Основной крем для торта Рафаэль (полуфабрикат)",
+      "semi_finished_products": null,
+      "ingredients": [
+        {
+          "id": 1,
+          "name": "Сгущенное молоко",
+          "amount": 400,
+          "units": "г"
+        },
+        {
+          "id": 2,
+          "name": "Кукурузные палочки",
+          "amount": 30,
+          "units": "г"
+        },
+        {
+          "id": 3,
+          "name": "Масло сливочное",
+          "amount": 100,
+          "units": "г"
+        },
+        {
+          "id": 4,
+          "name": "Кокосовая стружка",
+          "amount": 150,
+          "units": "г"
+        }
+      ],
+      "decorations": null,
+      "operations": [
+        {
+          "id": 1,
+          "name": "Взбивание",
+          "type_equipment": "миксер",
+          "time_for_operation": {
+            "amount": 30,
+            "units": "минут"
+          }
+        }
+      ],
+      "description": "1. Взбить все ингредиенты миксером в течение 30 минут до однородной массы."
+    },
+    {
+      "being_edited": false,
+      "id": 5,
+      "product": "Крем для украшения для торта Рафаэль",
+      "semi_finished_products": null,
+      "ingredients": [
+        {
+          "id": 1,
+          "name": "Сливки молочные (33-38%)",
+          "amount": 500,
+          "units": "мл"
+        },
+        {
+          "id": 2,
+          "name": "Сахарная пудра",
+          "amount": 60,
+          "units": "г"
+        }
+      ],
+      "decorations": null,
+      "operations": [
+        {
+          "id": 1,
+          "name": "Взбивание",
+          "type_equipment": "миксер",
+          "time_for_operation": {
+            "amount": 20,
+            "units": "минут"
+          }
+        }
+      ],
+      "description": "Взбить сливки с сахарной пудрой миксером в течение 20 минут."
+    }
+  ]
 }

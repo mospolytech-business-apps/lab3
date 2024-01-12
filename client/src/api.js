@@ -1,3 +1,4 @@
+import { resolveComponent } from "vue";
 import { BASE_URL } from "./config";
 
 const headers = {
@@ -411,10 +412,6 @@ export const api = {
     }
   },
 
-
-
-
-
   fetchProductSpecifications: async () => {
     try {
       const response = await fetch(`${BASE_URL}/productSpecifications`);
@@ -437,11 +434,14 @@ export const api = {
 
   updateProductSpecification: async (productSpecification) => {
     try {
-      const response = await fetch(`${BASE_URL}/orders/${productSpecification.id}`, {
-        method: "PUT",
-        headers,
-        body: JSON.stringify(productSpecification),
-      });
+      const response = await fetch(
+        `${BASE_URL}/productSpecifications/${productSpecification.id}`,
+        {
+          method: "PUT",
+          headers,
+          body: JSON.stringify(productSpecification),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -459,5 +459,27 @@ export const api = {
     }
   },
 
+  addProductSpecification: async (specification) => {
+    try {
+      const response = await fetch(`${BASE_URL}/productSpecifications`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify(specification),
+      });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(`${data.error} (${response.status}) `);
+      }
+
+      return { res: data, err: null };
+    } catch (error) {
+      return { res: null, err: error };
+    }
+  },
 };

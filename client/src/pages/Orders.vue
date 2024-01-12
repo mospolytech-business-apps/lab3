@@ -10,6 +10,7 @@ import UIButton from "@/components/UIButton.vue";
 import UISelect from "@/components/UISelect.vue";
 import OrderModal from "@/components/OrderModal.vue";
 import ReasonModal from "@/components/ReasonModal.vue";
+import SpecificationModal from "@/components/SpecificationModal.vue";
 
 const { fetchOrders, statuses, changeStatus, deleteOrder, updateOrder } =
   useOrdersStore();
@@ -133,11 +134,12 @@ const roleFiltered = computed(() => {
     return filteredOrders.value.filter(
       (order) => order.status === "procurement"
     );
-  } else if (userRole.value === "Master") {
-    return filteredOrders.value.filter(
-      (order) => order.status === "production" || order.status === "checking"
-    );
   }
+  // } else if (userRole.value === "Master") {
+  //   return filteredOrders.value.filter(
+  //     (order) => order.status === "production" || order.status === "checking"
+  //   );
+  // }
 
   return filteredOrders.value;
 });
@@ -179,6 +181,19 @@ const handleAcceptOrder = async (order) => {
 
   orders.value = await fetchOrders();
   selectOrder(null);
+};
+
+const isSpecificationModalOpen = ref(false);
+const openSpecificationModal = (order) => {
+  if (order === null) {
+    addError("Error: Select order first!");
+    return;
+  }
+  isSpecificationModalOpen.value = true;
+};
+
+const closeSpecificationModal = () => {
+  isSpecificationModalOpen.value = false;
 };
 
 onUnmounted(() => {
@@ -355,6 +370,11 @@ onUnmounted(() => {
           @click="changeStatus(selectedOrder, 'finished')"
           >Готов</UIButton
         >
+        <UIButton
+          :disabled="!selectedOrder"
+          @click="openSpecificationModal(selectedOrder)"
+          >Спецификация</UIButton
+        >
       </template>
     </div>
   </main>
@@ -366,6 +386,12 @@ onUnmounted(() => {
     @close="closeOrderModal"
   />
   <ReasonModal :open="isReasonModalOpen" @close="closeReasonModal" />
+  <SpecificationModal
+    :open="isSpecificationModalOpen"
+    :order="selectedOrder"
+    @close="closeSpecificationModal"
+    id="spec"
+  />
 </template>
 
 <style scoped>

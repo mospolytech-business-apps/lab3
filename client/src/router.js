@@ -11,7 +11,6 @@ import WorkroomScheme from "@/pages/WorkroomScheme.vue";
 import QualityControl from "@/pages/QualityControl.vue";
 import Equipment from "@/pages/Equipment.vue";
 import EquipmentFailureReport from "@/pages/EquipmentFailureReport.vue";
-import ProductSpecification from "@/pages/ProductSpecification.vue";
 import Estimates from "@/pages/Estimates.vue";
 import IngredientsReport from "@/pages/IngredientsReport.vue";
 import Tools from "@/pages/Tools.vue";
@@ -64,7 +63,7 @@ const router = createRouter({
       component: Ingredients,
       meta: {
         title: "Учет ингредиентов и украшений для торта",
-        roles: [roles[1],roles[2],roles[3],roles[4]],
+        roles: [roles[1], roles[2], roles[3], roles[4]],
       },
     },
     {
@@ -84,12 +83,6 @@ const router = createRouter({
       name: "equipment-failure",
       component: EquipmentFailure,
       meta: { title: "Неисправности оборудования", roles: [roles[3]] },
-    },
-    {
-      path: "/product-specification",
-      name: "product-specification",
-      component: ProductSpecification,
-      meta: { title: "Спецификация изделий", roles: [roles[4], roles[3]] },
     },
     {
       path: "/estimates",

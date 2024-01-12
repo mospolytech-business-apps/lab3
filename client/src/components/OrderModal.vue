@@ -3,6 +3,7 @@ import UIHeader from "@/components/UIHeader.vue";
 import UIButton from "@/components/UIButton.vue";
 import UISelect from "@/components/UISelect.vue";
 import CustomerModal from "@/components/CustomerModal.vue";
+import { BASE_URL } from "@/config";
 
 import { ref, onMounted, watchEffect, computed, watch } from "vue";
 import { storeToRefs } from "pinia";
@@ -99,6 +100,7 @@ const applyOrderChanges = async () => {
       number: orderNumber,
       status: userRole.value === "ClientManager" ? "specification" : "new",
       date: new Date().toISOString().slice(0, 10),
+      images: imgPaths.value,
     });
   }
   close();
@@ -136,16 +138,33 @@ const getFile = (event) => {
   files.value = event.target.files;
 };
 
-const addFiles = () => {
-  if (files.value) {
-    for (let i = 0; i < files.value.length; i++) {
-      const file = files.value[i];
-      const preview = new FileReader();
+const uploadFile = async (file) => {
+  let formData = new FormData();
+  formData.append("image", file);
 
-      preview.readAsDataURL(file);
-      preview.onload = () => {
-        imgPaths.value.push(preview.result);
-      };
+  try {
+    let response = await fetch(`${BASE_URL}/upload`, {
+      method: "POST",
+      body: formData,
+    });
+    let data = await response.json();
+    return data.url;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};
+
+const addFiles = async () => {
+  if (files.value) {
+    for (let file of files.value) {
+      let url = await uploadFile(file);
+
+      if (url) {
+        imgPaths.value.push(url);
+
+        console.log(url, `${BASE_URL}${url}`);
+      }
     }
   }
 };
@@ -261,7 +280,7 @@ const addFiles = () => {
               v-for="(path, index) in imgPaths"
               :key="index"
               class="photo"
-              :src="path"
+              :src="`${BASE_URL}${path}`"
               alt=""
             />
           </div>
@@ -449,14 +468,15 @@ const addFiles = () => {
 }
 .photos {
   border: 1px solid lightgray;
+  overflow-x: scroll;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
-  height: 5rem;
   gap: 0.5rem;
 }
 
 .photo {
   object-fit: contain;
+  height: 100%;
   display: block;
 }
 .cerate-order {

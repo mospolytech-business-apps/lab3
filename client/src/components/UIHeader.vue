@@ -26,7 +26,7 @@ const router = useRouter();
     <h1 class="title">
       {{ props.title ?? router.currentRoute.value.meta?.title }}
     </h1>
-    <button @click="closeButtonHandler" class="exit-btn">Выход</button>
+    <button @click="closeButtonHandler" class="exit-btn">❌</button>
   </header>
 </template>
 

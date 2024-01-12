@@ -1,12 +1,10 @@
-/**
- * json-server.index.js
- */
 const path = require("path");
 const fs = require("fs");
 const _ = require("lodash");
 const jsonServer = require("json-server");
 
 const server = jsonServer.create();
+const middlewares = jsonServer.defaults();
 const port = 3002;
 
 let endpoints = [];
@@ -38,7 +36,57 @@ Object.keys(obj)
 
 const router = jsonServer.router(objOrdered);
 
-server.use(jsonServer.defaults());
+// Middleware to handle JSON Server defaults
+server.use(middlewares);
+
+// Middleware to handle custom routes before the JSON Server router
+server.use((req, res, next) => {
+  // Handle image requests
+  if (req.method === "GET" && req.url.startsWith("/images/")) {
+    const imageName = req.url.split("/images/")[1];
+    const imagePath = path.resolve(
+      __dirname,
+      `./public/assets/images/${imageName}`
+    );
+
+    // Check if the image file exists
+    if (fs.existsSync(imagePath)) {
+      const imageStream = fs.createReadStream(imagePath);
+      imageStream.pipe(res);
+    } else {
+      res.status(404).send("Image not found");
+    }
+  } else {
+    next();
+  }
+});
+
+const multer = require("multer");
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, "public/assets/images/");
+    },
+    filename: (req, file, cb) => {
+      cb(null, Date.now() + "-" + file.originalname);
+    },
+  }),
+});
+
+// Upload endpoint
+server.post("/upload", upload.single("image"), (req, res) => {
+  const file = req.file;
+  if (!file) {
+    return res.status(400).send("No file uploaded.");
+  }
+
+  res.json({
+    message: "File uploaded successfully!",
+    url: `/images/${file.filename}`,
+  });
+});
+
+// Middleware to handle JSON Server router
 server.use(router);
 
 server.listen(port, () => {
