@@ -16,6 +16,7 @@ import IngredientsReport from "@/pages/IngredientsReport.vue";
 import IngredientsEvaluation from "@/pages/IngredientsEvaluation.vue";
 import Tools from "@/pages/Tools.vue";
 import ToolsPurchaseReport from "@/pages/ToolsPurchaseReport.vue";
+import ProductSpecification from "@/pages/ProductSpecification.vue";
 
 const roles = [
   "Customer",
@@ -103,12 +104,12 @@ const router = createRouter({
         roles: [roles[2], roles[4]],
       },
     },
-    {
-      path: "/ingredients-evaluation/:id",
-      name: "ingredients-evaluation",
-      component: IngredientsEvaluation,
-      meta: { title: "Оценка затрат", roles: [roles[1]] },
-    },
+    // {
+    //   path: "/ingredients-evaluation/:id",
+    //   name: "ingredients-evaluation",
+    //   component: IngredientsEvaluation,
+    //   meta: { title: "Оценка затрат", roles: [roles[1]] },
+    // },
     {
       path: "/tools-purchase-report",
       name: "tools-purchase-report",
@@ -120,6 +121,12 @@ const router = createRouter({
       name: "equipment-failure-report",
       component: EquipmentFailureReport,
       meta: { title: "Отчет по сбоям оборудования", roles: [roles[4]] },
+    },
+    {
+      path: "/product-specification",
+      name: "product-specification",
+      component: ProductSpecification,
+      meta: { title: "Спецификация изделий", roles: [roles[4], roles[3]] },
     },
   ],
 });
