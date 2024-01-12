@@ -13,6 +13,7 @@ import Equipment from "@/pages/Equipment.vue";
 import EquipmentFailureReport from "@/pages/EquipmentFailureReport.vue";
 import Estimates from "@/pages/Estimates.vue";
 import IngredientsReport from "@/pages/IngredientsReport.vue";
+import IngredientsEvaluation from "@/pages/IngredientsEvaluation.vue";
 import Tools from "@/pages/Tools.vue";
 import ToolsPurchaseReport from "@/pages/ToolsPurchaseReport.vue";
 
@@ -101,6 +102,12 @@ const router = createRouter({
         title: "Отчет по ингредиентам и украшениям для торта",
         roles: [roles[2], roles[4]],
       },
+    },
+    {
+      path: "/ingredients-evaluation/:id",
+      name: "ingredients-evaluation",
+      component: IngredientsEvaluation,
+      meta: { title: "Оценка затрат", roles: [roles[1]] },
     },
     {
       path: "/tools-purchase-report",

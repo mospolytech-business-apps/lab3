@@ -3,6 +3,7 @@ import { ref, onUnmounted, onMounted, computed } from "vue";
 import { storeToRefs } from "pinia";
 import { useOrdersStore } from "@/stores/orders.store";
 import { useUsersStore } from "@/stores/users.store";
+import { useRouter } from "vue-router";
 
 import UIHeader from "@/components/UIHeader.vue";
 import UINav from "@/components/UINav.vue";
@@ -21,6 +22,7 @@ const { customers, clientManagers, userRole, userID } = storeToRefs(
 );
 
 const isEditing = ref(null);
+const router = useRouter();
 
 const isNewOrderModalOpen = ref(null);
 const openNewOrderModal = () => {
@@ -196,6 +198,17 @@ const closeSpecificationModal = () => {
   isSpecificationModalOpen.value = false;
 };
 
+const ingredientsEvaluation = (order) => {
+  if (order === null) {
+    addError("Error: Select order first!");
+    return;
+  }
+  router.push({
+    name: "ingredients-evaluation",
+    params: { id: order.id },
+  });
+};
+
 onUnmounted(() => {
   selectedOrder.value = null;
 });
@@ -340,6 +353,13 @@ onUnmounted(() => {
           :disabled="!selectedOrder || selectedOrder?.status !== 'ready'"
           @click="changeStatus(selectedOrder, 'finished')"
           >Выполнен</UIButton
+        >
+        <UIButton
+          :disabled="
+            !selectedOrder && selectedOrder?.status !== 'specification'
+          "
+          @click="ingredientsEvaluation(selectedOrder)"
+          >Оценка затрат</UIButton
         >
       </template>
       <template v-else-if="userRole === 'Director'">

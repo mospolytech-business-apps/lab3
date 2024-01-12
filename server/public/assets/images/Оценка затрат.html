@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)http://localhost:5173/ingredients-evaluation/26 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script type="module" src="./Оценка затрат_files/client"></script>
+
+  
+  <link rel="icon" href="http://localhost:5173/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Оценка затрат</title>
+<script bis_use="true" type="text/javascript" charset="utf-8" data-bis-config="[&quot;facebook.com/&quot;,&quot;twitter.com/&quot;,&quot;youtube-nocookie.com/embed/&quot;,&quot;//vk.com/&quot;,&quot;//www.vk.com/&quot;,&quot;//linkedin.com/&quot;,&quot;//www.linkedin.com/&quot;,&quot;//instagram.com/&quot;,&quot;//www.instagram.com/&quot;,&quot;//www.google.com/recaptcha/api2/&quot;,&quot;//hangouts.google.com/webchat/&quot;,&quot;//www.google.com/calendar/&quot;,&quot;//www.google.com/maps/embed&quot;,&quot;spotify.com/&quot;,&quot;soundcloud.com/&quot;,&quot;//player.vimeo.com/&quot;,&quot;//disqus.com/&quot;,&quot;//tgwidget.com/&quot;,&quot;//js.driftt.com/&quot;,&quot;friends2follow.com&quot;,&quot;/widget&quot;,&quot;login&quot;,&quot;//video.bigmir.net/&quot;,&quot;blogger.com&quot;,&quot;//smartlock.google.com/&quot;,&quot;//keep.google.com/&quot;,&quot;/web.tolstoycomments.com/&quot;,&quot;moz-extension://&quot;,&quot;chrome-extension://&quot;,&quot;/auth/&quot;,&quot;//analytics.google.com/&quot;,&quot;adclarity.com&quot;,&quot;paddle.com/checkout&quot;,&quot;hcaptcha.com&quot;,&quot;recaptcha.net&quot;,&quot;2captcha.com&quot;,&quot;accounts.google.com&quot;,&quot;www.google.com/shopping/customerreviews&quot;,&quot;buy.tinypass.com&quot;,&quot;gstatic.com&quot;,&quot;secureir.ebaystatic.com&quot;,&quot;docs.google.com&quot;,&quot;contacts.google.com&quot;,&quot;github.com&quot;,&quot;mail.google.com&quot;,&quot;chat.google.com&quot;,&quot;audio.xpleer.com&quot;,&quot;keepa.com&quot;,&quot;static.xx.fbcdn.net&quot;,&quot;sas.selleramp.com&quot;]" src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/executers/vi-tr.js"></script><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/components/UIHeader.vue?vue&amp;type=style&amp;index=0&amp;scoped=70a35228&amp;lang.css">
+.header[data-v-70a35228] {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  background-color: #98d728;
+}
+.title[data-v-70a35228] {
+  font-size: 1rem;
+  margin: 0;
+  padding-inline-start: 0.5rem;
+}
+.exit-btn[data-v-70a35228] {
+  border: 0;
+  background: 0;
+}
+.exit-btn[data-v-70a35228]:hover {
+  cursor: pointer;
+}
+@media print {
+.header[data-v-70a35228] {
+    display: none;
+}
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/components/UIButton.vue?vue&amp;type=style&amp;index=0&amp;scoped=876caa0c&amp;lang.css">
+.btn[data-v-876caa0c] {
+  padding: 0.25rem 2rem;
+  border: 0.1px solid black;
+  border-radius: 0px;
+  background-color: white;
+  cursor: pointer;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.btn[data-v-876caa0c]:hover {
+  background-color: lightgray;
+}
+.btn[data-v-876caa0c]:active {
+  background-color: grey;
+}
+.btn[data-v-876caa0c]:disabled {
+  opacity: 0.5;
+  cursor: initial;
+}
+.btn[data-v-876caa0c]:disabled:hover {
+  background: white;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/components/UINav.vue?vue&amp;type=style&amp;index=0&amp;lang.css">
+.nav-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding-left: 0.5rem;
+  gap: 3rem;
+  row-gap: 0.5rem;
+  font-weight: 400;
+  background-color: whitesmoke;
+  padding: 1rem;
+}
+.nav-menu a {
+  border: 1px solid gray;
+  padding: 4px;
+  line-height: 1.3;
+&:hover {
+    background-color: gray;
+}
+}
+.nav-menu > * {
+  background: 0;
+  border: 0;
+  text-align: center;
+  max-width: 12rem;
+  width: max-content;
+  cursor: pointer;
+}
+.nav-menu > *:hover {
+  text-decoration: underline;
+}
+.nav-menu > *:active {
+  color: blue;
+}
+.active {
+  background-color: #e277cd;
+  color: whitesmoke;
+}
+@media print {
+.nav-menu {
+    display: none;
+}
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/pages/Login.vue?vue&amp;type=style&amp;index=0&amp;scoped=78ff0242&amp;lang.css">
+.main[data-v-78ff0242] {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: scroll;
+}
+.login-page[data-v-78ff0242] {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+.form[data-v-78ff0242] {
+  display: flex;
+  padding: 2rem;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.label[data-v-78ff0242] {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.input[data-v-78ff0242] {
+  min-width: 20rem;
+}
+.button[data-v-78ff0242] {
+  width: 100%;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/pages/Register.vue?vue&amp;type=style&amp;index=0&amp;scoped=14a9f221&amp;lang.css">
+.main[data-v-14a9f221] {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: scroll;
+}
+.login-page[data-v-14a9f221] {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+.form[data-v-14a9f221] {
+  display: flex;
+  padding: 2rem;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.label[data-v-14a9f221] {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.input[data-v-14a9f221] {
+  min-width: 20rem;
+}
+.button[data-v-14a9f221] {
+  width: 100%;
+  /* width: 100%; */
+  text-align: center;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/components/UISelect.vue?vue&amp;type=style&amp;index=0&amp;scoped=8c15dbfd&amp;lang.css">
+.select-inner[data-v-8c15dbfd] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.2em 0.5em 0.2em 0.5em;
+  background-color: #fff;
+  border: 0.1px solid #757575;
+  color: #000;
+  cursor: pointer;
+  padding-inline-end: 30px;
+&[data-v-8c15dbfd]:disabled {
+    background-color: lightgray;
+    opacity: 0.2;
+    cursor: not-allowed;
+}
+}
+.select-wrapper[data-v-8c15dbfd] {
+  position: relative;
+  flex-grow: 1;
+&[data-v-8c15dbfd]::after {
+    content: "▾";
+    position: absolute;
+    display: block;
+    width: 28px;
+    height: 32px;
+    padding-top: 0.3rem;
+    padding-inline: 0.48rem;
+    top: 0;
+    right: 0;
+    background-size: contain;
+    pointer-events: none;
+    border-left: 1px solid #757575;
+}
+&[data-v-8c15dbfd]:has(.select:disabled)::after {
+    opacity: 0.2;
+}
+}
+.placeholder[data-v-8c15dbfd] {
+  padding-left: 0.25rem;
+}
+.placeholderBlue[data-v-8c15dbfd] {
+  color: blue;
+}
+.placeholderUnderline[data-v-8c15dbfd] {
+  text-decoration: underline;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/components/CustomerModal.vue?vue&amp;type=style&amp;index=0&amp;scoped=c70a5b01&amp;lang.css">
+.customer[data-v-c70a5b01] {
+  background-color: white;
+  border: 1px solid black;
+}
+.customer__main[data-v-c70a5b01] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  background-color: white;
+}
+.customer__form[data-v-c70a5b01] {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+.customer__label[data-v-c70a5b01] {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  flex-grow: 1;
+  gap: 0.5rem;
+  width: 100%;
+}
+.customer__close-btn[data-v-c70a5b01] {
+  border: 0;
+  background: 0;
+  position: absolute;
+  top: 5px;
+  right: 0;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/components/OrderModal.vue?vue&amp;type=style&amp;index=0&amp;scoped=2e04a866&amp;lang.css">
+.modal[data-v-2e04a866] {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  min-width: 40%;
+  max-height: 80%;
+  overflow-y: scroll;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  box-shadow: 0 0 2rem black;
+}
+.main[data-v-2e04a866] {
+  gap: 1rem;
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: center;
+  height: 100%;
+  flex-grow: 1;
+  padding: 1.5rem 4rem;
+  background-color: white;
+  margin-bottom: 0.5rem;
+}
+.form[data-v-2e04a866] {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1.5rem;
+}
+.title[data-v-2e04a866] {
+  margin-bottom: 1rem;
+}
+.field[data-v-2e04a866] {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+.label[data-v-2e04a866] {
+  width: 100%;
+  flex-grow: 2;
+}
+.input[data-v-2e04a866] {
+  height: min-content;
+  width: 100%;
+}
+.customer[data-v-2e04a866] {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.customer-select[data-v-2e04a866] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.add-customer__btn[data-v-2e04a866] {
+  margin-top: 0.5rem;
+  width: 100%;
+}
+.add-customer__modal[data-v-2e04a866] {
+  position: absolute;
+  top: 5rem;
+  display: block;
+  width: 100%;
+  z-index: 1;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+}
+.select-status[data-v-2e04a866] {
+  width: 100%;
+}
+.select-manager[data-v-2e04a866] {
+  display: flex;
+  flex-direction: column;
+}
+.photo-select[data-v-2e04a866] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.field[data-v-2e04a866] {
+  display: flex;
+  gap: 0.5rem;
+}
+.file-input-wrapper[data-v-2e04a866] {
+  display: flex;
+  gap: 0.5rem;
+}
+.input[type="file"][data-v-2e04a866] {
+  height: 100%;
+  margin-left: 0;
+}
+.field[data-v-2e04a866] {
+  width: 100%;
+  display: flex;
+  grid-column: 1 / -1;
+  justify-content: space-between;
+}
+.input[data-v-2e04a866] {
+  border: 1px solid black;
+  flex-grow: 1;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  margin-left: 10px;
+}
+.input[data-v-2e04a866]::file-selector-button {
+  display: none;
+}
+.input[data-v-2e04a866]::file-selector-button {
+  display: none;
+}
+.role-inputs[data-v-2e04a866] {
+  display: flex;
+  flex-direction: column;
+}
+.fieldset[data-v-2e04a866] {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  display: block;
+  grid-column: 1 / -1;
+}
+.legend[data-v-2e04a866] {
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.buttons[data-v-2e04a866] {
+  display: flex;
+  justify-content: center;
+  gap: 6rem;
+  margin-bottom: 2rem;
+}
+.cancel-btn[data-v-2e04a866]:hover {
+  background-color: salmon;
+}
+.photos[data-v-2e04a866] {
+  border: 1px solid lightgray;
+  overflow-x: scroll;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
+  gap: 0.5rem;
+}
+.photo[data-v-2e04a866] {
+  object-fit: contain;
+  height: 100%;
+  display: block;
+}
+.cerate-order[data-v-2e04a866] {
+  margin-top: auto;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/components/ReasonModal.vue?vue&amp;type=style&amp;index=0&amp;scoped=57bd7917&amp;lang.css">
+.modal[data-v-57bd7917] {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: white;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  max-width: 45%;
+  max-height: 80%;
+  overflow-y: scroll;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  box-shadow: 0 0 2rem black;
+  justify-content: center;
+}
+.main[data-v-57bd7917] {
+  gap: 1rem;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+  padding: 1.5rem 4rem;
+  background-color: white;
+  margin-bottom: 0.5rem;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/components/ListIngredients.vue?vue&amp;type=style&amp;index=0&amp;scoped=8b12340b&amp;lang.css">
+.header[data-v-8b12340b] {
+  margin-top: 0.5rem;
+}
+input[data-v-8b12340b] {
+  height: 1.2rem;
+}
+.add-button[data-v-8b12340b] {
+  margin-top: 0.3rem;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/components/SpecificationModal.vue?vue&amp;type=style&amp;index=0&amp;scoped=6f53221b&amp;lang.css">
+.modal[data-v-6f53221b] {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: white;
+  z-index: 2;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  min-width: 60%;
+  transform: translate(-50%, -10%);
+  border: 1px solid black;
+  box-shadow: 0 0 2rem black;
+  justify-content: center;
+}
+.print-btn[data-v-6f53221b] {
+  position: absolute;
+  top: 30px;
+  right: 0;
+}
+.main[data-v-6f53221b] {
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-y: scroll;
+  height: 100%;
+  flex-grow: 1;
+  padding: 1.5rem 4rem;
+  background-color: white;
+  margin-bottom: 0.5rem;
+}
+h3[data-v-6f53221b] {
+  margin-top: 0;
+}
+h4[data-v-6f53221b] {
+  margin-top: 0.5rem;
+}
+input[data-v-6f53221b] {
+  height: 1.2rem;
+}
+.header[data-v-6f53221b] {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.header h3[data-v-6f53221b] {
+  margin-right: 1rem;
+}
+.parameters[data-v-6f53221b] {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.gallery[data-v-6f53221b] {
+  overflow-x: scroll;
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: row;
+  height: 100px;
+}
+.img[data-v-6f53221b] {
+  display: block;
+  min-width: 100px;
+  height: 100%;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/pages/Orders.vue?vue&amp;type=style&amp;index=0&amp;scoped=04729d48&amp;lang.css">
+.main[data-v-04729d48] {
+  margin: 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 1rem;
+}
+.filter[data-v-04729d48] {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+}
+.filter-title[data-v-04729d48] {
+  margin: 0;
+}
+.status-filter[data-v-04729d48] {
+  min-width: 10rem;
+}
+.selected[data-v-04729d48] {
+  box-shadow: inset 0 0 0 2px black;
+}
+.align-center[data-v-04729d48] {
+  text-align: center;
+}
+thead[data-v-04729d48] {
+  background-color: lightgray;
+  border-bottom: 2px solid black;
+}
+td[data-v-04729d48],
+th[data-v-04729d48] {
+  border: 1px solid black;
+  padding-inline-start: 0.25rem;
+}
+.table-wrapper[data-v-04729d48] {
+  flex-grow: 1;
+  width: 100%;
+  border: 2px solid black;
+  overflow: scroll;
+}
+.table[data-v-04729d48] {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: scroll;
+}
+.buttons[data-v-04729d48] {
+  display: flex;
+  gap: 1rem;
+}
+.popup[data-v-04729d48] {
+  opacity: 0;
+  width: 100%;
+  position: absolute;
+  min-height: 150px;
+  background-color: #fff;
+  top: 30px;
+  left: 0;
+  border: 1px solid black;
+  border-top: 0px;
+  padding: 1rem;
+  z-index: 1;
+  margin: 0;
+  transition: opacity 0.5s ease; /* Set a shorter transition time */
+}
+.status-cell[data-v-04729d48] {
+  position: relative;
+  min-width: 200px;
+}
+.status-cell:hover .popup[data-v-04729d48] {
+  opacity: 1;
+  transition-delay: 0.5s; /* Add this line to delay the transition */
+}
+.status-cell[data-v-04729d48]:hover {
+  background-color: rgba(200, 200, 200, 0.5);
+}
+.status-list[data-v-04729d48] {
+  color: darkgray;
+  list-style: none;
+  font-size: 0.9rem;
+  padding: 0;
+  margin: 0;
+}
+.passed[data-v-04729d48] {
+  color: green;
+}
+.canceled[data-v-04729d48] {
+  color: red;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/components/EquipmentFailerModal.vue?vue&amp;type=style&amp;index=0&amp;scoped=735355d1&amp;lang.css">
+.main[data-v-735355d1] {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 1.5rem 4rem;
+  background-color: white;
+}
+.modal[data-v-735355d1] {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: white;
+  min-width: 40%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  box-shadow: 0 0 2rem black;
+}
+.label[data-v-735355d1] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+.date[data-v-735355d1] {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  width: 100%;
+}
+.actions[data-v-735355d1] {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+}
+.cancel-btn[data-v-735355d1]:hover {
+  background-color: salmon;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/pages/EquipmentFailure.vue?vue&amp;type=style&amp;index=0&amp;scoped=05e11e04&amp;lang.css">
+.main[data-v-05e11e04] {
+  margin: 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 1rem;
+}
+td[data-v-05e11e04],
+th[data-v-05e11e04] {
+  border: 1px solid black;
+  padding-inline-start: 0.25rem;
+}
+.actions[data-v-05e11e04] {
+  display: flex;
+  justify-content: center;
+}
+.table-wrapper[data-v-05e11e04] {
+  flex-grow: 1;
+  width: 100%;
+  border: 2px solid black;
+  overflow: scroll;
+}
+.table[data-v-05e11e04] {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: scroll;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/components/EditIngredientModal.vue?vue&amp;type=style&amp;index=0&amp;scoped=589e6574&amp;lang.css">
+.modal[data-v-589e6574] {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  max-width: 45%;
+  max-height: 80%;
+  overflow-y: scroll;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  box-shadow: 0 0 2rem black;
+}
+.main[data-v-589e6574] {
+  gap: 1rem;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+  padding: 1.5rem 4rem;
+  background-color: white;
+  margin-bottom: 0.5rem;
+}
+.form[data-v-589e6574] {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.title[data-v-589e6574] {
+  margin-bottom: 1rem;
+}
+.field[data-v-589e6574] {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+.label[data-v-589e6574] {
+  width: 100%;
+  flex-grow: 2;
+}
+.input[data-v-589e6574] {
+  height: min-content;
+  width: 100%;
+}
+.customer[data-v-589e6574] {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.customer-select[data-v-589e6574] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.add-customer__btn[data-v-589e6574] {
+  margin-top: 0.5rem;
+  width: 100%;
+}
+.add-customer__modal[data-v-589e6574] {
+  position: absolute;
+  top: 5rem;
+  display: block;
+  width: 100%;
+  z-index: 1;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+}
+.select-status[data-v-589e6574] {
+  width: 100%;
+}
+.select-customer[data-v-589e6574] {
+  display: flex;
+  flex-direction: column;
+}
+.photo-select[data-v-589e6574] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.field[data-v-589e6574] {
+  display: flex;
+  gap: 0.5rem;
+}
+.file-input-wrapper[data-v-589e6574] {
+  display: flex;
+  gap: 0.5rem;
+}
+.input[type="file"][data-v-589e6574] {
+  height: 100%;
+  margin-left: 0;
+}
+.field[data-v-589e6574] {
+  width: 100%;
+  display: flex;
+  grid-column: 1 / -1;
+  justify-content: space-between;
+}
+.input[data-v-589e6574] {
+  border: 1px solid black;
+  flex-grow: 1;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  margin-left: 10px;
+}
+.input[data-v-589e6574]::file-selector-button {
+  display: none;
+}
+.input[data-v-589e6574]::file-selector-button {
+  display: none;
+}
+.role-inputs[data-v-589e6574] {
+  display: flex;
+  flex-direction: column;
+}
+.fieldset[data-v-589e6574] {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  display: block;
+  grid-column: 1 / -1;
+}
+.legend[data-v-589e6574] {
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.buttons[data-v-589e6574] {
+  display: flex;
+  justify-content: center;
+  gap: 6rem;
+  margin-bottom: 2rem;
+}
+.cancel-btn[data-v-589e6574]:hover {
+  background-color: salmon;
+}
+.photos[data-v-589e6574] {
+  border: 1px solid lightgray;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
+  height: 5rem;
+  gap: 0.5rem;
+}
+.photo[data-v-589e6574] {
+  object-fit: contain;
+  display: block;
+}
+.cerate-order[data-v-589e6574] {
+  margin-top: auto;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/components/ComfirmModal.vue?vue&amp;type=style&amp;index=0&amp;scoped=00b8c3fb&amp;lang.css">
+.modal[data-v-00b8c3fb] {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  max-width: 45%;
+  max-height: 80%;
+  overflow-y: scroll;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  box-shadow: 0 0 2rem black;
+}
+.main[data-v-00b8c3fb] {
+  gap: 1rem;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+  padding: 1.5rem 4rem;
+  background-color: white;
+  margin-bottom: 0.5rem;
+}
+.form[data-v-00b8c3fb] {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.title[data-v-00b8c3fb] {
+  margin-bottom: 1rem;
+}
+.field[data-v-00b8c3fb] {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+.label[data-v-00b8c3fb] {
+  width: 100%;
+  flex-grow: 2;
+}
+.input[data-v-00b8c3fb] {
+  height: min-content;
+  width: 100%;
+}
+.customer[data-v-00b8c3fb] {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.customer-select[data-v-00b8c3fb] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.add-customer__btn[data-v-00b8c3fb] {
+  margin-top: 0.5rem;
+  width: 100%;
+}
+.add-customer__modal[data-v-00b8c3fb] {
+  position: absolute;
+  top: 5rem;
+  display: block;
+  width: 100%;
+  z-index: 1;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+}
+.select-status[data-v-00b8c3fb] {
+  width: 100%;
+}
+.select-customer[data-v-00b8c3fb] {
+  display: flex;
+  flex-direction: column;
+}
+.photo-select[data-v-00b8c3fb] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.field[data-v-00b8c3fb] {
+  display: flex;
+  gap: 0.5rem;
+}
+.file-input-wrapper[data-v-00b8c3fb] {
+  display: flex;
+  gap: 0.5rem;
+}
+.input[type="file"][data-v-00b8c3fb] {
+  height: 100%;
+  margin-left: 0;
+}
+.field[data-v-00b8c3fb] {
+  width: 100%;
+  display: flex;
+  grid-column: 1 / -1;
+  justify-content: space-between;
+}
+.input[data-v-00b8c3fb] {
+  border: 1px solid black;
+  flex-grow: 1;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  margin-left: 10px;
+}
+.input[data-v-00b8c3fb]::file-selector-button {
+  display: none;
+}
+.input[data-v-00b8c3fb]::file-selector-button {
+  display: none;
+}
+.role-inputs[data-v-00b8c3fb] {
+  display: flex;
+  flex-direction: column;
+}
+.fieldset[data-v-00b8c3fb] {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  display: block;
+  grid-column: 1 / -1;
+}
+.legend[data-v-00b8c3fb] {
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.buttons[data-v-00b8c3fb] {
+  display: flex;
+  justify-content: center;
+  gap: 6rem;
+  margin-bottom: 2rem;
+}
+.cancel-btn[data-v-00b8c3fb]:hover {
+  background-color: salmon;
+}
+.photos[data-v-00b8c3fb] {
+  border: 1px solid lightgray;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
+  height: 5rem;
+  gap: 0.5rem;
+}
+.photo[data-v-00b8c3fb] {
+  object-fit: contain;
+  display: block;
+}
+.cerate-order[data-v-00b8c3fb] {
+  margin-top: auto;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/pages/Ingredients.vue?vue&amp;type=style&amp;index=0&amp;scoped=b257690c&amp;lang.css">
+.main[data-v-b257690c] {
+  margin: 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 1rem;
+  padding-bottom: 4rem;
+}
+td[data-v-b257690c],
+th[data-v-b257690c] {
+  border: 1px solid black;
+  padding-inline-start: 0.25rem;
+}
+.table-wrapper[data-v-b257690c] {
+  flex-grow: 1;
+  width: 100%;
+  height: 300px;
+  border: 2px solid black;
+  overflow: scroll;
+}
+.table[data-v-b257690c] {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: scroll;
+}
+.thead[data-v-b257690c] {
+  position: sticky;
+  top: 0px;
+  background-color: white;
+}
+.selected[data-v-b257690c] {
+  box-shadow: inset 0 0 0 2px black;
+}
+.filter[data-v-b257690c] {
+  display: flex;
+  gap: 3rem;
+}
+.dateFilter[data-v-b257690c] {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/pages/WorkroomScheme.vue?vue&amp;type=style&amp;index=0&amp;scoped=f52b3633&amp;lang.css">
+.main[data-v-f52b3633] {
+  margin: 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 1rem;
+}
+.page[data-v-f52b3633] {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.workroom__wrapper[data-v-f52b3633] {
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  max-height: 50rem;
+  flex-wrap: wrap;
+  padding: 10px;
+  align-content: center;
+}
+.scheme__image[data-v-f52b3633] {
+  width: 500px;
+  height: 500px;
+  object-fit: contain;
+}
+.badges__wrapper[data-v-f52b3633] {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  margin-top: 6rem;
+  gap: 10px;
+}
+.badge[data-v-f52b3633] {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+}
+.scheme__badge[data-v-f52b3633] {
+  position: absolute;
+  cursor: move;
+  width: 40px;
+  height: 40px;
+  z-index: 4;
+}
+.status-filter[data-v-f52b3633] {
+  margin-right: auto;
+}
+.badge__image[data-v-f52b3633] {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+.workroom__head[data-v-f52b3633] {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  margin-top: 2rem;
+  padding-inline: 2rem;
+  flex-wrap: wrap;
+}
+.badge__close[data-v-f52b3633] {
+  height: 14px;
+  max-width: 14px;
+}
+.badge__button-close[data-v-f52b3633] {
+  position: absolute;
+  padding: 2px;
+  top: -20px;
+  right: 0;
+  display: none;
+}
+.scheme__badge:hover .badge__button-close[data-v-f52b3633] {
+  display: block;
+}
+.scheme__actions[data-v-f52b3633] {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/components/AssessProductQualityModal.vue?vue&amp;type=style&amp;index=0&amp;scoped=374127b3&amp;lang.css">
+.modal_wrapper[data-v-374127b3] {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  z-index: 50;
+}
+.modal[data-v-374127b3] {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: white;
+  min-width: 450px;
+  max-width: 40%;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  box-shadow: 0 0 2rem black;
+}
+.main[data-v-374127b3] {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  width: 100%;
+  padding: 0.5rem 1.5rem 1.5rem;
+  background-color: white;
+}
+.label_text[data-v-374127b3] {
+  margin-top: 10px;
+  display: inline-block;
+}
+.block[data-v-374127b3] {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+.input[data-v-374127b3] {
+  width: 100%;
+}
+.select_metric[data-v-374127b3] {
+  flex-grow: 1;
+}
+.footer_button_container[data-v-374127b3] {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+.button[data-v-374127b3] {
+  white-space: nowrap;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/pages/QualityControl.vue?vue&amp;type=style&amp;index=0&amp;scoped=3c2551be&amp;lang.css">
+.main[data-v-3c2551be] {
+  margin: 1rem;
+}
+.title[data-v-3c2551be] {
+  font-size: 18px;
+  font-weight: 700;
+}
+.list[data-v-3c2551be] {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+  width: 300px;
+}
+.order[data-v-3c2551be] {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+.order_name[data-v-3c2551be] {
+  max-width: 20ch;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/components/AddEquipmentModal.vue?vue&amp;type=style&amp;index=0&amp;scoped=e30fe4aa&amp;lang.css">
+.modal[data-v-e30fe4aa] {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  max-width: 45%;
+  max-height: 80%;
+  overflow-y: scroll;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  box-shadow: 0 0 2rem black;
+}
+.main[data-v-e30fe4aa] {
+  gap: 1rem;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+  padding: 1.5rem 4rem;
+  background-color: white;
+  margin-bottom: 0.5rem;
+}
+.form[data-v-e30fe4aa] {
+  display: flex;
+  padding: 2rem;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.label[data-v-e30fe4aa] {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.input[data-v-e30fe4aa] {
+  min-width: 20rem;
+}
+.button[data-v-e30fe4aa] {
+  width: 100%;
+  max-width: 20rem;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/pages/Equipment.vue?vue&amp;type=style&amp;index=0&amp;scoped=83d11e6c&amp;lang.css">
+.main[data-v-83d11e6c] {
+}
+.main[data-v-83d11e6c] {
+  margin: 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 1rem;
+}
+.filter[data-v-83d11e6c] {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+}
+.filter-title[data-v-83d11e6c] {
+  margin: 0;
+}
+.status-filter[data-v-83d11e6c] {
+  min-width: 10rem;
+}
+.align-center[data-v-83d11e6c] {
+  text-align: center;
+}
+thead[data-v-83d11e6c] {
+  background-color: lightgray;
+  border-bottom: 2px solid black;
+}
+td[data-v-83d11e6c],
+th[data-v-83d11e6c] {
+  border: 1px solid black;
+  padding-inline-start: 0.25rem;
+}
+.selected[data-v-83d11e6c] {
+  box-shadow: inset 0 0 0 2px black;
+}
+.table-wrapper[data-v-83d11e6c] {
+  flex-grow: 1;
+  width: 100%;
+  border: 2px solid black;
+  overflow: scroll;
+}
+.table[data-v-83d11e6c] {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: scroll;
+}
+.buttons[data-v-83d11e6c] {
+  display: flex;
+  gap: 5rem;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/pages/EquipmentFailureReport.vue?vue&amp;type=style&amp;index=0&amp;scoped=03a3abcc&amp;lang.css">
+.main[data-v-03a3abcc] {
+  margin: 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 1rem;
+}
+.controls[data-v-03a3abcc] {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  justify-content: center;
+}
+table[data-v-03a3abcc] {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+th[data-v-03a3abcc],
+td[data-v-03a3abcc] {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+th[data-v-03a3abcc] {
+  background-color: #f2f2f2;
+}
+.summary[data-v-03a3abcc] {
+  margin-top: 1rem;
+}
+@media print {
+  /* Стили для печати, например, убираем ненужные элементы и задаем отступы */
+.controls[data-v-03a3abcc],
+  .summary[data-v-03a3abcc],
+  button[data-v-03a3abcc] {
+    display: none;
+}
+table[data-v-03a3abcc] {
+    margin-top: 0.5rem;
+}
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/pages/Estimates.vue?vue&amp;type=style&amp;index=0&amp;scoped=bdc30ac0&amp;lang.css">
+.main[data-v-bdc30ac0] {
+  margin: 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 1rem;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/pages/IngredientsReport.vue?vue&amp;type=style&amp;index=0&amp;scoped=a695a3f1&amp;lang.css">
+.main[data-v-a695a3f1] {
+  margin: 1rem;
+}
+.control[data-v-a695a3f1] {
+display: grid;
+  grid-template-columns: 300px 200px 200px;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+th[data-v-a695a3f1],
+td[data-v-a695a3f1] {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+th[data-v-a695a3f1] {
+  background-color: #f2f2f2;
+}
+@media print {
+table[data-v-a695a3f1] {
+    margin-top: 0.5rem;
+}
+.print_button[data-v-a695a3f1] {
+    display: none;
+}
+}
+
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/pages/IngredientsEvaluation.vue?vue&amp;type=style&amp;index=0&amp;scoped=ad07aa56&amp;lang.css">
+.main[data-v-ad07aa56] {
+}
+.main[data-v-ad07aa56] {
+  margin: 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 1rem;
+}
+.filter[data-v-ad07aa56] {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+}
+.filter-title[data-v-ad07aa56] {
+  margin: 0;
+}
+.status-filter[data-v-ad07aa56] {
+  min-width: 10rem;
+}
+.align-center[data-v-ad07aa56] {
+  text-align: center;
+}
+thead[data-v-ad07aa56] {
+  background-color: lightgray;
+  border-bottom: 2px solid black;
+}
+td[data-v-ad07aa56],
+th[data-v-ad07aa56] {
+  border: 1px solid black;
+  padding-inline-start: 0.25rem;
+}
+.selected[data-v-ad07aa56] {
+  box-shadow: inset 0 0 0 2px black;
+}
+.table-wrapper[data-v-ad07aa56] {
+  flex-grow: 1;
+  width: 100%;
+  border: 2px solid black;
+  overflow: scroll;
+}
+.table[data-v-ad07aa56] {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: scroll;
+}
+.statistics[data-v-ad07aa56] {
+  display: flex;
+  gap: 2rem;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/components/AddToolModal.vue?vue&amp;type=style&amp;index=0&amp;scoped=792e4ab6&amp;lang.css">
+.modal[data-v-792e4ab6] {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  max-width: 45%;
+  max-height: 80%;
+  overflow-y: scroll;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  box-shadow: 0 0 2rem black;
+}
+.main[data-v-792e4ab6] {
+  gap: 1rem;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+  padding: 1.5rem 4rem;
+  background-color: white;
+  margin-bottom: 0.5rem;
+}
+.form[data-v-792e4ab6] {
+  display: flex;
+  padding: 2rem;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.label[data-v-792e4ab6] {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.input[data-v-792e4ab6] {
+  min-width: 20rem;
+}
+.button[data-v-792e4ab6] {
+  width: 100%;
+  max-width: 20rem;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/pages/Tools.vue?vue&amp;type=style&amp;index=0&amp;scoped=47a59e1a&amp;lang.css">
+.main[data-v-47a59e1a] {
+}
+.main[data-v-47a59e1a] {
+  margin: 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 1rem;
+}
+.filter[data-v-47a59e1a] {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+}
+.filter-title[data-v-47a59e1a] {
+  margin: 0;
+}
+.status-filter[data-v-47a59e1a] {
+  min-width: 10rem;
+}
+.align-center[data-v-47a59e1a] {
+  text-align: center;
+}
+thead[data-v-47a59e1a] {
+  background-color: lightgray;
+  border-bottom: 2px solid black;
+}
+td[data-v-47a59e1a],
+th[data-v-47a59e1a] {
+  border: 1px solid black;
+  padding-inline-start: 0.25rem;
+}
+.selected[data-v-47a59e1a] {
+  box-shadow: inset 0 0 0 2px black;
+}
+.table-wrapper[data-v-47a59e1a] {
+  flex-grow: 1;
+  width: 100%;
+  border: 2px solid black;
+  overflow: scroll;
+}
+.table[data-v-47a59e1a] {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: scroll;
+}
+.buttons[data-v-47a59e1a] {
+  display: flex;
+  gap: 5rem;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/pages/ToolsPurchaseReport.vue?vue&amp;type=style&amp;index=0&amp;scoped=233b5f5a&amp;lang.css">
+.main[data-v-233b5f5a] {
+  margin: 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 1rem;
+}
+table[data-v-233b5f5a] {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+th[data-v-233b5f5a],
+td[data-v-233b5f5a] {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+th[data-v-233b5f5a] {
+  background-color: #f2f2f2;
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/components/UIError.vue?vue&amp;type=style&amp;index=0&amp;scoped=fd0d0397&amp;lang.css">
+.err[data-v-fd0d0397] {
+  background-color: #ff8a63;
+  display: flex;
+  min-width: 10rem;
+  padding: 2rem 6rem;
+  border: 1px solid black;
+  transform: translate(-50%, 0);
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/components/UIAlert.vue?vue&amp;type=style&amp;index=0&amp;scoped=18216d06&amp;lang.css">
+.err[data-v-18216d06] {
+  background-color: rgba(255, 175, 46);
+  display: flex;
+  min-width: 10rem;
+  padding: 2rem 6rem;
+  border: 1px solid black;
+  transform: translate(-50%, 0);
+}
+.message[data-v-18216d06] {
+}
+</style><style type="text/css" data-vite-dev-id="/Users/maxkiselev/poly/5sem-business-apps-lab3/client/src/App.vue?vue&amp;type=style&amp;index=0&amp;lang.css">
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    background-color: white;
+    position: relative;
+}
+.err {
+    position: fixed;
+    top: 10px;
+    right: 0;
+}
+.main {
+    height: calc(100% - 3.6rem);
+}
+</style><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/extend-native-history-api.js"></script></head>
+
+<body bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2ZjaWllZ29tY29uIiwiYWRibG9ja2VyU3RhdHVzIjp7IkRJU1BMQVkiOiJkaXNhYmxlZCIsIkZBQ0VCT09LIjoiZGlzYWJsZWQiLCJUV0lUVEVSIjoiZGlzYWJsZWQiLCJSRURESVQiOiJkaXNhYmxlZCIsIlBJTlRFUkVTVCI6ImRpc2FibGVkIiwiSU5TVEFHUkFNIjoiZGlzYWJsZWQiLCJDT05GSUciOiJkaXNhYmxlZCJ9LCJ2ZXJzaW9uIjoiMi4wLjEwIiwic2NvcmUiOjIwMDEwfV0=">
+  <div style="height: 100%;" id="app" data-v-app="" bis_skin_checked="1"><div class="wrapper" bis_skin_checked="1"><!-- кэширование страниц --><header data-v-70a35228="" data-v-ad07aa56="" class="header"><h1 data-v-70a35228="" class="title">Оценка затрат</h1><button data-v-70a35228="" class="exit-btn">❌</button></header><nav data-v-ad07aa56="" class="nav-menu" style="display: none;"><a class="">Заказы</a><a class="" style="display: none;">Вход в систему</a><a class="" style="display: none;">Регистрация заказчика</a><a class="" style="display: none;">Учет инструментов</a><a class="" style="display: none;">Учет оборудования</a><a class="">Учет ингредиентов и украшений для торта</a><a class="" style="display: none;">Планировка цехов</a><a class="" style="display: none;">Контроль качества</a><a class="" style="display: none;">Неисправности оборудования</a><a class="" style="display: none;">Оценка времени, затрат ингредиентов и украшений для тортов</a><a class="" style="display: none;">Отчет по ингредиентам и украшениям для торта</a><a class="">Оценка затрат</a><a class="" style="display: none;">Отчет по закупкам инструмента</a><a class="" style="display: none;">Отчет по сбоям оборудования</a></nav><main data-v-ad07aa56="" class="main"><button data-v-876caa0c="" data-v-ad07aa56="" class="btn">Назад</button><p data-v-ad07aa56="">Оценка затрат для заказа №12212023ВД01</p><div data-v-ad07aa56="" class="table-wrapper" bis_skin_checked="1"><table data-v-ad07aa56="" class="table"><thead data-v-ad07aa56=""><tr data-v-ad07aa56=""><th data-v-ad07aa56="">Артикул</th><th data-v-ad07aa56="">Название</th><th data-v-ad07aa56="">Требуемое кол-во</th><th data-v-ad07aa56="">Кол-во а складах</th><th data-v-ad07aa56="">Недостающее кол-во</th><th data-v-ad07aa56="">Закупочная цена</th><th data-v-ad07aa56="">Себестоимость</th><th data-v-ad07aa56="">Минимальное время доставки</th></tr></thead><tbody data-v-ad07aa56=""><tr data-v-ad07aa56=""><td data-v-ad07aa56="">011</td><td data-v-ad07aa56="">Сгущенное молоко</td><td data-v-ad07aa56="">400 г</td><td data-v-ad07aa56="">200&nbsp;г</td><td data-v-ad07aa56="">200&nbsp;г</td><td data-v-ad07aa56="">30</td><td data-v-ad07aa56=""> $20</td><td data-v-ad07aa56="">3 дн. </td></tr><tr data-v-ad07aa56=""><td data-v-ad07aa56="">107</td><td data-v-ad07aa56="">Шарики из фольги</td><td data-v-ad07aa56="">30 шт</td><td data-v-ad07aa56="">4&nbsp;шт</td><td data-v-ad07aa56="">26&nbsp;г</td><td data-v-ad07aa56="">180</td><td data-v-ad07aa56=""> $170</td><td data-v-ad07aa56="">2 дн. </td></tr><tr data-v-ad07aa56=""><td data-v-ad07aa56="">004</td><td data-v-ad07aa56="">Масло сливочное</td><td data-v-ad07aa56="">100 г</td><td data-v-ad07aa56="">200&nbsp;г</td><td data-v-ad07aa56="">–&nbsp;г</td><td data-v-ad07aa56="">25</td><td data-v-ad07aa56=""> $15</td><td data-v-ad07aa56="">3 дн. </td></tr><tr data-v-ad07aa56=""><td data-v-ad07aa56="">009</td><td data-v-ad07aa56="">Кокосовая стружка</td><td data-v-ad07aa56="">150 г</td><td data-v-ad07aa56="">50&nbsp;г</td><td data-v-ad07aa56="">100&nbsp;г</td><td data-v-ad07aa56="">12</td><td data-v-ad07aa56=""> $2</td><td data-v-ad07aa56="">3 дн. </td></tr></tbody></table></div><div data-v-ad07aa56="" class="statistics" bis_skin_checked="1"></div></main><div data-v-fd0d0397="" class="err" style="display: none;" bis_skin_checked="1"><span data-v-fd0d0397="" class="message" style="display: none;">🚨 undefined</span></div><div data-v-18216d06="" class="err" style="display: none;" bis_skin_checked="1"><span data-v-18216d06="" class="message">🔔 undefined</span></div></div></div>
+  <script type="module" src="./Оценка затрат_files/main.js"></script>
+
+
+<style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  /* Remove default margin */
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  figure,
+  blockquote,
+  dl,
+  dd {
+    margin-block-end: 0;
+  }
+
+  /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+  ul[role="list"],
+  ol[role="list"] {
+    list-style: none;
+  }
+
+  /* Set core root defaults */
+  html:focus-within {
+    scroll-behavior: smooth;
+  }
+
+  /* Set core body defaults */
+  body {
+    /* height: 100vh; из-за этого баг на страничке "Спецификация изделий" */
+    margin: 0;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+  }
+
+  /* A elements that don't have a class get default styles */
+  a:not([class]) {
+    text-decoration-skip-ink: auto;
+  }
+
+  /* Make images easier to work with */
+  img,
+  picture {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* Inherit fonts for inputs and buttons */
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+  @media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+
+
+<button id="gpt-text-summarize-button" style="display: none;"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20128%20128%22%3E%0A%20%20%20%20%3Cg%20fill%3D%22none%22%20fill-rule%3D%22nonzero%22%20transform%3D%22translate(5%205)%22%3E%0A%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%2259%22%20cy%3D%2259%22%20r%3D%2259%22%20fill%3D%22%2310A37F%22%20stroke%3D%22%2310A37F%22%20stroke-width%3D%229%22%20%2F%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20fill%3D%22%23E5E7EB%22%0A%20%20%20%20%20%20%20%20%20%20%20%20d%3D%22M76.397%2067.004c-1.545%205.815-5.642%208.127-10.356%209.47-.464.148-.386.595-.386.595l.695%204.623s.077.373.696.298C83.66%2080.2%2094.714%2068.047%2092.78%2053.285c-2.01-10.215-10.356-14.167-17.93-13.123-7.652%201.193-12.908%208.053-11.67%2015.434%201.004%206.561%206.646%2011.184%2013.215%2011.408Z%22%20%2F%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20fill%3D%22%23FFF%22%0A%20%20%20%20%20%20%20%20%20%20%20%20d%3D%22M26.16%2055.596c1.005%206.487%206.722%2011.11%2013.211%2011.408-1.622%205.815-5.562%208.127-10.352%209.47-.464.148-.387.595-.387.595l.773%204.623s.077.373.695.298c16.534-1.79%2027.736-13.943%2025.65-28.705-1.93-10.215-10.198-14.167-17.846-13.123C30.254%2041.355%2025%2048.215%2026.16%2055.596Z%22%20%2F%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E"></button></body></html>
