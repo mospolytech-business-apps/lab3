@@ -81,7 +81,6 @@ const modifiedIngredients = ref(props.ingredients);
 
 const emit = defineEmits();
 const onInput = (id) => {
-  console.log(modifiedIngredients.value);
   emit("update:ingredients", modifiedIngredients.value);
 };
 const addIngredient = () => {

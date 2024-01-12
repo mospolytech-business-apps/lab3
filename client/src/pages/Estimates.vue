@@ -67,7 +67,7 @@ const roleFiltered = computed(() => {
     });
   } else if (userRole.value === "ClientManager") {
     return filteredOrders.value.filter(
-      (order) => order.status === "new" || order.manager === userID.value
+      (order) => order.status === "new" || order.manager == userID.value
     );
   } else if (userRole.value === "Director") {
     return filteredOrders.value;
@@ -75,11 +75,12 @@ const roleFiltered = computed(() => {
     return filteredOrders.value.filter(
       (order) => order.status === "procurement"
     );
-  } else if (userRole.value === "Master") {
-    return filteredOrders.value.filter(
-      (order) => order.status === "production" || order.status === "checking"
-    );
   }
+  // } else if (userRole.value === "Master") {
+  //   return filteredOrders.value.filter(
+  //     (order) => order.status === "production" || order.status === "checking"
+  //   );
+  // }
 
   return filteredOrders.value;
 });
@@ -136,12 +137,39 @@ function getIngredients(ids, type, productSpecifications, ingredients) {
     return arr;
 }
 
-const ids = getIdsProductSpecifications(1, productSpecifications.value);
-console.log(getIngredients(ids, "ingredients", productSpecifications.value, ingredients.value));
-console.log(getIngredients(ids, "decorations", productSpecifications.value, ingredients.value));
+// const ids = getIdsProductSpecifications(1, productSpecifications.value);
+
+// let test = []
+// roleFiltered.value.forEach(el => {
+//   if (el.product_specifications_ids) {
+//     test.push(...el.product_specifications_ids);
+//   }
+// })
+let test = []
+roleFiltered.value.forEach(el => {
+  if (el.product_specifications_ids) {
+    test.push({
+      name: el.name,
+      ids: [...el.product_specifications_ids]
+    });
+  }
+})
+
+console.log(test);
+
+function getProductName(id, ) {
+
+}
+// console.log("test", test);
+// test.forEach(el => {
+//   console.log(getIdsProductSpecifications(el, productSpecifications.value));
+
+// })
+
+// console.log(getIngredients(ids, "ingredients", productSpecifications.value, ingredients.value));
+// console.log(getIngredients(ids, "decorations", productSpecifications.value, ingredients.value));
 
 
-console.log(ingredients.value.length);
 
 const lack = (a, b) => {
   const difference = b - a;
@@ -152,38 +180,61 @@ const lack = (a, b) => {
 <template>
   <UIHeader />
   <UINav />
+  <div v-for="el in test">
+    <h2>{{ el.name }}</h2>
+    <table class="table" >
+    <!-- <table> -->
+      
+      <thead>
+        <tr>
+          <th>Артикул</th>
+          <th>Наименование</th>
+          <th>Требуемое кол-во</th>
+          <th>Ед. измерения</th>
+          <th>Имеется на складах</th>
+          <th>Ед. измерения</th>
+          <th>Недостающее кол-во</th>
+          <th>Закупочная цена</th>
+          <th>Себестоимость</th>
+          <th>Минимальное время необходимое для доставки</th>
+        </tr>
+      </thead>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Артикул</th>
-        <th>Наименование</th>
-        <th>Требуемое кол-во</th>
-        <th>Ед. измерения</th>
-        <th>Имеется на складах</th>
-        <th>Ед. измерения</th>
-        <th>Недостающее кол-во</th>
-        <th>Закупочная цена</th>
-        <th>Себестоимость</th>
-        <th>Минимальное время необходимое для доставки</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr v-for="ingredient in getIngredients(ids, 'ingredients', productSpecifications, ingredients)">
-        <td>{{ ingredient.article }}</td>
-        <td>{{ ingredient.name }}</td>
-        <td>{{ ingredient.amount }}</td>
-        <td>{{ ingredient.units }}</td>
-        <td>{{ ingredient.inWarehouses.amount }}</td>
-        <td>{{ ingredient.inWarehouses.units }}</td>
-        <td>{{ lack(ingredient.inWarehouses.amount, ingredient.amount) }}</td>
-        <td>{{ ingredient.inWarehouses.price }}</td>
-        <td>{{ ingredient.inWarehouses.price + 5 }}</td>
-        <td>{{ ingredient.inWarehouses.deliveryTime }}</td>
-      </tr>
-    </tbody>
-  </table>
+      <tbody>
+        <tr>
+          <td colspan="10"><b>Ингредиенты</b></td>
+        </tr>
+        <tr v-for="ingredient in getIngredients(getIdsProductSpecifications(el.ids, productSpecifications), 'ingredients', productSpecifications, ingredients)">
+          <td>{{ ingredient.article }}</td>
+          <td>{{ ingredient.name }}</td>
+          <td>{{ ingredient.amount }}</td>
+          <td>{{ ingredient.units }}</td>
+          <td>{{ ingredient.inWarehouses.amount }}</td>
+          <td>{{ ingredient.inWarehouses.units }}</td>
+          <td>{{ lack(ingredient.inWarehouses.amount, ingredient.amount) }}</td>
+          <td>{{ ingredient.inWarehouses.price }}</td>
+          <td>{{ ingredient.inWarehouses.price + 5 }}</td>
+          <td>{{ ingredient.inWarehouses.deliveryTime }}</td>
+        </tr>
+        <tr>
+          <td colspan="10"><b>Декорации</b></td>
+        </tr>
+        <tr v-for="ingredient in getIngredients(getIdsProductSpecifications(el.ids, productSpecifications), 'decorations', productSpecifications, ingredients)">
+          <td>{{ ingredient.article }}</td>
+          <td>{{ ingredient.name }}</td>
+          <td>{{ ingredient.amount }}</td>
+          <td>{{ ingredient.units }}</td>
+          <td>{{ ingredient.inWarehouses.amount }}</td>
+          <td>{{ ingredient.inWarehouses.units }}</td>
+          <td>{{ lack(ingredient.inWarehouses.amount, ingredient.amount) }}</td>
+          <td>{{ ingredient.inWarehouses.price }}</td>
+          <td>{{ ingredient.inWarehouses.price + 5 }}</td>
+          <td>{{ ingredient.inWarehouses.deliveryTime }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
 </template>
 
 <style scoped>
@@ -240,6 +291,7 @@ th {
   width: 100%;
   border-collapse: collapse;
   overflow: scroll;
+  margin-bottom: 2rem;
 }
 
 .buttons {

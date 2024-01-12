@@ -15,7 +15,6 @@ const close = () => {
 };
 
 const handleAddCustomer = () => {
-  console.log(editedCustomer.value);
   addUser(editedCustomer.value);
   emit("close");
   emit("fetchCustomers");

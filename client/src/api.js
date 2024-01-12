@@ -217,7 +217,6 @@ export const api = {
   },
 
   deleteIngredient: async (obj) => {
-    console.log(obj);
     try {
       const response = await fetch(`${BASE_URL}/ingredients/${obj.id}`, {
         method: "DELETE",

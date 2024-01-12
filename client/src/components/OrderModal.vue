@@ -127,7 +127,6 @@ const today = new Date();
 
 const users = ref([]);
 onMounted(async () => {
-  console.log(props.allOrders);
   users.value = await fetchUsers();
 });
 

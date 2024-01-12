@@ -155,7 +155,7 @@
       "name": "Клубничный Чизкейк",
       "date": "2023-12-21",
       "number": "12202023ИК03",
-      "status": "checking",
+      "status": "cancelled",
       "price": 1099,
       "customer": 15,
       "finish": "2023-12-30",
@@ -268,7 +268,8 @@
         }
       ],
       "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [1, 2]
+      "specs": [1, 2],
+      "product_specifications_ids": [6]
     },
     {
       "id": 10,
@@ -455,11 +456,11 @@
       "name": "Торт Рафаэль",
       "date": "2023-12-25",
       "number": "12202023ЯА01",
-      "status": "new",
+      "status": "procurement",
       "price": 1299,
       "customer": 11,
       "finish": "2023-12-31",
-      "manager": null,
+      "manager": 1,
       "metrics": [
         {
           "name": "Вес",
@@ -486,11 +487,11 @@
       "name": "Торт Рафаэль",
       "date": "2023-12-25",
       "number": "12202023ЕВ02",
-      "status": "new",
+      "status": "procurement",
       "price": 1299,
       "customer": 10,
       "finish": "2023-12-31",
-      "manager": null,
+      "manager": 1,
       "metrics": [
         {
           "name": "Вес",
@@ -780,7 +781,8 @@
         }
       ],
       "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [4]
+      "specs": [4],
+      "product_specifications_ids": [10]
     },
     {
       "id": 27,
@@ -817,7 +819,7 @@
       "name": "Вишнёвый Чизкейк",
       "date": "2023-12-21",
       "number": "12212023ЕВ03",
-      "status": "checking",
+      "status": "cancelled",
       "price": 999,
       "customer": 10,
       "finish": "2024-01-09",

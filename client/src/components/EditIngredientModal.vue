@@ -21,7 +21,6 @@ watchEffect(() => {
 });
 
 const applyObjectChanges = () => {
-  console.log(1)
 //   editObject(objectData.value.id, {
 //     ...object.value,
 //   });

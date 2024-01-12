@@ -91,6 +91,7 @@ const isOrderModalOpen = computed(
 );
 
 const selectedStatus = ref("all");
+if (userRole.value === "ClientManager") selectedStatus.value = "current";
 
 const orders = ref([]);
 onMounted(async () => {
