@@ -1,11 +1,20 @@
 <template>
     <div class="wrapper">
-        <router-view v-slot="{ Component }">
-            <!-- кэширование страниц -->
-            <keep-alive>
-              <component :is="Component" />
-            </keep-alive>
-        </router-view>
+        <!-- поддержка асинхронности -->
+        <Suspense>
+        <!-- component with nested async dependencies -->
+            <router-view v-slot="{ Component }">
+                <!-- кэширование страниц -->
+                <keep-alive>
+                    <component :is="Component" />
+                </keep-alive>
+            </router-view>
+
+            <!-- loading state via #fallback slot -->
+            <template #fallback>
+                Loading...
+            </template>
+        </Suspense>
 
         <UIError class="err" />
         <UIAlert class="err" />

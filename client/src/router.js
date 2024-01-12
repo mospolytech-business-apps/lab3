@@ -91,7 +91,7 @@ const router = createRouter({
       component: Estimates,
       meta: {
         title: "Оценка времени, затрат ингредиентов и украшений для тортов",
-        roles: [roles[2]],
+        roles: [roles[1]],
       },
     },
     {

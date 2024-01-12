@@ -26,7 +26,7 @@ const showRoute = (route) => {
 <template>
   <nav
     class="nav-menu"
-    v-show="!['Customer', 'ClientManager'].includes(userRole)"
+    v-show="!['Customer'].includes(userRole)"
   >
     <a
       v-for="route in router.options.routes"

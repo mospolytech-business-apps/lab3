@@ -452,7 +452,7 @@
     },
     {
       "id": 16,
-      "name": "Шоколадно/банановый",
+      "name": "Торт Рафаэль",
       "date": "2023-12-25",
       "number": "12202023ЯА01",
       "status": "new",
@@ -478,15 +478,16 @@
         }
       ],
       "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [1, 2]
+      "specs": [1, 2],
+      "product_specifications_ids": [1]
     },
     {
       "id": 17,
-      "name": "Вишневый торт",
+      "name": "Торт Рафаэль",
       "date": "2023-12-25",
       "number": "12202023ЕВ02",
       "status": "new",
-      "price": 1099,
+      "price": 1299,
       "customer": 10,
       "finish": "2023-12-31",
       "manager": null,
@@ -508,14 +509,15 @@
         }
       ],
       "images": ["/images/cheasecake.jpeg", "/images/medovik.png"],
-      "specs": [1, 2]
+      "specs": [1, 2],
+      "product_specifications_ids": [1]
     },
     {
       "id": 18,
       "name": "Творожный Чизкейк",
       "date": "2023-12-25",
       "number": "12202023ВД03",
-      "status": "new",
+      "status": "cancelled",
       "price": 799,
       "customer": 9,
       "finish": "2024-01-05",
