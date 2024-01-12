@@ -7,6 +7,7 @@ import UIHeader from "@/components/UIHeader.vue";
 import UIButton from "@/components/UIButton.vue";
 import ListIngredients from "@/components/ListIngredients.vue";
 import { BASE_URL } from "@/config";
+import Gant from "./Gant.vue";
 
 const {
   fetchProductSpecifications,
@@ -231,6 +232,12 @@ const close = () => {
             v-model:ingredients="specification.operations"
             header="Операции"
             :being_edited="specification?.being_edited"
+          />
+        </li>
+
+        <li>
+          <Gant 
+            :data="specification.operations"
           />
         </li>
 
