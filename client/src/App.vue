@@ -46,4 +46,38 @@ import UIAlert from "@/components/UIAlert.vue";
 .main {
     height: calc(100% - 3.6rem);
 }
+
+.red {
+    background-color: rgba(255, 0, 0, 0.5);
+}
+.green {
+    background-color: rgba(0, 128, 0, 0.5);
+}
+.gray {
+    background-color: rgba(128, 128, 128, 0.5);
+}
+.yellow {
+    background-color: rgba(255, 255, 0, 0.5);
+}
+
+thead {
+  background-color: lightgray;
+  border-bottom: 2px solid black;
+}
+
+.min-time {
+  margin-top: 0.3rem;
+}
+
+td,
+th {
+  border: 1px solid black;
+  padding-inline-start: 0.25rem;
+}
+th {
+  text-align: left;
+}
+td {
+  min-width: 50px;
+}
 </style>

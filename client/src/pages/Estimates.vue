@@ -9,6 +9,9 @@ import Cookies from "js-cookie";
 
 import UIHeader from "@/components/UIHeader.vue";
 import UINav from "@/components/UINav.vue";
+import RaphaelCake from "@/components/diograms/RaphaelCake.vue";
+import CarrotCake from "@/components/diograms/CarrotCake.vue";
+import NapoleonCake from "@/components/diograms/NapoleonCake.vue";
 
 const { fetchOrders } = useOrdersStore();
 const { allOrders } = storeToRefs(useOrdersStore());
@@ -108,7 +111,7 @@ function getIdsProductSpecifications(id, productSpecifications) {
     return ids;
 }
 
-function getIngredients(ids, type, productSpecifications, ingredients) {
+function getPart(ids, type, productSpecifications, ingredients) {
     let arr = [];
 
     ids.forEach(id => {
@@ -137,16 +140,24 @@ roleFiltered.value.forEach(el => {
       name: el.name,
       id: el.product_specifications_id,
       idsProductSpecifications,
-      ingredients: getIngredients(idsProductSpecifications, 'ingredients', productSpecifications.value, ingredients.value),
-      decorations: getIngredients(idsProductSpecifications, 'decorations', productSpecifications.value, ingredients.value),
-      
+      ingredients: getPart(idsProductSpecifications, 'ingredients', productSpecifications.value, ingredients.value),
+      decorations: getPart(idsProductSpecifications, 'decorations', productSpecifications.value, ingredients.value),
+      operations: getPart(idsProductSpecifications, 'operations', productSpecifications.value, ingredients.value)
     });
   }
 })
 
+console.log(tables);
+
 const lack = (a, b) => {
   const difference = b - a;
   return difference < 0 ? 0 : difference;
+}
+
+function getDiagram(name_cake) {
+  if (name_cake == 'Морковный торт') return CarrotCake;
+  if (name_cake == 'Торт Рафаэль') return RaphaelCake;
+  if (name_cake == 'Торт Наполеон') return NapoleonCake;
 }
 </script>
 
@@ -205,6 +216,8 @@ const lack = (a, b) => {
         </tr>
       </tbody>
     </table>
+
+    <component :is="getDiagram(el.name)"></component>
   </div>
   
 </template>
@@ -219,6 +232,8 @@ const lack = (a, b) => {
   align-items: start;
   gap: 1rem;
 }
+
+
 
 .filter {
   align-items: center;
@@ -264,6 +279,12 @@ th {
   border-collapse: collapse;
   overflow: scroll;
   margin-bottom: 2rem;
+}
+th {
+  text-align: left;
+}
+td {
+  min-width: 50px;
 }
 
 .buttons {

@@ -56,7 +56,8 @@
             "decorations": null,
             "operations": [
                 {
-                    "name": "Монтаж тортов", 
+                    "id": 1,
+                    "name": "Монтаж торта", 
                     "type_equipment": "без оборудования",
                     "time_for_operation": {
                         "amount": 30,
@@ -452,16 +453,7 @@
                     "units": "г"
                 }
             ],
-            "operations": [
-                {
-                    "name": "Пропитка", 
-                    "type_equipment": "без оборудования",
-                    "time_for_operation": {
-                        "amount": 12,
-                        "units": "часов"
-                    }
-                }
-            ],
+            "operations": null,
             "description": "1. Взять готовые коржи, основной крем и крем для украшения. 2. Собрать торт, чередуя слои. 3. Украсить торт кремом для украшения."
         },
         {
