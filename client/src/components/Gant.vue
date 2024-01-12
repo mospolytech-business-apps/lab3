@@ -37,12 +37,13 @@
     created() {
       let currentTime = 0;
       this.operationsData = this.data.map(operation => {
-        if (operation.time_for_operation.units === 'часов') {
-          operation.time_for_operation.amount *= 60;
-        }
         operation.start_time = currentTime;
         operation.end_time = Number(currentTime) + Number(operation.time_for_operation.amount);
         currentTime = operation.end_time;
+        if (operation.time_for_operation.units === 'часов' || operation.time_for_operation.units === 'ч' || operation.time_for_operation.units === 'час' || operation.time_for_operation.units === 'часа') {
+            operation.end_time = Number(currentTime) + Number(operation.time_for_operation.amount)*60;
+            currentTime = operation.end_time;
+        }
         return operation;
       });
     },
@@ -82,7 +83,7 @@
   
   .operation-bar {
     background-color: #f0f0f0;
-    height: 20px;
+    line-height: 16px;
   }
   </style>
   

@@ -235,11 +235,12 @@ const close = () => {
           />
         </li>
 
-        <li>
+        <div style="margin-top: 20px">
+          Диаграмма Ганта
           <Gant 
             :data="specification.operations"
           />
-        </li>
+        </div>
 
         <li>
           <h4>Словесное описание</h4>
@@ -264,8 +265,10 @@ const close = () => {
 <style scoped>
 .modal {
   position: absolute;
-  top: 50%;
+  top: 20vh;
+  bottom: 10vh;
   left: 50%;
+  max-width: 100%;
   background-color: white;
   z-index: 2;
   height: 80vh;
