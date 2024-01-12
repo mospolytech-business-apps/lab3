@@ -437,7 +437,7 @@
     },
     {
       "id": 16,
-      "name": "Шоколадно/банановый",
+      "name": "Торт Рафаэль",
       "date": "2023-12-25",
       "number": "1220202301",
       "status": "new",
@@ -462,15 +462,16 @@
           "value": "5"
         }
       ],
-      "images": ["https://clck.ru/37Cxyn"]
+      "images": ["https://clck.ru/37Cxyn"],
+      "product_specifications_ids": [1]
     },
     {
       "id": 17,
-      "name": "Вишневый торт",
+      "name": "Торт Рафаэль",
       "date": "2023-12-25",
       "number": "1220202302",
       "status": "new",
-      "price": 1099,
+      "price": 1299,
       "customer": 10,
       "finish": "2023-12-31",
       "manager": 1,
@@ -491,14 +492,15 @@
           "value": "6"
         }
       ],
-      "images": ["https://clck.ru/37Cy2i"]
+      "images": ["https://clck.ru/37Cy2i"],
+      "product_specifications_ids": [1]
     },
     {
       "id": 18,
       "name": "Творожный Чизкейк",
       "date": "2023-12-25",
       "number": "1220202303",
-      "status": "new",
+      "status": "cancelled",
       "price": 799,
       "customer": 9,
       "finish": "2024-01-05",
@@ -556,7 +558,7 @@
       "name": "Чизкейк с лимоном",
       "date": "2023-12-26",
       "number": "1220202302",
-      "status": "new",
+      "status": "cancelled",
       "price": 899,
       "customer": 9,
       "finish": "2024-01-06",
@@ -585,7 +587,7 @@
       "name": "Вишнёвый Чизкейк",
       "date": "2023-12-26",
       "number": "1220202303",
-      "status": "new",
+      "status": "cancelled",
       "price": 999,
       "customer": 10,
       "finish": "2024-01-07",
@@ -701,7 +703,7 @@
       "name": "Торт Наполеон",
       "date": "2023-12-27",
       "number": "2520202304",
-      "status": "new",
+      "status": "cancelled",
       "price": 1599,
       "customer": 11,
       "finish": "2024-01-08",

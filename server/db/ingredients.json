@@ -456,6 +456,7 @@
       "gost": "ГОСТ 33261-2013",
       "packing": "пачка 200 мл",
       "supplier": "ООО 'Сливки'",
+      "deliveryTime": 4,
       "expirationDate": "2023-12-31",
       "characteristics": "калории:300, белки:2, жиры:30, углеводы:3",
       "isDecoration": false
@@ -792,6 +793,40 @@
       "gost": null,
       "packing": null,
       "supplier": "ООО 'КраскаАрт'",
+      "deliveryTime": 3,
+      "expirationDate": "2024-05-31",
+      "characteristics": null,
+      "isDecoration": true
+    },
+
+
+    {
+      "id": 51,
+      "article": "121",
+      "name": "Кукурузные палочки",
+      "units": "г",
+      "amount": 50,
+      "type": "кукурузные палочки",
+      "price": 150,
+      "gost": null,
+      "packing": null,
+      "supplier": "ООО 'СладкиеПалочки'",
+      "deliveryTime": 3,
+      "expirationDate": "2024-05-31",
+      "characteristics": null,
+      "isDecoration": false
+    },
+    {
+      "id": 52,
+      "article": "122",
+      "name": "Конфеты Рафаэлло",
+      "units": "шт",
+      "amount": 126,
+      "type": "конфеты",
+      "price": 150,
+      "gost": null,
+      "packing": null,
+      "supplier": "ООО 'СладкиеПалочки'",
       "deliveryTime": 3,
       "expirationDate": "2024-05-31",
       "characteristics": null,
