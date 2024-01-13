@@ -41,9 +41,9 @@ const saveEdited = (id) => {
     );
     console.log(specification);
 
-    updateProductSpecification(specification);
-
     specification.being_edited = false;
+
+    updateProductSpecification(specification);
 };
 </script>
 
